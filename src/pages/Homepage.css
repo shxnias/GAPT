@@ -1,0 +1,123 @@
+.search-container {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #AF9069;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-left: 0px;
+    margin-top: 20px;
+  }
+  
+  .search-container h1 {
+    color: #484E57;
+    font-family: 'Manrope', sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .input-row {
+    display: flex;
+    gap: 20px; /* Space between containers */
+    align-items: center; /* Vertically align items */
+  }
+  
+  /* Field Container Styling */
+  .field-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1; /* Distribute space evenly */
+  }
+  
+  .field-container label {
+    font-size: 1rem;
+    color: #484E57;
+    font-family: 'Manrope', sans-serif;
+  }
+  
+  .input-wrapper {
+    display: flex;
+    align-items: center;
+    border: 1px solid #402910;
+    border-radius: 5px;
+    padding: 8px;
+    background-color: #ffffff;
+  }
+  
+  .date-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-family: 'Manrope', sans-serif;
+    font-size: 1rem;
+    color: #402910;
+    background-color: transparent;
+  }
+  
+  .date-input::-webkit-calendar-picker-indicator {
+    display: none;
+  }
+  
+  .date-icon {
+    font-size: 18px;
+    color: #402910;
+    cursor: pointer;
+    margin-left: 8px;
+  }
+  
+  /* Search Button Styling */
+  .search-button {
+    padding: 10px 20px;
+    background-color: #254D91;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    height: 100%; /* Match height of field containers */
+  }
+  
+  .search-button:hover {
+    background-color: grey;
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .input-row {
+      flex-direction: column; /* Stack containers vertically on small screens */
+      gap: 10px; /* Reduce gap for small screens */
+    }
+  
+    .search-button {
+      width: 100%; /* Make button full width on small screens */
+    }
+  }
+
+  .mainBanner-container{
+    position: relative;
+    width:100%;
+    height:auto;
+  }
+
+  .main-img{
+        width: 100vw; 
+        object-fit: cover; 
+  }
+
+  .banner-text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-80%, -120%);
+    font-size: 20px;
+    text-align: center;
+    color: white;
+    font-family: 'Manrope', sans-serif;
+  }

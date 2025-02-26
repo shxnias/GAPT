@@ -1,4 +1,9 @@
 /* Reset */
+h1, h2 {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+}
+
 body {
   margin: 0;
   font-family: 'Playfair Display', serif;
@@ -7,7 +12,7 @@ body {
 
 /* Ensures main content starts below the top navigation */
 .main-content {
-  padding-top: 80px; /* Adjust based on top-nav height */
+  padding-top: 40px; /*Adjust based on top-nav height */
   padding-left: 20px;
   padding-right: 20px;
   min-height: 100vh; /* Ensures it fills the viewport */
