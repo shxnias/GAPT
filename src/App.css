@@ -26,7 +26,7 @@ body {
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  box-shadow: 0 8px 6px rgba(0, 0, 0, 0.317); 
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.317); 
 }
 
 /* Hamburger Icon (Gold) */
@@ -128,7 +128,7 @@ body {
   color: #333;
   transition: left 0.3s ease;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
+  z-index: 999;
   font-family: 'Playfair Display', serif;
   font-size: 30px;
   display: flex;
