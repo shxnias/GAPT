@@ -16,6 +16,7 @@ function Booking({ rooms }) {
       <div className="room-container">
         {rooms.map((room) => (
           <div key={room.id} className="room-card">
+            <img src={room.image_url} alt={room.name} />
             <h2>{room.name}</h2>
             <p>
               <strong>Guests:</strong> {room.guests}
