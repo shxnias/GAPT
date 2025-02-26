@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Account() {
+function FindBooking() {
   return (
     <div className="main-content">
       <h1>About Us</h1>
@@ -9,4 +9,4 @@ function Account() {
   );
 }
 
-export default Account;
+export default FindBooking;

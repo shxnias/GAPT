@@ -10,7 +10,7 @@ import About from "./pages/AboutPage";
 import Rooms from "./pages/RoomsPage";
 import Facilities from "./pages/FacilitiesPage";
 import FAQs from "./pages/FAQsPage";
-import Account from "./pages/AccountPage";
+import FindBooking from "./pages/FindBooking";
 import Contact from "./pages/ContactPage";
 
 function App() {
@@ -43,7 +43,7 @@ function App() {
           </button>
 
           {/* Centered Logo */}
-          <img src="/Logo-Transparent.png" alt="Logo" className="logo" />
+          <img src="/logos/Logo-Transparent.png" alt="Logo" className="logo" />
         </nav>
 
         {/* Side Menu */}
@@ -56,7 +56,7 @@ function App() {
             <li><Link className='links' to="/facilities">Facilities</Link></li>
             <li><Link className='links' to="/contact">Contact Us</Link></li>
             <li><Link className='links' to="/faqs">FAQs</Link></li>
-            <li><Link className='links' to="/account">Your Account</Link></li>
+            <li><Link className='links' to="/findbooking">Find Your Booking</Link></li>
           </ul>
         </div>
 
@@ -69,13 +69,13 @@ function App() {
           <Route path="/facilities" element={<Facilities />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faqs" element={<FAQs />} />
-          <Route path="/account" element={<Account />} />
+          <Route path="/findbooking" element={<FindBooking />} />
         </Routes>
 
         {/* Bottom Navigation */}
         <nav className="bottom-nav">
           {/* Left: Logo */}
-          <img src="/Logo-Transparent.png" alt="Logo" className="logo" />
+          <img src="/logos/Logo-Transparent.png" alt="Logo" className="logo" />
 
           {/* Center: Contact Us */}
           <a href="#contact" className="nav-item">
