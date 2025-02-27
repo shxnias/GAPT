@@ -7,7 +7,7 @@ h1, h2 {
 body {
   margin: 0;
   font-family: 'Playfair Display', serif;
-  
+  overflow-x: hidden;
 }
 
 /* Ensures main content starts below the top navigation */

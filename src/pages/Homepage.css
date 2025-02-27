@@ -1,6 +1,6 @@
 .search-container {
     position: fixed;
-    z-index: 1000;
+    z-index: 900;
     display: flex;
     width: 100%;
     flex-direction: row;
@@ -151,4 +151,44 @@
     font-size: 25px;
     padding-left: 200px;
     padding-right: 200px;
+  }
+
+  /* Slideshow */ 
+  .slider-container{
+    position: relative;
+    width: 100%;
+    margin: 20px auto;
+    text-align: center;
+  }
+
+  /* Slideshow Image */
+  .slide{
+    width: 100vh;
+    height: auto;
+  }
+
+  .left-arrow, .right-arrow{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+    color: grey;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    border-radius: 50%;
+  }
+
+  .left-arrow{
+    left: 10px;
+  }
+
+  .right-arrow{
+    right: 10px;
+  }
+
+  .left-arrow:hover, .right-arrow:hover{
+    background-color: grey;
+    color: white;
   }

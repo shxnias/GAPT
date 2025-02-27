@@ -1,10 +1,32 @@
-import React from 'react';
+import React, {useState} from 'react';
 import mainBanner from "../images/mainBanner.jpg";
 import './Homepage.css';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'; 
 
 
 function Home() {
+  // Image slider state
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
+  // Images
+  const images = [
+    "/homepage images/Gym.jpg",
+    "/homepage images/Pool.jpg",
+    "/homepage images/Spa.jpg"
+  ];
+
+  // Function to handle the next image
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+  };
+
+  //Function to hanfle the previous image
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex)=>
+    prevIndex === 0 ? images.length -1 : prevIndex -1
+    );
+  };
+
   return (
     <div className="main-content">
       <div className="search-container">
@@ -68,6 +90,14 @@ function Home() {
       <br />
         </p>
     </div>
+
+    {/* Image Slideshow */}
+    <div className="slider-container">
+      <button className="left-arrow" onClick={prevSlide}>&lt;</button>
+      <img src = {images[currentIndex]} alt="Facility" className="slide active" />
+      <button className="right-arrow" onClick={nextSlide}>&gt;</button>
+    </div>
+    
     </div>
   );
 }
