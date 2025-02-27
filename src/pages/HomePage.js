@@ -46,12 +46,27 @@ function Home() {
 
     {/* Main Banner Image */}
     <div className="mainBanner-container">
-    <img src={mainBanner} alt = "Hotel View" className="main-img"/>;
+    <img src={mainBanner} alt = "Hotel View" className="main-img"/>
     <div className="banner-text">
       <h1>Experience Elegance,
           Indulge in Luxury
       </h1>
     </div>
+    </div>
+
+    {/* About Us Text*/}
+    <div className="aboutUs-content">
+      <h1 className="aboutUs-title">
+        The Essence of Mediterranean Luxury
+      </h1>
+      <p className="aboutUs-text">
+      Perched in the scenic coastal town of Mellieħa, The Opulence offers a refined escape where elegance meets tranquility. With breathtaking sea views, world-class amenities, and exclusive suites, it redefines luxury in Malta. Guests can unwind in beautifully designed accommodations, each offering a perfect blend of modern comfort and timeless elegance.
+      <br />
+      <br/>
+      Just moments from Mellieħa Bay and historic landmarks, this five-star retreat is the perfect blend of comfort, sophistication, and authentic Maltese hospitality. A sanctuary of relaxation and indulgence, The Opulence provides an array of premium experiences, from rejuvenating spa treatments to exquisite dining options showcasing the finest Mediterranean cuisine.
+      <br />
+      <br />
+        </p>
     </div>
     </div>
   );

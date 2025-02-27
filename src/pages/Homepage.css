@@ -1,4 +1,6 @@
 .search-container {
+    position: fixed;
+    z-index: 1000;
     display: flex;
     width: 100%;
     flex-direction: row;
@@ -7,8 +9,9 @@
     padding: 20px;
     background-color: #AF9069;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-left: 0px;
+    margin-left: -30px;
     margin-top: 20px;
+
   }
   
   .search-container h1 {
@@ -104,11 +107,13 @@
     position: relative;
     width:100%;
     height:auto;
+    margin-left: -20px;
   }
 
   .main-img{
         width: 100vw; 
         object-fit: cover; 
+        margin: 0px;
   }
 
   .banner-text{
@@ -120,4 +125,30 @@
     text-align: center;
     color: white;
     font-family: 'Manrope', sans-serif;
+  }
+
+  .aboutUs-content{
+    background-color: #F3EFEA;
+    padding: 3rem 2rem;
+    text-align: center;
+    width: 100%;
+    margin: 0px;
+    margin-left: -30px;
+  }
+
+  .aboutUs-title{
+    font-size: 1.875rem;
+    font-family:serif;
+    font-weight: 600;
+    color: #484E57;
+    font-size: 40px;
+  }
+
+  .aboutUs-text{
+    margin-top: 3rem;
+    color: #484E57;
+    line-height: 1.6;
+    font-size: 25px;
+    padding-left: 200px;
+    padding-right: 200px;
   }
