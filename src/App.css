@@ -1,23 +1,23 @@
 /* Reset */
 h1, h2 {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Playfair Display', sans-serif;
   font-weight: 600;
 }
 
 body {
   margin: 0;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Manrope', serif;
   overflow-x: hidden;
 }
 
 /* Ensures main content starts below the top navigation */
 .main-content {
-  padding-top: 40px; /*Adjust based on top-nav height */
+  padding-top: 40px; 
   padding-left: 20px;
   padding-right: 20px;
-  min-height: 100vh; /* Ensures it fills the viewport */
-  background-color: #ffffff; /* Light background for better readability */
-  text-align: center; /* Center text, optional */
+  min-height: 100vh; 
+  background-color: #ffffff; 
+  text-align: center; 
 }
 
 /* Top Nav Bar */
