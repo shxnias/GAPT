@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import mainBanner from "../images/mainBanner.jpg";
 import './Homepage.css';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'; 
+
 
 
 function Home() {
