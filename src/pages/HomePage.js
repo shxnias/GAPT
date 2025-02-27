@@ -6,26 +6,27 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 function Home() {
   // Image slider state
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(1);
   
   // Images
   const images = [
-    "/homepage images/Gym.jpg",
-    "/homepage images/Pool.jpg",
-    "/homepage images/Spa.jpg"
+    {src: "/homepage images/Gym.jpg", text: "Unleash your inner strength at our state-of-the-art gym, where cutting-edge equipment meets a motivating atmosphere. Push your limits in spacious, fully-equipped workout areas, or find your zen in our dedicated stretching and yoga zones. Whether you're lifting, running, or focusing on wellness, every moment here is designed to elevate your fitness journey in style and comfort."},
+    {src: "/homepage images/Pool.jpg", text: "Immerse yourself in pure relaxation at our stunning outdoor pool, where crystal-clear waters meet breathtaking surroundings. Bask in the sun on plush loungers or take a refreshing dip in an oasis of serenity and luxury."},
+    {src: "/homepage images/Spa.jpg", text: "Indulge in ultimate relaxation at our luxurious spa, where soothing treatments and serene surroundings create the perfect escape. Rejuvenate your body and mind with a range of therapeutic massages, facials, and wellness rituals, all designed to transport you to a state of pure tranquility. Let the calming ambiance and expert therapists restore your balance and leave you feeling refreshed, renewed, and revitalized."}
   ];
+
+  //Function to handle the previous image
+  const prevSlide = () => {
+    setCurrentIndex((prev)=>
+    (prev === 0 ? images.length -1 : prev -1)
+    );
+  };
 
   // Function to handle the next image
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
-  //Function to hanfle the previous image
-  const prevSlide = () => {
-    setCurrentIndex((prevIndex)=>
-    prevIndex === 0 ? images.length -1 : prevIndex -1
-    );
-  };
 
   return (
     <div className="main-content">
@@ -76,7 +77,7 @@ function Home() {
     </div>
     </div>
 
-    {/* About Us Text*/}
+    {/* About Us Text */}
     <div className="aboutUs-content">
       <h1 className="aboutUs-title">
         The Essence of Mediterranean Luxury
@@ -94,7 +95,28 @@ function Home() {
     {/* Image Slideshow */}
     <div className="slider-container">
       <button className="left-arrow" onClick={prevSlide}>&lt;</button>
-      <img src = {images[currentIndex]} alt="Facility" className="slide active" />
+
+      <div 
+        className="slider-wrapper"
+        // style={{
+        //   transform: `translateX(${-currentIndex * 70}%)`, // Moves images dynamically
+        // }}
+        >
+      
+        {images.map((img, index) =>(
+          <div key={index} className={`slide-container ${index === currentIndex ? 'active' : ''}`}>
+          <img
+            src={img.src}
+            alt={`Slide ${index}`}
+            className={`slide ${index === currentIndex ? 'active' : ''}`}
+          />
+          <div className="overlay">
+            <p className="text">{img.text}</p> 
+          </div>
+        </div>
+      ))}
+    </div>
+
       <button className="right-arrow" onClick={nextSlide}>&gt;</button>
     </div>
     
