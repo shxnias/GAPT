@@ -1,6 +1,7 @@
 /* Reset */
 h1, h2 {
   font-family: 'Playfair Display', sans-serif;
+  font-family: 'Playfair Display', sans-serif;
   font-weight: 600;
 }
 
@@ -14,6 +15,9 @@ body {
   padding-top: 50px; 
   padding-left: 20px;
   padding-right: 20px;
+  min-height: 100vh; 
+  background-color: #ffffff; 
+  text-align: center; 
   min-height: 100vh; 
   background-color: #ffffff; 
   text-align: center; 
