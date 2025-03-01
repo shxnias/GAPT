@@ -1,12 +1,18 @@
 import React, {useState} from 'react';
 import mainBanner from "../images/mainBanner.jpg";
 import './Homepage.css';
+import NavigateIconRight from "@mui/icons-material/NavigateNext";
+import NavigateIconLeft from "@mui/icons-material/NavigateBefore";
+import Person from "@mui/icons-material/PersonOutline";
+import Bed from "@mui/icons-material/SingleBed";
+import AC from "@mui/icons-material/AcUnit";
+
 
 
 
 function Home() {
   // Image slider state
-  const [currentIndex, setCurrentIndex] = useState(1);
+  const [currentIndex, setCurrentIndex] = useState(0);
   
   // Images
   const images = [
@@ -92,32 +98,75 @@ function Home() {
         </p>
     </div>
 
+
+    {/* Facilities Section */}
+    <div className="facilities-container">
+      <div className="facilities-header">
+        <h1>Our Facilities</h1>
+        <button className="facilities-button">Explore More</button>
+      </div>
+    </div>
     {/* Image Slideshow */}
     <div className="slider-container">
-      <button className="left-arrow" onClick={prevSlide}>&lt;</button>
+      <button className="left-arrow" onClick={prevSlide}>
+        <NavigateIconLeft style={{ fontSize: 40}}/>
+      </button>
 
-      <div 
-        className="slider-wrapper"
-        // style={{
-        //   transform: `translateX(${-currentIndex * 70}%)`, // Moves images dynamically
-        // }}
-        >
-      
-        {images.map((img, index) =>(
-          <div key={index} className={`slide-container ${index === currentIndex ? 'active' : ''}`}>
-          <img
-            src={img.src}
-            alt={`Slide ${index}`}
-            className={`slide ${index === currentIndex ? 'active' : ''}`}
-          />
-          <div className="overlay">
-            <p className="text">{img.text}</p> 
-          </div>
-        </div>
-      ))}
+      {/* Image Slider */}
+      <div className="slider-wrapper">
+        {images.map((img, index) => {
+          // Determine class based on position
+          let position = "nextSlide"; 
+          if (index === currentIndex) position = "activeSlide";
+          else if (index === (currentIndex - 1 + images.length) % images.length) position = "prevSlide";
+
+          return (
+            <div key={index} className={`slide-container ${position}`}>
+              <img src={img.src} alt={`Slide ${index}`} className="slide" />
+              <div className="overlay">
+                <p className="text">{img.text}</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <button className="right-arrow" onClick={nextSlide}>
+        <NavigateIconRight style={{ fontSize: 40}}/>
+      </button>
     </div>
 
-      <button className="right-arrow" onClick={nextSlide}>&gt;</button>
+    {/* Hotel Rooms */}
+    <div className="rooms-container">
+      <div className="rooms-header">
+        <h1>Explore Our Rooms</h1>
+        <p>Each room is designed for both elegance and comfort, offering a perfect retreat whether you're in Malta for a long stay or a quick getaway.</p>
+        <p>Single Room | Double Room | Triple Room | Family Room</p>
+      </div>
+    </div>
+    <div className="room-container">
+      {/* Room Image */}
+      <div className="room-image">
+        <img src="/homepage images/Single Room.jpg" alt="Single Room"/>
+      </div>
+
+      {/* Room Details */}
+      <div className= "room-details">
+        <h2> Single Room</h2>
+
+        {/* Room Features */}
+        <ul className="room-features">
+        <li><Person/> Max 1 Guest</li>
+          <li><Bed/> x1 Single Bed</li>
+          <li><AC></AC> Air Conditioning</li>
+        </ul>
+        {/* Room Description */}
+        <p>
+          Experience refined comfort in our Single Room. This elegantly designed
+          space features a plush single bed and modern amenities, ensuring a
+          relaxing and seamless stay in pure tranquility.
+        </p>
+      </div>
     </div>
     
     </div>

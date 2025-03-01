@@ -153,6 +153,36 @@
     padding-right: 200px;
   }
 
+  /* Facilities Section */
+  .facilities-container{
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .facilities-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5vw;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #484E57;
+  }
+
+  .facilities-button{
+    background-color: #254D91;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .facilities-button:hover{
+    background-color: #153b85;
+  }
+
   /* Slideshow */ 
   .slider-container{
     display: flex;
@@ -169,8 +199,10 @@
     display: flex;
     transition: transform 0.5s ease-in-out;
     gap: 45px;
+    position: relative;
   }
 
+  
   /* Slideshow Image */
   .slide{
     flex: 10% 80% 10%;
@@ -234,4 +266,91 @@
   .left-arrow:hover, .right-arrow:hover{
     background-color: grey;
     color: white;
+  }
+
+
+  /* Hotel Rooms */
+  .rooms-container{
+    color: #484E57;
+    padding: 0px;
+    margin: 0px;
+    background-color: #F3EFEA;
+    width: 100%;
+  }
+  .rooms-header {
+    padding: 20px 0; /* Added some padding for spacing */
+    background-color: #F3EFEA;
+    text-align: center; /* Center the header text */
+    width: 100%;
+    font-size: 24px;
+  }
+
+  .rooms-header p{
+    font-size: 25px;
+    padding-left: 400px;
+    padding-right: 400px;
+  }
+  .room-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F3EFEA;
+    padding: 0px;
+    margin: 0px;
+    position: relative;
+    width: 100%;
+  }
+
+  .room-image{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    margin-right: 100px;
+  }
+
+  .room-image img{
+    width: 900px;
+    height: auto;
+  }
+
+  .room-details{
+    background-color: white;
+    padding: 30px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+    margin-left: 60px;
+    width: 400px;
+
+    position: absolute;
+    right: 10%;
+    top: 25%;
+    transform: translate(20%);
+  }
+  .room-details h2 {
+    font-size: 28px;
+    color: #484E57;
+    margin-bottom: 15px;
+  }
+  
+  /* Features List */
+  .room-features {
+    list-style: none;
+    padding: 0;
+    font-size: 18px;
+    color: #484E57;
+  }
+  
+  .room-features li {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+  }
+  
+  /* Description */
+  .room-details p {
+    font-size: 16px;
+    color: #484E57;
+    margin-top: 10px;
+    line-height: 1.5;
   }
