@@ -1,0 +1,126 @@
+.amenities{
+    background-color: #DBCDBC;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+}
+  
+.package-type{
+    text-align: left;
+    padding-left: 30px;
+    font-size: 30px;
+    font-weight: 300;
+}
+  .amenities-card {
+    width: 350px; 
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin: 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #EDE6DD;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Prevent content overflow */
+  }
+
+  .amenities-dropdown{
+    width: 40px;
+    height: 40px;
+    margin: 20px;
+   
+  }
+  
+  .amenities-image {
+    width: 100%; /* Make image fit within the card */
+    height: 150px; /* Set a fixed height */
+    object-fit: cover; /* Ensures image scales and crops properly */
+  
+  }
+
+  .amenities-price{
+    font-size: 18px;
+    margin: 10px;
+    margin-bottom: 15px;
+  }
+
+.amenities-date {
+    border: 2px solid #D1D5DB;
+    border-radius: 8px;
+    padding: 8px 16px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-size: 16px;
+    outline: none;
+    font-family: 'Manrope';
+  }
+  
+  .amenities-date:focus {
+    border-color: #3B82F6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+  }
+  
+  .padding{
+    margin-bottom: 10px;
+}
+
+.amenities .package{
+    width: 70%
+}
+
+.amenities-card .package{
+
+    height: 300px;
+
+}
+
+.amenities-image-package {
+    width: 60% ;
+    object-fit: cover;
+  
+  }
+
+  .package-details{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+ 
+  .amenities-list {
+    list-style: none; /* Removes default bullets */
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+  
+  .amenities-list li {
+    display: flex;
+    justify-content: space-between; /* Ensures text is left, price is right */
+    width: 100%;
+    padding: 5px 0;
+    white-space: nowrap; /* Prevents text from wrapping */
+    border-bottom: 1px solid #ccc; /* Optional: adds a divider between items */
+  }
+  
+  .amenities-list li span:first-child {
+    flex-grow: 1; /* Allows the text to take up remaining space */
+  }
+  
+  .price {
+    font-weight: bold;
+    text-align: right;
+    color: #333;
+    padding-right: 40px;
+    min-width: 70px; /* Prevents price from shifting inconsistently */
+  }
+  
+  p, ul, li, span {
+    border: none !important; /* Removes any hidden borders */
+    outline: none !important; /* Ensures no outlines */
+    box-shadow: none !important; /* Removes any shadow effects */
+  }
+  

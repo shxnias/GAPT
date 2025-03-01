@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import NavigateButton from "./NavigateButton";
 import {
   KingBed,
   SingleBed,
@@ -8,6 +9,20 @@ import {
 } from "@mui/icons-material";
 
 function Booking({ rooms }) {
+  // State to track selected meal options for each room
+  const [selectedMeal, setSelectedMeal] = useState({
+    breakfast: false,
+    halfBoard: false,
+    fullBoard: false,
+  });
+
+  const handleMealSelection = (meal) => {
+    setSelectedMeal((prevState) => ({
+      ...prevState,
+      [meal]: !prevState[meal],
+    }));
+  };
+
   return (
     <div className="main-content">
       <div className="header-container">
@@ -47,36 +62,69 @@ function Booking({ rooms }) {
                 </p>
               </div>
             </div>
+
             {/* Meal Options */}
             <div className="room-food">
-              <div className="meal-options">               
-                <p>
+              <div className="meal-options">
+                <p className="meal-title">
                   <strong>Breakfast:</strong>
                 </p>
                 <p className="price">
-                  Today's price for x nights ${room.breakfast_ppd}
+                  Today's price for x nights <br />${room.breakfast_ppd}
                 </p>
+                <button
+                  className={`select-button ${
+                    selectedMeal.breakfast ? "selected" : ""
+                  }`}
+                  onClick={() => handleMealSelection("breakfast")}
+                >
+                  {selectedMeal.breakfast ? "Selected" : "Select"}
+                </button>
               </div>
+
               <div className="meal-options">
-                <p>
+                <p className="meal-title">
                   <strong>Half-Board:</strong>
                 </p>
                 <p className="price">
-                  Today's price for x nights ${room.half_board_ppd}
+                  Today's price for x nights <br />${room.half_board_ppd}
                 </p>
+                <button
+                  className={`select-button ${
+                    selectedMeal.halfBoard ? "selected" : ""
+                  }`}
+                  onClick={() => handleMealSelection("halfBoard")}
+                >
+                  {selectedMeal.halfBoard ? "Selected" : "Select"}
+                </button>
               </div>
+
               <div className="meal-options">
-                <p>
+                <p className="meal-title">
                   <strong>Full-Board:</strong>
                 </p>
                 <p className="price">
-                  Today's price for x nights ${room.full_board_ppd}
+                  Today's price for x nights <br />${room.full_board_ppd}
                 </p>
+                <button
+                  className={`select-button ${
+                    selectedMeal.fullBoard ? "selected" : ""
+                  }`}
+                  onClick={() => handleMealSelection("fullBoard")}
+                >
+                  {selectedMeal.fullBoard ? "Selected" : "Select"}
+                </button>
               </div>
             </div>
+            
           </div>
+          
         ))}
+        <div className="proceed">
+      <NavigateButton  to="/packages" label="Next Step" />
       </div>
+      </div>
+      
     </div>
   );
 }

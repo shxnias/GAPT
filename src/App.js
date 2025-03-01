@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import './Shania.css';
+import './packages.css';
+import './form.css';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import axios from 'axios';
 
 // Import your components or pages
 import Booking from "./pages/Booking";
+import GuestDetails from "./pages/GuestDetails";
+import Packages from "./pages/Packages";
+import Payment from "./pages/PaymentDetails";
 import Home from "./pages/HomePage";
 import About from "./pages/AboutPage";
 import Rooms from "./pages/RoomsPage";
@@ -65,6 +70,9 @@ function App() {
         
         <Routes>
           <Route path="/booking" element={<Booking rooms={rooms} />} />
+          <Route path="/packages" element={<Packages />} />
+          <Route path="/guestdetails" element={<GuestDetails />} />
+          <Route path="/payment" element={<Payment />} />
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/rooms" element={<Rooms rooms={rooms} />} />

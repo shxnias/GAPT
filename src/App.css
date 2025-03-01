@@ -10,9 +10,8 @@ body {
   overflow-x: hidden;
 }
 
-/* Ensures main content starts below the top navigation */
 .main-content {
-  padding-top: 40px; 
+  padding-top: 50px; 
   padding-left: 20px;
   padding-right: 20px;
   min-height: 100vh; 
@@ -251,3 +250,30 @@ body {
   gap: 20px;
   margin-top: 20px;
 }
+
+.navigate-button {
+  background-color: #254D91;
+  color: white;
+  font-family: 'Playfair Display', serif;
+  padding: 15px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s, color 0.3s;
+  width: 180px;
+  
+}
+
+.go-back{
+  width: 120px;
+  font-size: 14px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.proceed{
+  margin: 20px;
+}
+
