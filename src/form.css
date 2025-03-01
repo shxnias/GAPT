@@ -1,0 +1,102 @@
+.booking-form {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+    background: #EDE6DD;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 10px;
+  }
+  
+  .form-group {
+    flex: 1;
+    min-width: 45%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    font-weight: 400;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    margin-bottom: 5px;
+
+  }
+  
+  input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 20px;
+  }
+  
+  .button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 10px;
+    background: #82684B;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background: #0056b3;
+  }
+  
+  .guest-details {
+    display: flex;
+    margin: 30px;
+    flex-direction: row;  /* Stack the items next to each other */
+    gap: 20px;  /* Adds space between the form and display section */
+  }
+  
+  .guest-details-form {
+    flex: 2;  /* The form takes up 2 parts of the available space */
+  }
+  
+  .guest-details-display {
+    flex: 1;  /* The display section takes up 1 part of the available space */
+    padding: 10px;
+    background-color: #EDE6DD;  /* Light background color for the display section */
+    border-radius: 8px;  /* Rounded corners for aesthetics */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  /* Subtle shadow effect */
+  }
+
+  .booking-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the left */
+    padding: 10px; /* Optional, adds padding around the content */
+  }
+
+  .booking-info{ display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the left */
+    padding: 10px; /* Optional, adds padding around the content */
+    width: 100%
+  }
+  
+  .booking-details p,
+  .booking-details li {
+    margin: 0;
+    padding: 0;
+    padding-left: 10px;
+    text-align: left; /* Make sure text is left-aligned */
+  }
+  
+  
+  hr {
+    width: 100%;  /* Make the line span the full width of the parent div */
+    border: none; /* Remove default border style */
+    border-top: 2px solid #82684B; /* Add a custom line (border-top) */
+    margin: 10px 0; /* Optional: adjust spacing around the line */
+  }
+  
