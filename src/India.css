@@ -107,3 +107,65 @@
     font-weight: 400;
     color: black;
 }
+
+/* FAQ Box Section */
+.faq-box-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; 
+    gap: 20px;
+    padding: 30px;
+    background-color: #DBCDBC; /* Brown background */
+    width: 95vw;
+    max-width: 1200px;
+    margin: 40px auto;
+    border-radius: 10px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+/* Light Brown Boxes (inner boxes) */
+.faq-box {
+    flex: 1;
+    min-width: 300px; /* Ensures boxes don't shrink too much */
+    background-color: #EDE6DD;
+    padding: 40px;
+    border-radius: 5px;
+    min-height: 300px;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+/* Subheader */
+.faq-subheader {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    font-weight: 400;
+    color: black;
+    text-align: left;
+    margin-bottom: 70px;
+}
+
+/* FAQ Items */
+.faq-item {
+    margin-bottom: 30px; 
+}
+
+/* FAQ Question */
+.faq-question {
+    font-family: 'Manrope', sans-serif;
+    font-size: 24px;
+    font-weight: 600px;
+    color: #254D91;
+    margin-bottom: -10px; 
+
+}
+
+/* FAQ Answer */
+.faq-answer {
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #484E57;
+    line-height: 1.8; 
+}
