@@ -144,18 +144,18 @@ function Home() {
         <p>Single Room | Double Room | Triple Room | Family Room</p>
       </div>
     </div>
-    <div className="room-container">
+    <div className="home-room-container">
       {/* Room Image */}
-      <div className="room-image">
+      <div className="home-room-image">
         <img src="/homepage images/Single Room.jpg" alt="Single Room"/>
       </div>
 
       {/* Room Details */}
-      <div className= "room-details">
+      <div className= "home-room-details">
         <h2> Single Room</h2>
 
         {/* Room Features */}
-        <ul className="room-features">
+        <ul className="home-room-features">
         <li><Person/> Max 1 Guest</li>
           <li><Bed/> x1 Single Bed</li>
           <li><AC></AC> Air Conditioning</li>
