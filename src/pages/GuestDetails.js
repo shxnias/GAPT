@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import NavigateButton from "./NavigateButton";
 
 function GuestDetails() {
   const [formData, setFormData] = useState({
@@ -124,9 +125,9 @@ function GuestDetails() {
                 />
               </div>
             </div>
-            <button className="navigate-button" type="submit">
-              Submit
-            </button>
+            <div className="proceed">
+              <NavigateButton to="/payment" label="Checkout" />
+            </div>
           </form>
         </div>
 
@@ -191,7 +192,13 @@ function GuestDetails() {
               <hr />
             </div>
 
-            <p>Total Price: $1200</p>
+            <ul className="amenities-list">
+              <li>
+                <span>Total Price:</span>
+                <span className="price">$50</span>
+              </li>
+            </ul>
+            <hr />
           </div>
         </div>
       </div>
