@@ -28,23 +28,21 @@ function Booking({ rooms }) {
       <div className="header-container">
         <h1 className="header">The Opulence Hotel</h1>
         <p className="general-text">
-        <p className="general-text">
           From <b>15th June 2025</b> to <b>21st June 2025</b> -{" "}
           <b>2 adults, 1 child</b>
         </p>
       </div>
       <div>
         <h2 className="subheader">Select a Room</h2>
-        <h2 className="subheader">Select a Room</h2>
       </div>
-      <div className="room-container">
+      <div className="booking-room-container">
         {rooms.map((room) => (
-          <div key={room.id} className="room-card">
-            <div className="room-display">
-              <div className="room-image">
+          <div key={room.id} className="booking-room-card">
+            <div className="booking-room-display">
+              <div className="booking-room-image">
                 <img src={room.image_url} alt={room.name} />
               </div>
-              <div className="room-details">
+              <div className="booking-room-details">
                 <h2>{room.name}</h2>
                 <p>
                   <People /> <strong>Guests:</strong> {room.guests}
@@ -72,10 +70,10 @@ function Booking({ rooms }) {
                   <strong>Breakfast:</strong>
                 </p>
                 <p className="price">
-                  Today's price for x nights <br />${room.breakfast_ppd}
+                  Today's price for x nights <br />€{room.breakfast_ppd}
                 </p>
                 <button
-                  className={`select-button ${
+                  className={`select-button €{
                     selectedMeal.breakfast ? "selected" : ""
                   }`}
                   onClick={() => handleMealSelection("breakfast")}
@@ -89,10 +87,10 @@ function Booking({ rooms }) {
                   <strong>Half-Board:</strong>
                 </p>
                 <p className="price">
-                  Today's price for x nights <br />${room.half_board_ppd}
+                  Today's price for x nights <br />€{room.half_board_ppd}
                 </p>
                 <button
-                  className={`select-button ${
+                  className={`select-button €{
                     selectedMeal.halfBoard ? "selected" : ""
                   }`}
                   onClick={() => handleMealSelection("halfBoard")}
@@ -106,10 +104,10 @@ function Booking({ rooms }) {
                   <strong>Full-Board:</strong>
                 </p>
                 <p className="price">
-                  Today's price for x nights <br />${room.full_board_ppd}
+                  Today's price for x nights <br />€{room.full_board_ppd}
                 </p>
                 <button
-                  className={`select-button ${
+                  className={`select-button €{
                     selectedMeal.fullBoard ? "selected" : ""
                   }`}
                   onClick={() => handleMealSelection("fullBoard")}

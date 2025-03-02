@@ -1,157 +1,82 @@
 .header {
-    font-size: 40px;
-    font-family: 'Playfair Display', serif;
-    font-weight: 500;
-    text-align: left;
-    padding-top: 20px; 
-    margin-left: 20px;
-    display: block;
-    color: #2F3845;
-}
-.subheader{
-  font-size: 30px;
+  font-size: 40px;
   font-family: 'Playfair Display', serif;
   font-weight: 500;
-  text-align: center;
-  margin-left: 0px;
+  text-align: left;
+  padding-top: 20px; 
   padding-top: 20px; 
   margin-left: 20px;
   display: block;
   color: #2F3845;
 }
+.subheader{
+font-size: 30px;
+font-family: 'Playfair Display', serif;
+font-weight: 500;
+text-align: center;
+margin-left: 0px;
+padding-top: 20px; 
+margin-left: 20px;
+display: block;
+color: #2F3845;
+}
 
 .center {
-    text-align: center;
-    margin-left: 0px;
+  text-align: center;
+  margin-left: 0px;
 }
 
 
+
 .general-text {
-    font-size: 16px;
-    font-family: 'Manrope', sans-serif;
-    font-weight: 400;
-    text-align: left;
-    margin-left: 20px;
-    margin-top: 0; 
-   
+  font-size: 16px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 400;
+  text-align: left;
+  margin-left: 20px;
+  margin-top: 0; 
+ 
 }
 
 .header-container::before,
 .header-container::after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 2px;
-    background-color: #82684B;
-    position: relative;
+  content: "";
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #82684B;
+  position: relative;
 }
 
 .main-content::before {
-    margin-bottom: 10px; 
+  margin-bottom: 10px; 
 }
 
 .main-content::after {
-    margin-top: 10px; 
+  margin-top: 10px; 
 }
 
-.room-card{
-  margin-bottom: 50px;
-  border: 1px solid #82684B; 
-}
-
-.room-card img {
-  width: 90%; 
-  height: 300px; 
-  object-fit: cover; 
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3
-  );
-}
-
-.room-display {
-display: flex;
-align-items: center;
-gap: 30px; 
-padding: 30px;
-
-
-
-background-color: #EDE6DD;
-}
-
-.room-card img {
-
-object-fit: cover;
-border-radius: 8px;
-}
-
-.room-card div {
-flex: 1; 
-}
-
-.room-details{
-  text-align: left;
-  gap: 15px; 
-  padding-left: 15px;
-  font-size: 14px;
-  margin: 15px 0;
-  
-}
-
-.room-details p svg {
-  font-size: 18px; 
-  vertical-align: middle; 
-  color: gray; 
-}
-
-.room-food {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #EDE6DD;
-}
-
-.meal-options {
-  display: flex;
-  font-size: 16px;
-
-  width: 60%;
-  justify-content: space-around;
-  align-items: center;
-  background-color:#F1F1F1;
-  margin: 15px;
-
-}
-
-.price {
-  text-align: right;
-}
-.meal-title{
-  font-size: 22px;
-  font-family: Playfair Display;
-  font-weight: 100;
-
-}
 
 .select-button {
-  background-color: #82684B;
-  color: white;
-  font-family: 'Playfair Display', serif;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s, color 0.3s;
-  width: 100px;
-  
+background-color: #82684B;
+color: white;
+font-family: 'Playfair Display', serif;
+padding: 10px 20px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+font-size: 16px;
+transition: background-color 0.3s, color 0.3s;
+width: 100px;
+
 }
 
 .select-button.selected {
-  background-color: #254D91;
-  color: white;
+background-color: #254D91;
+color: white;
 }
 
 .go-back{
-  display: flex;
-  align-items: left;
+display: flex;
+align-items: left;
 }

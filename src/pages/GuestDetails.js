@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import NavigateButton from "./NavigateButton";
 
 function GuestDetails() {
   const [formData, setFormData] = useState({
@@ -124,9 +125,9 @@ function GuestDetails() {
                 />
               </div>
             </div>
-            <button className="navigate-button" type="submit">
-              Submit
-            </button>
+            <div className="proceed">
+              <NavigateButton to="/payment" label="Next Step" />
+            </div>
           </form>
         </div>
 
@@ -148,7 +149,7 @@ function GuestDetails() {
               <p>Room: Standard Triple Room</p>
               <ul className="amenities-list">
                 <li>
-                  <span>5 nights</span> <span className="price">$15</span>
+                  <span>5 nights</span> <span className="price">€15</span>
                 </li>
               </ul>
 
@@ -156,13 +157,13 @@ function GuestDetails() {
               <p>Amenities:</p>
               <ul className="amenities-list">
                 <li>
-                  <span>24/7 Gym</span> <span className="price">$0</span>
+                  <span>24/7 Gym</span> <span className="price">€0</span>
                 </li>
                 <li>
-                  <span>Unlimited Spa</span> <span className="price">$20</span>
+                  <span>Unlimited Spa</span> <span className="price">€20</span>
                 </li>
                 <li>
-                  <span>Parking</span> <span className="price">$15</span>
+                  <span>Parking</span> <span className="price">€15</span>
                 </li>
               </ul>
               <hr />
@@ -170,7 +171,7 @@ function GuestDetails() {
               <p>Packages:</p>
               <ul className="amenities-list">
                 <li>
-                  <span>Full Package</span> <span className="price">$50</span>
+                  <span>Full Package</span> <span className="price">€50</span>
                 </li>
               </ul>
               <hr />
@@ -178,20 +179,20 @@ function GuestDetails() {
               <p>Tours:</p>
               <ul className="amenities-list">
                 <li>
-                  <span>Imdina Tour</span> <span className="price">$30</span>
+                  <span>Imdina Tour</span> <span className="price">€30</span>
                 </li>
                 <li>
-                  <span>Valletta Tour</span> <span className="price">$40</span>
+                  <span>Valletta Tour</span> <span className="price">€40</span>
                 </li>
                 <li>
                   <span>Blue Grotto Tour</span>{" "}
-                  <span className="price">$40</span>
+                  <span className="price">€40</span>
                 </li>
               </ul>
               <hr />
             </div>
 
-            <p>Total Price: $1200</p>
+            <p>Total Price: €1200</p>
           </div>
         </div>
       </div>
