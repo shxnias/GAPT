@@ -60,10 +60,9 @@
 }
 
 .room-card img {
-  width: 60%; 
+  width: 90%; 
   height: 300px; 
   object-fit: cover; 
-  float: right;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3
   );
 }
