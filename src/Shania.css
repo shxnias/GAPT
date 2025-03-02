@@ -4,7 +4,6 @@
     font-weight: 500;
     text-align: left;
     padding-top: 20px; 
-    padding-top: 20px; 
     margin-left: 20px;
     display: block;
     color: #2F3845;
@@ -20,24 +19,12 @@
   display: block;
   color: #2F3845;
 }
-.subheader{
-    font-size: 30px;
-    font-family: 'Playfair Display', serif;
-    font-weight: 500;
+
+.center {
     text-align: center;
     margin-left: 0px;
-    padding-top: 20px; 
-    margin-left: 20px;
-    display: block;
-    color: #2F3845;
-    padding-top: 20px; 
-    margin-left: 20px;
-    display: block;
-    color: #2F3845;
 }
 
-
-.general-text {
 
 .general-text {
     font-size: 16px;
