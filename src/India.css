@@ -1,0 +1,109 @@
+/* Contact Header Styling */
+.contact-header {
+    background-color: #ffffff; 
+    text-align: center;
+    padding: 30px 0;
+    width: 100vw; 
+}
+
+/*Contact Us Text */
+.contact-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 500; /* Medium */
+    font-size: 40px;
+    color: black; 
+    margin: 10px 0;
+}
+
+/* Full-Width Lines */
+.line {
+    position: absolute;
+    left: 0;
+    width: 100vw; 
+    height: 0.9px; 
+    background-color: #82684B; 
+}
+
+.full-page-img {
+    width: 100vw; 
+    height: 100vh; 
+    object-fit: cover; 
+    display: block; 
+    margin-left: -20px;
+    margin-top: -10px;
+}
+
+/* Brown Box Section */
+.brown-box-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    padding: 50px;
+    background-color: #EDE6DD; 
+    width: 95vw; 
+    margin: 40px auto; 
+    margin-left: -20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.map-container {
+    display: flex;
+    width: 425px;
+    height: 425px; 
+    margin-right: 50px; 
+}
+
+.brown-box h2 {
+    font-size: 20px;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+}
+
+.brown-box-text {
+    width: 500px; 
+    max-width: 90%; 
+    font-size: 16px;
+    font-family: 'Playfair Display', serif;
+    text-align: center; 
+}
+
+/* Details Section */
+.details-section {
+    background-color: #ffffff;
+    text-align: center;
+    padding: 30px;
+}
+
+.details-header {
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    font-size: 40px; /* Header font size */
+    color: black;
+    margin-bottom: 5px;
+}
+
+.details-line {
+    width: 70%;
+    margin: 2px auto 0 auto;
+    height: 0.9px;
+    background-color: #82684B; 
+    border: none;
+}
+
+.details-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px; /* Subheader font size */
+    font-weight: 400; /* Regular */
+    display: block;
+    margin-top: 10px;
+}
+
+/* General Text (Information Content) */
+.details-text {
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px; /* Match brown-box text */
+    font-weight: 400;
+    color: black;
+}
