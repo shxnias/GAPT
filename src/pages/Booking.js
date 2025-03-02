@@ -27,7 +27,7 @@ function Booking({ rooms }) {
     <div className="main-content">
       <div className="header-container">
         <h1 className="header">The Opulence Hotel</h1>
-        <p className="general-text">
+      
         <p className="general-text">
           From <b>15th June 2025</b> to <b>21st June 2025</b> -{" "}
           <b>2 adults, 1 child</b>

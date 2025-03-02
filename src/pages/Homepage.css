@@ -270,27 +270,27 @@
 
 
   /* Hotel Rooms */
-  .rooms-container{
+  .home-rooms-container{
     color: #484E57;
     padding: 0px;
     margin: 0px;
     background-color: #F3EFEA;
     width: 100%;
   }
-  .rooms-header {
-    padding: 20px 0; /* Added some padding for spacing */
+  .home-rooms-header {
+    padding: 20px 0; 
     background-color: #F3EFEA;
-    text-align: center; /* Center the header text */
+    text-align: center; 
     width: 100%;
     font-size: 24px;
   }
 
-  .rooms-header p{
-    font-size: 25px;
+  .home-rooms-header p{
+    font-size: 24px;
     padding-left: 400px;
     padding-right: 400px;
   }
-  .room-container{
+  .home-room-container{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -301,19 +301,19 @@
     width: 100%;
   }
 
-  .room-image{
+  .home-room-image{
     flex: 1;
     display: flex;
     justify-content: center;
     margin-right: 100px;
   }
 
-  .room-image img{
+  .home-room-image img{
     width: 900px;
     height: auto;
   }
 
-  .room-details{
+  .home-room-details{
     background-color: white;
     padding: 30px;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
@@ -325,21 +325,21 @@
     top: 25%;
     transform: translate(20%);
   }
-  .room-details h2 {
+  .home-room-details h2 {
     font-size: 28px;
     color: #484E57;
     margin-bottom: 15px;
   }
   
   /* Features List */
-  .room-features {
+  .home-room-features {
     list-style: none;
     padding: 0;
     font-size: 18px;
     color: #484E57;
   }
   
-  .room-features li {
+  .home-room-features li {
     margin-bottom: 8px;
     display: flex;
     align-items: center;
@@ -348,7 +348,7 @@
   }
   
   /* Description */
-  .room-details p {
+  .home-room-details p {
     font-size: 16px;
     color: #484E57;
     margin-top: 10px;
