@@ -85,8 +85,20 @@ function About() {
       </p>
     </div>
   </div>
-
 </div>
+
+{/* Reserve Section */}
+<div className="reserve-container">
+  <p className="reserve-text">
+    Indulge in an unforgettable stay at The Opulence
+    <br />
+    Reserve your exquisite retreat today.
+  </p>
+  <button className="reserve-button">Reserve Now</button>
+</div>
+
+
+
 </div>
 
   );
