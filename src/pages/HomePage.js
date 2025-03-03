@@ -7,7 +7,7 @@ import NavigateIconLeft from "@mui/icons-material/NavigateBefore";
 import Person from "@mui/icons-material/PersonOutline";
 import Bed from "@mui/icons-material/SingleBed";
 import AC from "@mui/icons-material/AcUnit";
-import { CalendarMonth } from '@mui/icons-material';
+import AIChatIcon from '@mui/icons-material/ChatOutlined';
 
 
 
@@ -44,12 +44,25 @@ function Home() {
 
   const [selectedRoom, setSelectedRoom] = useState("single");
 
+  const [currentIndex2, setCurrentIndex2] = useState(0);
   const restaurant_images=[
     {src: "/homepage images/restaurant/Chef.jpg"},
     {src: "/homepage images/restaurant/food1.jpg"},
     {src: "/homepage images/restaurant/people.jpg"},
     {src: "/homepage images/restaurant/food2.jpg"},
   ];
+
+  const goToPrev = () => {
+    setCurrentIndex2 ((prevIndex2) =>
+    prevIndex2 === 0 ? restaurant_images.length - 1 : prevIndex2 -1
+    );
+  }
+
+  const goToNext = () => {
+    setCurrentIndex2((prevIndex2) =>
+    prevIndex2 === restaurant_images.length -1 ? 0 : prevIndex2 + 1
+    );
+  }
 
   
   const [guestCount, setGuestCount] = useState(2); // Default: 2 guests
@@ -67,11 +80,32 @@ function Home() {
     };  
   
 
-
-
+    const faqs = [
+      {
+        question: "What time is check-in and check-out?",
+        answer: "Check-in is from 3:00 PM, and check-out is by 11:00 AM. Early check-in and late check-outs are available upon request, subject to availability.",
+      },
+      {
+        question: "Are pets allowed at the hotel?",
+        answer: "We welcome small, well-behaved pets in select rooms. Kindly inforn us in advance to ensure we can accomcodate your furry companion.",
+      },
+      {
+        question: "Is there a spa and wellness centre?",
+        answer: "Yes, our luxorious spa offers a range of treatments, from rejuvenating massages to personalised facials. We also have a fully equipped fitness centre and sauna.",
+      },
+      {
+        question: "Does the hotel have a pool?",
+        answer: "Yes, out stunning outdoor infinity pool offers breathtaking views, luxurious sun loungers, and poolside service for drinks and light bites.",
+      },
+    ];
 
   return (
     <div className="main-content">
+
+      <button className="ai-chat-button">
+        <AIChatIcon className="ai-chat-icon"/>
+      </button>
+
       <div className="search-container">
         <div className="search-box">
           <div className="input-row">
@@ -234,9 +268,44 @@ function Home() {
       <button className="view-all-rooms-button"> View All Rooms</button>
     </div>
     
+
+    {/* Restaurant Slideshow */}
+    <div className="restaurant-slideshow-container">
+      <div className="slideshow-text">
+        <h1>Dine With Us</h1>
+        <p>The Garden Buffet Restaurant</p>
+      </div>
+      <div className="restaurant-slideshow">
+        <img src={restaurant_images[currentIndex2].src} alt={`Slide ${currentIndex2}`}/>
+      </div>
+      <button className="left-arrow" onClick={goToPrev}><NavigateIconLeft style={{ fontSize: 40}}/></button>
+      <button className="right-arrow" onClick={goToNext}><NavigateIconRight style={{ fontSize: 40}}/></button>
+    </div>
+
+
+    {/* FAQs */}
+    <div className="faqs-wrapper">
+    <div className="faqs-container">
+      <h1 className="faqs-title">FAQs</h1>
+      <h2 className="faqs-subtitle">Get Informed</h2>
+
+      <div className="faqs-list">
+        {faqs.map((faq, index)=>(
+          <div key={index} className="faq-item">
+            <p className="faq-question">{index + 1}. <strong>{faq.question}</strong></p>
+            <p className="faq-answer">{faq.answer}</p>
+            </div>
+        ))}
+      </div>
+
+      <button className="see-more-button">See More</button>
+    </div>
+    </div>
+
     </div>
   );
 }
+
 
 
 export default Home;

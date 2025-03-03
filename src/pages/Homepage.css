@@ -1,3 +1,29 @@
+.ai-chat-button{
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  width: 70px;
+  height: 70px;
+  background-color: #254D91;
+  border-radius: 20%;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  z-index: 2000;
+}
+
+.ai-chat-button:hover{
+  background-color: #163bb3;
+}
+
+.ai-chat-icon{
+  width: 60px;
+  height: 60px;
+  filter: invert(1);
+}
 .search-container {
     position: fixed;
     z-index: 900;
@@ -473,4 +499,114 @@
 
   .view-all-rooms-button:hover{
     background-color: #0056b3;
+  }
+
+
+  /* Restaurant Slideshow */
+  .restaurant-slideshow-container{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+  }
+  
+  .slideshow-text{
+    justify-content: flex-start;
+    flex: 1;
+    text-align: left;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    color: #484E57;
+    margin-left: 50px;
+    margin-top: 20px;
+  }
+
+  .slideshow-text p{
+    font-size: 40px;
+  }
+
+  .slideshow-text h1{
+    font-size: 50px;
+    margin-bottom: 0px;
+  }
+
+  .restaurant-slideshow{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .restaurant-slideshow img{
+    width: 60%;
+    height: auto;
+    display: center;
+    margin-bottom: 60px;
+  }
+
+  /* FAQs */
+
+  .faqs-wrapper{
+    background-color:#F3EFEA;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+    width: 100%;
+    margin-left: -20px;
+  }
+
+  .faqs-container{
+    background-color:#ffffff;
+    padding: 30px;
+    /* width: 1500px; */
+    text-align: left;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding-left: 60px;
+    margin-top: 60px;
+    margin-bottom: 60px;
+  }
+
+  .faqs-title{
+    font-size: 50px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #484E57;
+  }
+
+  .faqs-subtitle{
+    font-size: 50px;
+    font-weight:bold;
+    color: #8c7350;
+    margin-bottom: 60px;
+    margin-top: -10px;
+  }
+
+  .faqs-list{
+    margin-bottom: 40px;
+    font-size: 50px;
+  }
+
+  .faq-question{
+    /* font-size: 30px; */
+    color: #254D91;
+  }
+
+  .faq-answer{
+    /* font-size: 30px; */
+    color: #484E57;
+  }
+
+  .see-more-button {
+    background-color: #254D91; /* Blue */
+    color: white;
+    padding: 10px 20px;
+    font-size: 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .see-more-button:hover {
+    background-color: #163bb3;
   }
