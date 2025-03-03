@@ -33,6 +33,14 @@ function Home() {
     setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
+  const rooms_home=[
+    {id: "single", name: "Single Room"},
+    {id: "double", name: "Double Room"},
+    {id: "triple", name: "Triple Room"},
+    {id: "family", name: "Family Room"},
+  ];
+
+  const [selectedRoom, setSelectedRoom] = useState("single");
 
   return (
     <div className="main-content">
@@ -137,11 +145,20 @@ function Home() {
     </div>
 
     {/* Hotel Rooms */}
-    <div className="rooms-container">
-      <div className="rooms-header">
+    <div className="home-rooms-container">
+      <div className="home-rooms-header">
         <h1>Explore Our Rooms</h1>
         <p>Each room is designed for both elegance and comfort, offering a perfect retreat whether you're in Malta for a long stay or a quick getaway.</p>
-        <p>Single Room | Double Room | Triple Room | Family Room</p>
+      <div className="room-tabs">
+        {rooms_home.map((room)=>(
+          <button
+          key={room.id}
+          onClick={()=> setSelectedRoom(room.id)}
+          className = {`room-tab ${selectedRoom === room.id ? "active" : ""}`}>
+            {room.name}
+          </button>
+        ))}
+      </div>
       </div>
     </div>
     <div className="home-room-container">
@@ -167,6 +184,9 @@ function Home() {
           relaxing and seamless stay in pure tranquility.
         </p>
       </div>
+    </div>
+    <div className= "view-all-container">
+      <button className="view-all-rooms-button"> View All Rooms</button>
     </div>
     
     </div>

@@ -10,8 +10,6 @@
     background-color: #AF9069;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-left: -30px;
-    margin-top: 20px;
-
   }
   
   .search-container h1 {
@@ -156,7 +154,7 @@
   /* Facilities Section */
   .facilities-container{
     text-align: center;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
   }
 
   .facilities-header{
@@ -353,4 +351,37 @@
     color: #484E57;
     margin-top: 10px;
     line-height: 1.5;
+  }
+
+  .room-tabs{
+    margin-top: 1rem;
+  }
+
+  .room-tab{
+    font-size: 24px;
+    font-family: 'Playfair Display', sans-serif;
+    color: #000000;
+    background: none;
+    border: none;
+    margin: 0 1rem;
+    cursor: pointer;
+  }
+
+  .room-tab.active{
+    color: #254D91;
+    font-weight: bold;
+  }
+
+  .view-all-rooms-button{
+    background-color: #254D91;
+    color: white;
+    font-size: 1rem;
+    padding: 0.75 rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .view-all-rooms-button:hover{
+    background-color: #0056b3;
   }
