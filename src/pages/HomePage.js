@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import mainBanner from "../images/mainBanner.jpg";
 import './Homepage.css';
-import DateIcon from "@mui/icons-material/CalendarMonth";
+import DateIcon from '@mui/icons-material/CalendarMonthOutlined';
 import NavigateIconRight from "@mui/icons-material/NavigateNext";
 import NavigateIconLeft from "@mui/icons-material/NavigateBefore";
 import Person from "@mui/icons-material/PersonOutline";
@@ -18,9 +18,9 @@ function Home() {
   
   // Images
   const images = [
-    {src: "/homepage images/Gym.jpg", text: "Unleash your inner strength at our state-of-the-art gym, where cutting-edge equipment meets a motivating atmosphere. Push your limits in spacious, fully-equipped workout areas, or find your zen in our dedicated stretching and yoga zones. Whether you're lifting, running, or focusing on wellness, every moment here is designed to elevate your fitness journey in style and comfort."},
-    {src: "/homepage images/Pool.jpg", text: "Immerse yourself in pure relaxation at our stunning outdoor pool, where crystal-clear waters meet breathtaking surroundings. Bask in the sun on plush loungers or take a refreshing dip in an oasis of serenity and luxury."},
-    {src: "/homepage images/Spa.jpg", text: "Indulge in ultimate relaxation at our luxurious spa, where soothing treatments and serene surroundings create the perfect escape. Rejuvenate your body and mind with a range of therapeutic massages, facials, and wellness rituals, all designed to transport you to a state of pure tranquility. Let the calming ambiance and expert therapists restore your balance and leave you feeling refreshed, renewed, and revitalized."}
+    {src: "/homepage images/facilities/Gym.jpg", text: "Unleash your inner strength at our state-of-the-art gym, where cutting-edge equipment meets a motivating atmosphere. Push your limits in spacious, fully-equipped workout areas, or find your zen in our dedicated stretching and yoga zones. Whether you're lifting, running, or focusing on wellness, every moment here is designed to elevate your fitness journey in style and comfort."},
+    {src: "/homepage images/facilities/Pool.jpg", text: "Immerse yourself in pure relaxation at our stunning outdoor pool, where crystal-clear waters meet breathtaking surroundings. Bask in the sun on plush loungers or take a refreshing dip in an oasis of serenity and luxury."},
+    {src: "/homepage images/facilities/Spa.jpg", text: "Indulge in ultimate relaxation at our luxurious spa, where soothing treatments and serene surroundings create the perfect escape. Rejuvenate your body and mind with a range of therapeutic massages, facials, and wellness rituals, all designed to transport you to a state of pure tranquility. Let the calming ambiance and expert therapists restore your balance and leave you feeling refreshed, renewed, and revitalized."}
   ];
 
   //Function to handle the previous image
@@ -44,6 +44,29 @@ function Home() {
 
   const [selectedRoom, setSelectedRoom] = useState("single");
 
+  const restaurant_images=[
+    {src: "/homepage images/restaurant/Chef.jpg"},
+    {src: "/homepage images/restaurant/food1.jpg"},
+    {src: "/homepage images/restaurant/people.jpg"},
+    {src: "/homepage images/restaurant/food2.jpg"},
+  ];
+
+  
+  const [guestCount, setGuestCount] = useState(2); // Default: 2 guests
+  
+    // Function to increase guest count
+    const increaseGuests = () => {
+      setGuestCount(prev => prev + 1);
+    };
+  
+    // Function to decrease guest count (min 1)
+    const decreaseGuests = () => {
+      if (guestCount > 1) {
+        setGuestCount(prev => prev - 1);
+      }
+    };  
+  
+
 
 
 
@@ -52,35 +75,50 @@ function Home() {
       <div className="search-container">
         <div className="search-box">
           <div className="input-row">
+
             {/* Check-in Date Container */}
             <div className="field-container">
-      
-              <label><DateIcon style={{ fontSize: 24}}/>Check-in Date</label>
+              <div className="icon-container">
+                <DateIcon className="search-icons"/>
+              </div>
+              <div className="search-text-container">
+                <span className="label">Check-In Date:</span>
                 <input
                   type="date"
-                  className="date-input"
+                  className="date-picker"
                   defaultValue="2025-03-16"
                 />
-                {/* <CalendarMonthIcon sx={{ fontSize: 18, color: '#402910' }} /> Use the icon */}
               </div>
+            </div>
 
             {/* Check-out Date Container */}
             <div className="field-container">
-              
-              <label><DateIcon/>Check-out Date</label>
+              <div className="icon-container">
+                <DateIcon className="search-icons"/>
+              </div>
+              <div className="search-text-container">
+                <span className="label">Check-out Date:</span>
                 <input
                   type="date"
-                  className="date-input"
+                  className="date-picker"
                 />
-                {/* <CalendarMonthIcon sx={{ fontSize: 18, color: '#402910' }} /> Use the icon */}
               </div>
+            </div>
           
 
             {/* No. of Guests Container */}
             <div className="field-container">
-              
-            <label><Person/>No. of Guests</label>
-                <input type="number" min="1" defaultValue="2" />
+              <div className="icon-container">
+                <Person className="search-icons"/>
+              </div>
+              <div className="search-text-container">
+                <span className="label">No. of Guests:</span>
+                  <div className="guest-stepper">
+                  <button className="stepper-button" onClick={decreaseGuests}>-</button>
+                  <span>{guestCount}</span>
+                  <button className="stepper-button" onClick={increaseGuests}>+</button>
+                </div>
+              </div>
             </div>
 
             {/* Search Button */}
@@ -199,5 +237,6 @@ function Home() {
     </div>
   );
 }
+
 
 export default Home;
