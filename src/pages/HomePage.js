@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import mainBanner from "../images/mainBanner.jpg";
 import './Homepage.css';
+import DateIcon from "@mui/icons-material/CalendarMonth";
 import NavigateIconRight from "@mui/icons-material/NavigateNext";
 import NavigateIconLeft from "@mui/icons-material/NavigateBefore";
 import Person from "@mui/icons-material/PersonOutline";
 import Bed from "@mui/icons-material/SingleBed";
 import AC from "@mui/icons-material/AcUnit";
+import { CalendarMonth } from '@mui/icons-material';
 
 
 
@@ -42,6 +44,9 @@ function Home() {
 
   const [selectedRoom, setSelectedRoom] = useState("single");
 
+
+
+
   return (
     <div className="main-content">
       <div className="search-container">
@@ -49,7 +54,8 @@ function Home() {
           <div className="input-row">
             {/* Check-in Date Container */}
             <div className="field-container">
-              <label>Check-in Date</label>
+      
+              <label><DateIcon style={{ fontSize: 24}}/>Check-in Date</label>
                 <input
                   type="date"
                   className="date-input"
@@ -60,7 +66,8 @@ function Home() {
 
             {/* Check-out Date Container */}
             <div className="field-container">
-              <label>Check-out Date</label>
+              
+              <label><DateIcon/>Check-out Date</label>
                 <input
                   type="date"
                   className="date-input"
@@ -71,7 +78,8 @@ function Home() {
 
             {/* No. of Guests Container */}
             <div className="field-container">
-              <label>No. of Guests</label>
+              
+            <label><Person/>No. of Guests</label>
                 <input type="number" min="1" defaultValue="2" />
             </div>
 
@@ -85,8 +93,7 @@ function Home() {
     <div className="mainBanner-container">
     <img src={mainBanner} alt = "Hotel View" className="main-img"/>
     <div className="banner-text">
-      <h1>Experience Elegance,
-          Indulge in Luxury
+      <h1>Experience Elegance,<br></br>Indulge in Luxury
       </h1>
     </div>
     </div>

@@ -38,7 +38,7 @@
   }
   
   .field-container label {
-    font-size: 1rem;
+    font-size: 14px;
     color: #484E57;
     font-family: 'Manrope', sans-serif;
   }
@@ -80,7 +80,7 @@
     color: #ffffff;
     border: none;
     border-radius: 5px;
-    font-size: 1rem;
+    font-size: 24px;
     cursor: pointer;
     height: 100%; /* Match height of field containers */
   }
@@ -121,6 +121,8 @@
     transform: translate(-80%, -120%);
     font-size: 20px;
     text-align: center;
+    margin-left: -45vh;
+    margin-top: -3vh;
     color: white;
     font-family: 'Manrope', sans-serif;
   }
@@ -154,7 +156,6 @@
   /* Facilities Section */
   .facilities-container{
     text-align: center;
-    /* margin-bottom: 30px; */
   }
 
   .facilities-header{
@@ -172,7 +173,7 @@
     color: white;
     padding: 10px 20px;
     border: none;
-    font-size: 18px;
+    font-size: 24px;
     border-radius: 5px;
     cursor: pointer;
   }
@@ -273,7 +274,8 @@
     padding: 0px;
     margin: 0px;
     background-color: #F3EFEA;
-    width: 100%;
+    width: 100vw;
+    margin-left: -20px;
   }
   .home-rooms-header {
     padding: 20px 0; 
@@ -296,7 +298,8 @@
     padding: 0px;
     margin: 0px;
     position: relative;
-    width: 100%;
+    width: 100vw;
+    margin-left: -20px;
   }
 
   .home-room-image{
@@ -323,6 +326,7 @@
     top: 25%;
     transform: translate(20%);
   }
+
   .home-room-details h2 {
     font-size: 28px;
     color: #484E57;
@@ -370,13 +374,29 @@
   .room-tab.active{
     color: #254D91;
     font-weight: bold;
+    text-decoration: underline;
+  }
+
+  .room-tab:not(:last-child)::after {
+    content: "|";
+    color: #000000;
+    margin-left: 1rem;
+}
+  .view-all-container {
+    display: flex;
+    justify-content: center;
+    background-color: #F3EFEA;
+    padding-top: 2rem; 
+    padding-bottom: 2rem; 
+    width: 100vw;
+    margin-left: -20px;
   }
 
   .view-all-rooms-button{
     background-color: #254D91;
     color: white;
-    font-size: 1rem;
-    padding: 0.75 rem 1.5rem;
+    font-size: 24px;
+    padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
