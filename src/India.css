@@ -309,7 +309,7 @@
     font-size: 20px;
     font-weight: 500;
     color: #2F3845;
-    margin-bottom: 30px; /* More space from button */
+    margin-bottom: 30px; 
 }
 
 .reserve-button {
@@ -323,10 +323,60 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin-top: 20px; /* Add more space from text */
+    margin-top: 20px; 
 }
 
 .reserve-button:hover {
-    background-color: #1C3C75; /* Darker blue on hover */
+    background-color: #1C3C75; 
 }
 
+/*out facilities section*/
+
+.spa-container {
+    background-color: #EDE6DD; 
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-left: -20px;
+}
+
+.spa-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+}
+
+/* Image Styling */
+.spa-image {
+    width: 500px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.spa-text-box {
+    background-color: #F8F5F1; 
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    text-align: center;
+    margin-left: 40px; 
+}
+
+.spa-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: #3E3E3E;
+}
+
+.spa-description p {
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #5A5A5A;
+    line-height: 1.8;
+    margin-bottom: 10px;
+}
