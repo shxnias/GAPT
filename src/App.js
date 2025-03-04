@@ -4,6 +4,8 @@ import './Shania.css';
 import './packages.css';
 import './booking.css';
 import './form.css';
+import './success.css';
+import './findBooking.css'
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import axios from 'axios';
 
@@ -12,6 +14,7 @@ import Booking from "./pages/Booking";
 import GuestDetails from "./pages/GuestDetails";
 import Packages from "./pages/Packages";
 import Payment from "./pages/PaymentDetails";
+import Success from "./pages/Success";
 import Home from "./pages/HomePage";
 import About from "./pages/AboutPage";
 import Rooms from "./pages/RoomsPage";
@@ -74,6 +77,7 @@ function App() {
           <Route path="/packages" element={<Packages />} />
           <Route path="/guestdetails" element={<GuestDetails />} />
           <Route path="/payment" element={<Payment />} />
+          <Route path="/success" element={<Success />} />
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/rooms" element={<Rooms rooms={rooms} />} />

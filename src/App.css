@@ -281,3 +281,19 @@ body {
   margin: 20px;
 }
 
+.dropdown-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.select-option {
+  padding: 10px;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.selected-text {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #333;
+}

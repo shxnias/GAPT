@@ -3,6 +3,7 @@ import NavigateButton from "./NavigateButton";
 
 function GuestDetails() {
   const [formData, setFormData] = useState({
+    title: "",
     name: "",
     surname: "",
     email: "",
@@ -34,16 +35,33 @@ function GuestDetails() {
           <form className="booking-form" onSubmit={handleSubmit}>
             {/* Row 1 */}
             <div className="form-row">
-              <div className="form-group">
-                <label>Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder="Enter your name..."
-                  required
-                />
+              <div className="form-group">  
+              <label>Name</label>  
+                <div>                             
+                    <select
+                      name="title"
+                      value={formData.title}
+                      onChange={handleChange}
+                      required
+                    >
+                      <option value="">Select Title</option>
+                      <option value="Mr">Mr</option>
+                      <option value="Mrs">Mrs</option>
+                      <option value="Ms">Ms</option>
+                      <option value="Dr">Dr</option>
+                    </select>
+                    
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="Enter your name..."
+                      required
+                    />
+                    </div> 
+                  
+              
               </div>
               <div className="form-group">
                 <label>Surname</label>
@@ -83,15 +101,33 @@ function GuestDetails() {
             {/* Row 2 */}
             <div className="form-row">
               <div className="form-group">
+              
                 <label>Mobile Number</label>
-                <input
-                  type="tel"
-                  name="mobile"
-                  value={formData.mobile}
-                  onChange={handleChange}
-                  placeholder="Enter your mobile number..."
-                  required
-                />
+                <div className="mobile-number-group">
+                  {/* Phone code dropdown */}
+                  
+                  <select
+                    name="phoneCode"
+                    value={formData.phoneCode}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="">Select Country Code</option>
+                    <option value="+1">+1 (USA)</option>
+                    <option value="+44">+44 (UK)</option>
+                    <option value="+61">+61 (Australia)</option>
+                    {/* Add more country codes as needed */}
+                  </select>
+                  {/* Mobile number input */}
+                  <input
+                    type="tel"
+                    name="mobile"
+                    value={formData.mobile}
+                    onChange={handleChange}
+                    placeholder="Enter your mobile number..."
+                    required
+                  />
+                </div>
               </div>
               <div className="form-group">
                 <label>Country of Residence</label>
@@ -125,10 +161,10 @@ function GuestDetails() {
                 />
               </div>
             </div>
-            <div className="proceed">
-              <NavigateButton to="/payment" label="Next Step" />
-            </div>
           </form>
+          <div className="proceed">
+            <NavigateButton to="/payment" label="Next Step" />
+          </div>
         </div>
 
         <div className="guest-details-display">

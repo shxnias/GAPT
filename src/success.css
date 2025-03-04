@@ -1,0 +1,35 @@
+
+.thank-you-container {
+    height: 100vh; /* Full viewport height */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.8;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the entire background */
+    z-index: -1; /* Puts the image behind the content */
+  }
+  
+  .content-pane {
+    background-color: #2F3845;/* Semi-transparent background */
+    color: white;
+    padding: 30px 50px;
+    font-family: 'Playfair Display';
+    width: 100%;
+    border-radius: 10px;
+    z-index: 1; /* Ensures content is above the background image */
+  }
+
+  .divider{
+    line-height: 7px;
+    font-size: 16px;
+  }

@@ -1,0 +1,19 @@
+.search-booking{
+
+   
+    background-color:#DBCDBC;
+    gap: 10px;
+}
+
+.reference-input{
+  padding:15px;
+  display: flex;
+  flex-direction: row;
+    justify-content: space-around;
+}
+
+.input-booking{
+    width: 50%;
+    margin: 20px;
+
+}
