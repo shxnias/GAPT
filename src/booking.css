@@ -1,77 +1,85 @@
-.booking-room-card{
-    margin-bottom: 50px;
-    border: 1px solid #82684B; 
-    
+.booking-room-card {
+  margin-bottom: 50px;
+  border: 1px solid #82684b;
 }
 
-.booking-room-card img {
-    width: 60%;
-    height: 300px; 
-    object-fit: cover; 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3
-    );
-     float: right;
-  }
-  
-  .booking-room-display {
-  gap: 30px; 
+.booking-room-display img {
+  width: 60%;
+  height: 300px;
+  object-fit: cover;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  float: right;
+  border-radius: 10px;
+}
+
+.booking-room-display {
   padding: 30px;
   display: flex;
-  justify-content: flex-end;
-  background-color: #EDE6DD;
-  }
-  
-.booking-room-card img {
- 
-  object-fit: cover;
-  border-radius: 8px;
+  flex-direction: row;
+  background-color: #ede6dd;
 }
 
 .booking-room-card div {
-  flex: 1; 
+  flex: 1;
 }
 
-.booking-room-details{
-    text-align: left;
-    gap: 15px; 
-    padding-left: 15px;
-    font-size: 14px;
-    margin: 15px 0;
-    
+.booking-room-details {
+  text-align: left;
+  padding-left: 30px;
+  font-size: 14px;
+  margin: 15px 0;
 }
-  
-  .booking-room-details p svg {
-    font-size: 18px; 
-    vertical-align: middle; 
-    color: gray; 
-  }
-  
-  .room-food {
-    display: flex;
+
+/*Icons*/
+.booking-room-details svg {
+  font-size: 18px;
+  vertical-align: middle;
+  color: gray;
+}
+
+.room-food {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ede6dd;
+}
+
+.meal-options {
+  display: flex;
+  font-size: 16px;
+  border: 1px solid #82684b;
+  border-radius: 10px;
+  width: 60%;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #f1f1f1;
+  margin: 10px;
+  padding: 10px;
+}
+
+.price {
+  text-align: center;
+}
+
+.meal-title {
+  font-size: 22px;
+  font-family: Playfair Display;
+  font-weight: 100;
+}
+
+@media screen and (max-width: 768px) {
+  .booking-room-display {
     flex-direction: column;
     align-items: center;
-    background-color: #EDE6DD;
   }
-  
+
+  .booking-room-display img {
+    width: 100%;
+    float: none;
+  }
+
   .meal-options {
-    display: flex;
-    font-size: 16px;
-    border: 1px solid #82684B; 
-    width: 60%;
-    justify-content: space-around;
-    align-items: center;
-    background-color:#F1F1F1;
-    margin: 15px;
-
+    flex-direction: column;
   }
-  
-  .price {
-    text-align: center;
-  }
-  
-  .meal-title{
-    font-size: 22px;
-    font-family: Playfair Display;
-    font-weight: 100;
-
-  }
+}

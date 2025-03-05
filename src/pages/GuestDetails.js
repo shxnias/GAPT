@@ -44,7 +44,7 @@ function GuestDetails() {
                       onChange={handleChange}
                       required
                     >
-                      <option value="">Select Title</option>
+                      <option value="">Title</option>
                       <option value="Mr">Mr</option>
                       <option value="Mrs">Mrs</option>
                       <option value="Ms">Ms</option>
@@ -112,7 +112,7 @@ function GuestDetails() {
                     onChange={handleChange}
                     required
                   >
-                    <option value="">Select Country Code</option>
+                    <option value="">Country Code</option>
                     <option value="+1">+1 (USA)</option>
                     <option value="+44">+44 (UK)</option>
                     <option value="+61">+61 (Australia)</option>
@@ -162,24 +162,20 @@ function GuestDetails() {
               </div>
             </div>
           </form>
-          <div className="proceed">
-            <NavigateButton to="/payment" label="Next Step" />
-          </div>
+          
         </div>
 
         <div className="guest-details-display">
           <h3 className="subheader">Your Choices</h3>
-          <hr />
-
-          <div className="booking-details">
+          <div className="booking-details">        
+            <div className="booking-info">
+            <hr />
             <p>
               From 15th June 2025 to 21st June 2025,
               <br />
               check-out 11:00am
               <br />2 adults, 1 child
             </p>
-
-            <div className="booking-info">
               <hr />
 
               <p>Room: Standard Triple Room</p>
@@ -226,9 +222,11 @@ function GuestDetails() {
                 </li>
               </ul>
               <hr />
+              <p>Total Price: €1200</p>
             </div>
-
-            <p>Total Price: €1200</p>
+          </div>
+          <div>
+            <NavigateButton to="/payment" label="Next Step" />
           </div>
         </div>
       </div>

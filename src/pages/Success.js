@@ -1,4 +1,5 @@
 import React from 'react';
+import NavigateButton from "./NavigateButton";
 
 function Success() {
     return (
@@ -8,6 +9,9 @@ function Success() {
           <div className="divider">
           <p>Booking details will be sent through email.</p>
           <p>Reference Number:</p>
+          <div>
+            <NavigateButton to="/" label="Go to Home" />
+          </div>
           </div>
         </div>
         <img className="background" src="/hotel-pics/background.jpg" alt="hotel" />

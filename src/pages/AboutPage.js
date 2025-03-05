@@ -2,6 +2,7 @@ import React from 'react';
 import aboutImage from "../images/aboutUs.jpg";
 import storyImage from "../images/storyImage.jpg";
 import ourTeam from "../images/ourTeam.jpg";
+import NavigateButton from "./NavigateButton";
 
 function About() {
   return (
@@ -94,7 +95,9 @@ function About() {
     <br />
     Reserve your exquisite retreat today.
   </p>
-  <button className="reserve-button">Reserve Now</button>
+  <div className="proceed">
+            <NavigateButton to="/" label="Book Now" />
+          </div>
 </div>
 
 

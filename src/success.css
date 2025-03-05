@@ -25,11 +25,12 @@
     padding: 30px 50px;
     font-family: 'Playfair Display';
     width: 100%;
+
     border-radius: 10px;
     z-index: 1; /* Ensures content is above the background image */
   }
 
   .divider{
-    line-height: 7px;
+
     font-size: 16px;
   }

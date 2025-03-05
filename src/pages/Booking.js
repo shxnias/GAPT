@@ -40,7 +40,7 @@ function Booking({ rooms }) {
         {rooms.map((room) => (
           <div key={room.id} className="booking-room-card">
             <div className="booking-room-display">
-              <div className="booking-room-image">
+              <div>
                 <img src={room.image_url} alt={room.name} />
               </div>
               <div className="booking-room-details">
