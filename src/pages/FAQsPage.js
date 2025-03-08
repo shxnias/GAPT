@@ -21,7 +21,7 @@ function FAQs() {
         
         {/* Hotel FAQS */}
         <div className="faq-box">
-          <h2 className="faq-subheader">Questions Asked About the Hotel</h2>
+          <h2 className="faq-subheader">Hotel</h2>
 
           <div className="faq-item">
             <h3 className="faq-question">1. What time is check-in and check-out?</h3>
@@ -68,7 +68,7 @@ function FAQs() {
 
         {/* Transport FAQS */}
         <div className="faq-box">
-          <h2 className="faq-subheader">Questions Asked About Transport</h2>
+          <h2 className="faq-subheader">Transport</h2>
 
           <div className="faq-item">
             <h3 className="faq-question">1. Are there public buses near the hotel?</h3>
