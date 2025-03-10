@@ -37,16 +37,16 @@
 .brown-box-container {
     display: flex;
     align-items: center;
-    justify-content: center; /* Center the content */
+    justify-content: center;
     padding: 50px;
     background-color: #EDE6DD;
-    width: 95vw; /* Keep existing width */
+    width: 95vw; 
     margin: 40px auto;
     margin-left: -20px;
 }
 
 .brown-box-text {
-    max-width: 500px; /* Reduce text width */
+    max-width: 500px; 
     text-align: center;
     font-size: 25px;
     font-family: 'Playfair Display', serif;
@@ -55,24 +55,24 @@
 
 .map-container {
     display: flex;
-    width: 450px; /* Keep a proportional size */
+    width: 450px;
     height: 450px;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.25);
 }
 
 .map-container iframe {
     width: 100%;
     height: 100%;
-    border-radius: 10px; /* Optional: Aesthetic touch */
+    border-radius: 10px; 
 }
 
 
-/* Add a wrapper around text and map to center them inside the box */
 .brown-box-content {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 60px; /* Space between text and map */
-    width: 80%; /* Reduce the content width to push both more to center */
+    gap: 70px; /* Space between text and map */
+    width: 95%; /* Reduce the content width to push both more to center */
 }
 
 
@@ -84,28 +84,29 @@
 }
 
 /* Responsive Design */
+
 /* Responsive for tablet screens (between 600px - 1024px) */
 @media (max-width: 1024px) {
     .brown-box-content {
-        flex-direction: column; /* Stack map and text */
+        flex-direction: column; 
         align-items: center;
         text-align: center;
         gap: 20px;
     }
 
     .map-container {
-        width: 80%; /* Prevents squeezing */
-        max-width: 500px; /* Slightly larger on tablets */
-        height: 300px; /* Keeps good proportion */
+        width: 80%; 
+        max-width: 500px; 
+        height: 300px; 
     }
 }
 
 /* Responsive for mobile screens (below 600px) */
 @media (max-width: 600px) {
     .map-container {
-        width: 90%; /* Allow some padding from screen edges */
+        width: 90%; 
         max-width: 400px;
-        height: 250px; /* Slightly smaller height */
+        height: 250px; 
     }
 
     .brown-box-text {
@@ -231,10 +232,11 @@
     color: white;
     text-align: center;
     font-family: 'Playfair Display', serif;
-    font-size: 40px;
+    font-size: 3vw;
     font-weight: bold;
     width: 100%;
     white-space: nowrap; 
+    word-wrap: break-word;
 }
 
 .legacy-title {
@@ -274,7 +276,7 @@
     text-align: center;
     margin-left: -20px;
     margin-top: 60px;
-    width: 95vw; 
+    width: 100%; 
 }
 
 
@@ -372,6 +374,66 @@
     background-color: #1C3C75; 
 }
 
+/* Responsive Design for Tablets (600px - 1024px) */
+@media (max-width: 1024px) {
+    .story-section {
+        flex-direction: column; /* Stack text and images */
+        align-items: center;
+        text-align: center;
+        gap: 30px;
+    }
+
+    .story-text {
+        text-align: center;
+        max-width: 90%;
+    }
+
+    .story-image {
+        max-width: 90%;
+    }
+
+    .legacy-title {
+        font-size: 28px;
+    }
+
+    .legacy-text {
+        font-size: 20px;
+    }
+}
+
+/* Mobile Responsive (Below 600px) */
+@media (max-width: 600px) {
+    .story-section {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+        margin-bottom: 50px;
+    }
+
+    .story-text {
+        text-align: center;
+        max-width: 95%;
+    }
+
+    .story-image {
+        max-width: 100%;
+    }
+
+    .legacy-title {
+        font-size: 24px;
+    }
+
+    .legacy-text {
+        font-size: 18px;
+    }
+
+    .main-image-text {
+        font-size: 20px;
+    }
+
+}
+
 
 /*out facilities section*/
 
@@ -422,4 +484,55 @@
     color: #5A5A5A;
     line-height: 1.8;
     margin-bottom: 10px;
+}
+/* Responsive Design: tablet */
+@media (max-width: 1024px) {
+    .spa-content {
+        flex-direction: column; 
+        align-items: center; 
+        text-align: center;
+        gap: 20px; 
+    }
+
+    .spa-image {
+        width: 90%; 
+        max-width: 400px; 
+    }
+
+    .spa-text-box {
+        max-width: 90%; 
+    }
+}
+
+/* Responsive Design: mobile */
+@media (max-width: 600px) {
+    .spa-container {
+        padding: 30px 10px; 
+    }
+
+    .spa-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 15px; 
+    }
+
+    .spa-image {
+        width: 100%; 
+        max-width: 350px; 
+    }
+
+    .spa-text-box {
+        max-width: 95%; 
+        padding: 20px; 
+    }
+
+    .spa-title {
+        font-size: 24px; 
+    }
+
+    .spa-description p {
+        font-size: 14px; 
+        line-height: 1.6;
+    }
 }
