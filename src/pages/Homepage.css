@@ -283,6 +283,8 @@
     /* max-width: 9000px; */
     margin: auto;
     position: relative;
+    margin-bottom: 40px;
+    overflow: hidden;
   }
   
   .carousel {
@@ -299,7 +301,7 @@
   }
   
   .carousel-image {
-    width: 60%;
+    width: 150%;
     height: auto;
     object-fit: cover;
     transition: transform 0.5s ease-in-out, opacity 0.5s;
@@ -309,11 +311,13 @@
   .swiper-slide-next .carousel-image {
     transform: scale(0.8);
     opacity: 0.6;
+    z-index: 30;
   }
   
   .swiper-slide-active .carousel-image {
     transform: scale(1);
     opacity: 1;
+    z-index: 20;
   }
   
   /* Navigation button styles */
@@ -329,6 +333,36 @@
   .swiper-button-next:hover {
     background: rgba(0, 0, 0, 0.8);
   }
+
+  .left-arrow, .right-arrow{
+    position: absolute;
+    top: 50%;
+    /* transform: translateY(-50%); */
+    background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.3s ease;
+  }
+
+  /* Position left button */
+.left-arrow {
+  left: 10px;
+}
+
+/* Position right button */
+.right-arrow{
+  right: 10px;
+}
+
+/* Hover effect */
+.arrow-right:hover, .arrow-left:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
   
   /* Responsive Styles */
   @media (max-width: 768px) {

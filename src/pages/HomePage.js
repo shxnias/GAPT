@@ -215,31 +215,39 @@ function Home() {
         <NavigateIconLeft style={{ fontSize: 40}}/>
       </button> */}
       <div className="carousel-container">
+      <button className="left-arrow" onClick={prevSlide}>
+        <NavigateIconLeft style={{ fontSize: 40}}/>
+        </button>
+        <button className="right-arrow" onClick={nextSlide}>
+        <NavigateIconRight style={{ fontSize: 40}}/>
+      </button>
+    
       <Swiper
         modules={[Navigation]}
-        spaceBetween={-130} 
+        effect="slide"
+        spaceBetween={190} 
         slidesPerView={3} 
         centeredSlides={true} 
-        navigation={true} 
         loop={true} 
         breakpoints={{
           1024: { slidesPerView: 3 },  // Laptops
           768: { slidesPerView: 2 },   // Tablets
           480: { slidesPerView: 1 },   // Mobile Phones
         }}
+        navigation={{
+          prevEl: ".left-arrow", // Link custom button
+          nextEl: ".right-arrow",
+        }}
         className="carousel"
       >
         {images.map((src, index) => (
-          <SwiperSlide key={index}>
-            <img src={src} alt={`Slide ${index + 1}`} className="carousel-image" />
-          </SwiperSlide>
-        ))}
+        <SwiperSlide key={index}>
+          <img src={src} alt={`Slide ${index + 1}`} className="carousel-image" />
+        </SwiperSlide>
+      ))}
       </Swiper>
     </div>
-      {/* <button className="right-arrow" onClick={nextSlide}>
-        <NavigateIconRight style={{ fontSize: 40}}/>
-      </button>
-    </div> */}
+      
 
       {/* Hotel Rooms */}
       <div className="home-rooms-container">
