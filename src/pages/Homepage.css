@@ -20,8 +20,8 @@
 }
 
 .ai-chat-icon{
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   filter: invert(1);
 }
 .search-container {
@@ -278,90 +278,64 @@
   }
 
   /* Slideshow */ 
-  .slider-container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100vw;
-    overflow: hidden;
-    position: relative;
-    padding: 0;
-    margin-left:-20px;
-  }
-
-  .slider-wrapper{
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-    gap: 45px;
+  .carousel-container {
+    width: 100%;
+    /* max-width: 9000px; */
+    margin: auto;
     position: relative;
   }
-
   
-  /* Slideshow Image */
-  .slide{
-    flex: 10% 80% 10%;
-    width: 100vh;
-    height: auto;
-    opacity: 0.7;
-  }
-
-  .slide.active{
-    opacity: 1;
-  }
-
-  .overlay{
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+  .carousel {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    opacity: 0;
   }
-
-  .text{
-    color: white;
-    font-size: 30px;
-    text-align: center;
-    padding: 10px;
+  
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s ease-in-out;
   }
-  .slide-container:hover .slide{
-    opacity: 0.5;
+  
+  .carousel-image {
+    width: 60%;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.5s ease-in-out, opacity 0.5s;
   }
-  .slide-container:hover .overlay{
+  
+  .swiper-slide-prev .carousel-image,
+  .swiper-slide-next .carousel-image {
+    transform: scale(0.8);
+    opacity: 0.6;
+  }
+  
+  .swiper-slide-active .carousel-image {
+    transform: scale(1);
     opacity: 1;
   }
-
-  .left-arrow, .right-arrow{
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: white;
-    color: grey;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    font-size: 24px;
-    border-radius: 50%;
-    z-index: 10;
-  }
-
-  .left-arrow{
-    left: 20px;
-  }
-
-  .right-arrow{
-    right: 20px;
-  }
-
-  .left-arrow:hover, .right-arrow:hover{
-    background-color: grey;
+  
+  /* Navigation button styles */
+  .swiper-button-prev,
+  .swiper-button-next {
     color: white;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 50%;
   }
-
+  
+  .swiper-button-prev:hover,
+  .swiper-button-next:hover {
+    background: rgba(0, 0, 0, 0.8);
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .carousel-image {
+      width: 80%;
+    }
+  }
 
   /* Hotel Rooms */
   .home-rooms-container{
