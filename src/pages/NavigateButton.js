@@ -5,7 +5,7 @@ const NavigateButton = ({ to, label }) => {
 
   const handleClick = () => {
     navigate(to);
-    window.scrollTo(0, 0); 
+    window.scrollTo(0, 0);
   };
 
   return (

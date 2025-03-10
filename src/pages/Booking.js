@@ -8,7 +8,6 @@ import {
   Landscape,
 } from "@mui/icons-material";
 
-
 function Booking({ rooms }) {
   // State to track selected meal options for each room
   const [selectedMeal, setSelectedMeal] = useState({
@@ -71,9 +70,9 @@ function Booking({ rooms }) {
                   <strong>Breakfast:</strong>
                 </p>
                 <p className="price">
-                  Today's price for x nights <br />€{room.breakfast_ppd}
+                  Today's price for x nights <br/>
+                  <span className='euro'>€100{room.breakfast_ppd}</span>
                 </p>
-
                 <button
                   className={`select-button €{
                     selectedMeal.breakfast ? "selected" : ""
@@ -89,7 +88,8 @@ function Booking({ rooms }) {
                   <strong>Half-Board:</strong>
                 </p>
                 <p className="price">
-                  Today's price for x nights <br />€{room.half_board_ppd}
+                  Today's price for x nights <br />
+                  <span className='euro'>€100{room.half_board_ppd}</span>
                 </p>
                 <button
                   className={`select-button €{
@@ -106,7 +106,8 @@ function Booking({ rooms }) {
                   <strong>Full-Board:</strong>
                 </p>
                 <p className="price">
-                  Today's price for x nights <br />€{room.full_board_ppd}
+                  Today's price for x nights <br />
+                  <span className='euro'>€100{room.full_board_ppd}</span>
                 </p>
                 <button
                   className={`select-button €{

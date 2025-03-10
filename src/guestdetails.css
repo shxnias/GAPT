@@ -27,12 +27,19 @@ label {
   margin-bottom: 5px;
 }
 
-input,
-select {
+input {
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
   height: 30px;
+}
+
+select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  height: 45px;
+  width:40%;
 }
 
 .guest-details {
@@ -80,11 +87,18 @@ hr {
   width: 100%;
   border: none;
   border-top: 2px solid #82684b;
-
 }
 
 @media screen and (max-width: 768px) {
   .guest-details {
     flex-direction: column;
   }
+  .form-group {
+    
+  }
+}
+
+.payment-details-form{
+  box-shadow:rgba(0, 0, 0, 0.1);
+  margin: 30px;
 }
