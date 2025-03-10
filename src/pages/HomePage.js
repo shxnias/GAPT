@@ -17,21 +17,21 @@ import NavigateButton from "./NavigateButton";
 
 function Home() {
   // // Image slider state
-  const [index, setIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
   // const [direction, setDirection] = useState(0);
   // // Images
   const images = [
-    "/homepage images/facilities/Gym.jpg", 
-    "/homepage images/facilities/Pool.jpg", 
-    "/homepage images/facilities/Spa.jpg",
-  ]
+    {src: "/homepage images/facilities/Gym.jpg", title: "Gym", text: "Energize your body and mind in our state-of-the-art gym, designed for peak performance and ultimate comfort. Train with top-of-the-line equipment, push your limits in a dynamic environment, and stay motivated with panoramic views that inspire every workout. Whether you're lifting, running, or stretching, every session brings you closer to your fitness goals in a space built for excellence."}, 
+    {src: "/homepage images/facilities/Pool.jpg", title: "Pool Area", text: "Refresh your body and mind in our stunning outdoor pool, where crystal-clear waters invite you to unwind and recharge. Swim under the open sky, bask in the sun on plush loungers, or take a refreshing dip in an oasis of serenity and luxury. Whether you're floating peacefully or making a splash, every moment spent here is pure relaxation in a space designed for indulgence."},
+    {src: "/homepage images/facilities/Spa.jpg", title: "Spa", text: "Immerse yourself in the ultimate luxury at our stunning spa, where tranquility and indulgence blend seamlessly. Rejuvenate your senses in serene surroundings, with soothing treatments designed to pamper and refresh. Unwind in plush lounges, enjoy calming aromas, and surrender to the peaceful ambiance, making each moment feel like a true escape."},
+  ];
 
   const nextSlide = () => {
-    setIndex((prevIndex) => (prevIndex + 1) % images.length);
+    setActiveIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
   };
 
   const prevSlide = () => {
-    setIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+    setActiveIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
   };
 
 
@@ -215,39 +215,40 @@ function Home() {
         <NavigateIconLeft style={{ fontSize: 40}}/>
       </button> */}
       <div className="carousel-container">
-      <button className="left-arrow" onClick={prevSlide}>
-        <NavigateIconLeft style={{ fontSize: 40}}/>
-        </button>
-        <button className="right-arrow" onClick={nextSlide}>
-        <NavigateIconRight style={{ fontSize: 40}}/>
-      </button>
-    
-      <Swiper
-        modules={[Navigation]}
-        effect="slide"
-        spaceBetween={190} 
-        slidesPerView={3} 
-        centeredSlides={true} 
-        loop={true} 
-        breakpoints={{
-          1024: { slidesPerView: 3 },  // Laptops
-          768: { slidesPerView: 2 },   // Tablets
-          480: { slidesPerView: 1 },   // Mobile Phones
-        }}
-        navigation={{
-          prevEl: ".left-arrow", // Link custom button
-          nextEl: ".right-arrow",
-        }}
-        className="carousel"
-      >
-        {images.map((src, index) => (
-        <SwiperSlide key={index}>
-          <img src={src} alt={`Slide ${index + 1}`} className="carousel-image" />
-        </SwiperSlide>
-      ))}
-      </Swiper>
-    </div>
-      
+  <button className="left-arrow" onClick={prevSlide}>
+    <NavigateIconLeft style={{ fontSize: 40 }} />
+  </button>
+  <button className="right-arrow" onClick={nextSlide}>
+    <NavigateIconRight style={{ fontSize: 40 }} />
+  </button>
+
+  <Swiper
+    modules={[Navigation]}
+    spaceBetween={190}
+    slidesPerView={3}
+    centeredSlides={true}
+    loop={true}
+    onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+    navigation={{
+      prevEl: ".left-arrow",
+      nextEl: ".right-arrow",
+    }}
+    className="carousel"
+  >
+    {images.map((item, index) => (
+      <SwiperSlide key={index}>
+        <div className={`carousel-item ${index === activeIndex ? "active" : ""}`}>
+          <img src={item.src} alt={`Slide ${index + 1}`} className="carousel-image" />
+          <div className="overlay">
+            <h1 className="overlay-title">{item.title}</h1>
+            <div className="overlay-line"></div>
+            <p className="overlay-text">{item.text}</p>
+            </div>
+        </div>
+      </SwiperSlide>
+    ))}
+  </Swiper>
+</div>
 
       {/* Hotel Rooms */}
       <div className="home-rooms-container">
