@@ -2,19 +2,19 @@ import { useState } from "react";
 import NavigateButton from "./NavigateButton";
 
 export default function Packages() {
-    function ToggleButton() {
-      const [isSelected, setIsSelected] = useState(false);
-  
-      return (
-        <button
-          className={`select-button padding ${isSelected ? "selected" : ""}`}
-          onClick={() => setIsSelected(!isSelected)}
-        >
-          {isSelected ? "Added" : "Add"}
-        </button>
-      );
-    }
-  
+  function ToggleButton() {
+    const [isSelected, setIsSelected] = useState(false);
+
+    return (
+      <button
+        className={`select-button padding ${isSelected ? "selected" : ""}`}
+        onClick={() => setIsSelected(!isSelected)}
+      >
+        {isSelected ? "Added" : "Add"}
+      </button>
+    );
+  }
+
   return (
     <div className="main-content">
       <div className="header-container">
@@ -24,9 +24,9 @@ export default function Packages() {
           <b>2 adults, 1 child</b>
         </p>
       </div>
-     
-      <div className="go-back"> 
-      <NavigateButton  to="/booking" label="Go back" />
+
+      <div className="go-back">
+        <NavigateButton to="/booking" label="Go back" />
       </div>
       <h2 className="subheader">Enhance your stay</h2>
       <h2 className="package-type">Amenities</h2>
@@ -52,7 +52,7 @@ export default function Packages() {
 
           {/* Use ToggleButton */}
           <ToggleButton />
-            </div>
+        </div>
         <div className="amenities-card">
           <h2>Spa Access</h2>
           <img
@@ -190,17 +190,18 @@ export default function Packages() {
           </div>
           <div className="package-details">
             <p className="amenities-price">
-              For the additional price of <b>€200</b> you can get a special deal of gym for all guests, unlimited spa treatments, and free parking for one car.
+              For the additional price of <b>€200</b> you can get a special deal
+              of gym for all guests, unlimited spa treatments, and free parking
+              for one car.
             </p>
             {/* Use ToggleButton */}
-          <ToggleButton />
+            <ToggleButton />
           </div>
         </div>
       </div>
       <div className="proceed">
-      <NavigateButton to="/guestdetails" label="Next Step" />
+        <NavigateButton to="/guestdetails" label="Next Step" />
       </div>
     </div>
   );
 }
-

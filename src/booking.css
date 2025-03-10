@@ -1,6 +1,20 @@
 .booking-room-card {
-  margin-bottom: 50px;
   border: 1px solid #82684b;
+}
+
+.booking-room-container{
+  flex-direction: column;
+  display:flex;
+ gap: 30px;
+}
+
+.meal-title::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: #82684b;
+  position: relative;
 }
 
 .booking-room-display img {
@@ -42,6 +56,7 @@
   flex-direction: column;
   align-items: center;
   background-color: #ede6dd;
+  padding-bottom: 10px;
 }
 
 .meal-options {
@@ -51,6 +66,7 @@
   border-radius: 10px;
   width: 60%;
   flex-direction: row;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   justify-content: space-around;
   align-items: center;
   background-color: #f1f1f1;
@@ -62,10 +78,21 @@
   text-align: center;
 }
 
+.euro{
+  font-weight: bold;
+  font-size: 25px;
+}
+
 .meal-title {
   font-size: 22px;
   font-family: Playfair Display;
   font-weight: 100;
+  padding: 10px;
+  margin: 0;
+}
+
+.proceed {
+  padding-bottom: 30px;
 }
 
 @media screen and (max-width: 768px) {

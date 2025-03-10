@@ -1,17 +1,16 @@
-.search-booking{
-    background-color:#DBCDBC;
-    gap: 10px;
+.search-booking {
+  background-color: #dbcdbc;
+  gap: 10px;
 }
 
-.reference-input{
-  padding:15px;
+.reference-input {
+  padding: 15px;
   display: flex;
   flex-direction: row;
-    justify-content: space-around;
+  justify-content: space-around;
 }
 
-.input-booking{
-    width: 50%;
-    margin: 20px;
-
+.input-booking {
+  width: 50%;
+  margin: 20px;
 }

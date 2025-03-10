@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import NavigateButton from "./NavigateButton";
 
 function Payment() {
@@ -25,7 +25,7 @@ function Payment() {
         <p className="general-text">Go back to modify booking details</p>
       </div>
       <h2 className="subheader">Input your payment details</h2>
-      <div className="payment-details">
+      
         <div className="payment-details-form">
           <form className="booking-form" onSubmit={handleSubmit}>
             {/* Row 1 */}
@@ -88,7 +88,7 @@ function Payment() {
             </div>
           </form>
         </div>
-      </div>
+      
     </div>
   );
 }
