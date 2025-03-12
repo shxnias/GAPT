@@ -1,24 +1,46 @@
 .booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   max-width: 1000px;
   padding: 20px;
   background: #ede6dd;
   border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 5px 4px 6px rgba(0, 0, 0, 0.2);
+  margin: 0 auto; /* Centers the form horizontally */
 }
 
 .form-row {
   display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-  padding: 10px;
+  flex-direction: row;
+  gap: 20px;
+  flex-wrap: wrap; /* Allows wrapping if screen is small */
 }
 
 .form-group {
-  flex: 1;
-  min-width: 45%;
   display: flex;
   flex-direction: column;
+  width: 100%; /* Ensures the full width is used within form row */
+  flex: 1; /* Ensures that the columns flex evenly */
+
 }
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
 
 label {
   font-weight: 400;
@@ -39,12 +61,12 @@ select {
   border: 1px solid #ccc;
   border-radius: 4px;
   height: 45px;
-  width:40%;
+  
 }
 
 .guest-details {
   display: flex;
-  margin: 30px;
+  margin: 15px;
   flex-direction: row;
   gap: 30px;
 }
@@ -56,17 +78,16 @@ select {
 .guest-details-display {
   flex: 1;
   padding: 10px;
-  margin: 10px;
   background-color: #ede6dd;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .booking-details {
   display: flex;
   flex-direction: column;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .booking-info {
@@ -93,9 +114,7 @@ hr {
   .guest-details {
     flex-direction: column;
   }
-  .form-group {
-    
-  }
+ 
 }
 
 .payment-details-form{

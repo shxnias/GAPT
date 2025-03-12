@@ -1,13 +1,6 @@
-.general-text {
-  font-size: 16px;
-  font-family: "Manrope", sans-serif;
-  font-weight: 400;
-  text-align: left;
-  margin-left: 20px;
-  margin-top: 0;
-}
 
-.header-container::before,
+
+
 .header-container::after {
   content: "";
   display: block;
@@ -43,7 +36,18 @@
   color: white;
 }
 
-.go-back {
-  display: flex;
-  align-items: left;
+.go-back-link {
+  color: #007bff;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+  padding: 10px 15px; /* Adds padding around */
+  display: block; /* Ensures it takes full width and aligns left */
+  text-align: left; /* Explicitly aligns text to the left */
 }
+
+/*
+.go-back-link:hover {
+  color: #0056b3;
+  background-color: rgba(0, 123, 255, 0.1); /* Light hover effect */

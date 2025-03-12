@@ -40,7 +40,6 @@
 .booking-room-details {
   text-align: left;
   padding-left: 30px;
-  font-size: 14px;
   margin: 15px 0;
 }
 
@@ -74,6 +73,10 @@
   padding: 10px;
 }
 
+.booking-date{
+  text-align: left;
+  padding-left: 10px;
+}
 .price {
   text-align: center;
 }
@@ -84,9 +87,6 @@
 }
 
 .meal-title {
-  font-size: 22px;
-  font-family: Playfair Display;
-  font-weight: 100;
   padding: 10px;
   margin: 0;
 }

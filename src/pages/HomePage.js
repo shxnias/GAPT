@@ -161,7 +161,7 @@ function Home() {
             </div>
 
             <div>
-              <NavigateButton to="/booking" label="Search Rooms" />
+              <NavigateButton to="/booking" label="Search" />
             </div>
           </div>
         </div>
