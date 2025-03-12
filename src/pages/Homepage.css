@@ -20,12 +20,15 @@
 }
 
 .ai-chat-icon{
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   filter: invert(1);
 }
+
+/* Search Container */
 .search-container {
     position: fixed;
+    left: 0;
     z-index: 900;
     display: flex;
     width: 100%;
@@ -35,6 +38,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-left: -20px;
   }
+
   
   .search-container h1 {
     color: #484E57;
@@ -45,8 +49,11 @@
   
   .input-row {
     display: flex;
+    flex-wrap: wrap;
     gap: 20px; 
     align-items: center;
+    justify-content: center;
+    max-width: 100%;
   }
   
   /* Field Container Styling */
@@ -58,6 +65,8 @@
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     min-width: 180px;
+    flex: 1;
+    max-width: 300px;
   }
 
   .icon-container{
@@ -178,6 +187,9 @@
     font-size: 24px;
     cursor: pointer;
     height: 100%; 
+    width: 100%;
+    max-width: 250px;
+    text-align: center;
   }
   
   .search-button:hover {
@@ -188,39 +200,107 @@
   @media screen and (max-width: 768px) {
     .input-row {
       flex-direction: column; 
-      gap: 10px; 
+      align-items: center;
+      gap: 8px; 
     }
-  
+    
+    .field-container{
+      padding: 8px 12px;
+      max-width: 90%;
+      min-width: 140px;
+      max-width: 100%;
+    }
+    
     .search-button {
-      width: 100%; 
+      font-size: 18px;
+      padding: 8px 16px;
+      max-width: 200px;
     }
+
+    .search-text-container{
+      font-size: 14px;
+    }
+
+    .label{
+      font-size: 14px;
+    }
+
+    .date-picker{
+      font-size: 14px;
+      padding: 6px;
+    }
+
+    .guest-stepper{
+      gap: 6px;
+      padding: 3px 10px;
+    }
+
+    .stepper-button{
+      width: 24px;
+      height: 24px;
+      font-size: 18px;
+    }
+     .search-container{
+        position: relative;
+        padding: 10px;
+        box-shadow: none;
+      }
+    
   }
 
   .mainBanner-container{
     position: relative;
-    width:100%;
+    width:104vw;
     height:auto;
+    overflow: hidden;
     margin-left: -20px;
+    padding-bottom: 0;
   }
 
   .main-img{
-        width: 100vw; 
+        width: 104vw; 
+        height: auto;
         object-fit: cover; 
         margin: 0px;
   }
 
   .banner-text{
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-80%, -120%);
-    font-size: 20px;
-    text-align: center;
-    margin-left: -45vh;
-    margin-top: -3vh;
+    top: 10%;
+    left: 8%;
+    transform: translate(0,0);
+    margin-top: 5rem;
+    font-size: clamp(1.5rem, 2vw, 1.2rem);
+    text-align: left;
     color: white;
     font-family: 'Manrope', sans-serif;
+    max-width: 40vw;
   }
+
+  @media screen and (max-width: 1024px){
+    .banner-text{
+      top: 15%;
+      left: 5%;
+      font-size: clamp(1.2rem, 2.5vw, 2rem);
+      max-width: 50vw;
+    }
+  }
+
+  @media screen and (max-width: 768px){
+    .banner-text{
+      display: none;
+    }
+  }
+
+  /* @media screen and (max-width: 480px){
+    .banner-text{
+      top: 3%;
+      left: 5%;
+      font-size: clamp(0.3rem, 1vw, 1rem);
+      max-width:80vw;
+      text-align: left;
+    }
+  } */
 
   .aboutUs-content{
     background-color: #F3EFEA;
@@ -232,22 +312,33 @@
   }
 
   .aboutUs-title{
-    font-size: 1.875rem;
+    font-size: 3vw;
     font-family:serif;
     font-weight: 600;
     color: #484E57;
-    font-size: 40px;
+    /* font-size: 40px; */
   }
 
   .aboutUs-text{
     margin-top: 3rem;
     color: #484E57;
     line-height: 1.6;
-    font-size: 25px;
-    padding-left: 200px;
-    padding-right: 200px;
+    font-size: 1.5vw;
+    padding: 0 12%;
+    /* padding-left: 200px;
+    padding-right: 200px; */
   }
 
+  @media screen and (max-width:  1024px){
+    .aboutUs-title{
+      font-size: 1.5em;
+    }
+
+    .aboutUs-text{
+      font-size: 1em;
+      padding: 0 8%;
+    }
+  }
   /* Facilities Section */
   .facilities-container{
     text-align: center;
@@ -278,122 +369,180 @@
   }
 
   /* Slideshow */ 
-  .slider-container{
+  .carousel-container {
+    width: 100%;
+    /* max-width: 9000px; */
+    margin: auto;
+    position: relative;
+    margin-bottom: 40px;
+    overflow: hidden;
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 100vw;
-    overflow: hidden;
-    position: relative;
-    padding: 0;
-    margin-left:-20px;
   }
-
-  .slider-wrapper{
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-    gap: 45px;
-    position: relative;
-  }
-
   
-  /* Slideshow Image */
-  .slide{
-    flex: 10% 80% 10%;
-    width: 100vh;
-    height: auto;
-    opacity: 0.7;
+  .carousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s ease-in-out;
   }
 
-  .slide.active{
+  .carousel-item{
+    position:relative;
+    transition: transform 0.3s ease-in-out;
+    width: 100%;
+  }
+
+  .carousel-item.active:hover img{
+    filter:grayscale(5%) brightness(50%);
+  }
+  
+  .carousel-image {
+    width: 150%;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.5s ease-in-out, opacity 0.5s;
+  }
+  
+  .swiper-slide-prev .carousel-image,
+  .swiper-slide-next .carousel-image {
+    transform: scale(0.8);
+    opacity: 0.6;
+    z-index: 30;
+  }
+  
+  .swiper-slide-active .carousel-image {
+    transform: scale(1);
     opacity: 1;
+    z-index: 20;
   }
 
   .overlay{
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
+    position:absolute;
+    top: 10px;
+    left: 40px;
+    transform: translateX(-50%,-50%);
+    text-align: left;
+    color: white;
+    width: 100%;
+    padding: 20px;
+    /* padding: 10px 20px; */
+    /* border-radius: 5px; */
+    /* font-size: 16px; */
     opacity: 0;
+    transition: opacity 0.3s ease-in-out;
   }
 
-  .text{
-    color: white;
-    font-size: 30px;
-    text-align: center;
-    padding: 10px;
+  .overlay-title{
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 10px;
   }
-  .slide-container:hover .slide{
-    opacity: 0.5;
+
+  .overlay-line{
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    margin: 10px auto;
   }
-  .slide-container:hover .overlay{
+
+  .overlay-text{
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  .carousel-item.active:hover .overlay{
     opacity: 1;
+  }
+  
+  /* Navigation button styles */
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 50%;
+  }
+  
+  .swiper-button-prev:hover,
+  .swiper-button-next:hover {
+    background: rgba(0, 0, 0, 0.8);
   }
 
   .left-arrow, .right-arrow{
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
-    background-color: white;
-    color: grey;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    font-size: 24px;
-    border-radius: 50%;
-    z-index: 10;
+    /* transform: translateY(-50%); */
+    background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.3s ease;
   }
 
-  .left-arrow{
-    left: 20px;
-  }
+  /* Position left button */
+.left-arrow {
+  left: 10px;
+}
 
-  .right-arrow{
-    right: 20px;
-  }
+/* Position right button */
+.right-arrow{
+  right: 10px;
+}
 
-  .left-arrow:hover, .right-arrow:hover{
-    background-color: grey;
-    color: white;
+/* Hover effect */
+.arrow-right:hover, .arrow-left:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .carousel-image {
+      width: 80%;
+    }
   }
-
 
   /* Hotel Rooms */
   .home-rooms-container{
     color: #484E57;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     background-color: #F3EFEA;
-    width: 100vw;
+    width: 103vw;
     margin-left: -20px;
   }
   .home-rooms-header {
-    padding: 20px 0; 
+    padding: 3vw 0; 
     background-color: #F3EFEA;
     text-align: center; 
     width: 100%;
-    font-size: 24px;
+    font-size: 1.5vw;
   }
 
   .home-rooms-header p{
-    font-size: 24px;
-    padding-left: 400px;
-    padding-right: 400px;
+    font-size: 1.5vw;
+    padding: 0 15%;
   }
+
   .home-room-container{
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #F3EFEA;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     position: relative;
-    width: 100vw;
+    width: 103vw;
     margin-left: -20px;
   }
 
@@ -401,29 +550,32 @@
     flex: 1;
     display: flex;
     justify-content: center;
-    margin-right: 100px;
+    padding: 2vw;
   }
 
   .home-room-image img{
-    width: 900px;
+    width: 50vw;
+    max-width: 900px;
     height: auto;
   }
 
   .home-room-details{
     background-color: white;
-    padding: 30px;
+    padding: 2vw;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
-    margin-left: 60px;
-    width: 400px;
+    width: 30vw;
+    max-width: 350px;
+    /* margin-left: 60px;
+    width: 400px; */
 
     position: absolute;
-    right: 10%;
-    top: 25%;
-    transform: translate(20%);
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   .home-room-details h2 {
-    font-size: 28px;
+    font-size: 1.5vw;
     color: #484E57;
     margin-bottom: 15px;
   }
@@ -432,7 +584,7 @@
   .home-room-features {
     list-style: none;
     padding: 0;
-    font-size: 18px;
+    font-size: 1.2vw;
     color: #484E57;
   }
   
@@ -441,12 +593,12 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 18px;
+    /* font-size: 18px; */
   }
   
   /* Description */
   .home-room-details p {
-    font-size: 16px;
+    font-size: 1vw;
     color: #484E57;
     margin-top: 10px;
     line-height: 1.5;
@@ -457,7 +609,7 @@
   }
 
   .room-tab{
-    font-size: 24px;
+    font-size: 1.7vw;
     font-family: 'Playfair Display', sans-serif;
     color: #000000;
     background: none;
@@ -483,15 +635,15 @@
     background-color: #F3EFEA;
     padding-top: 2rem; 
     padding-bottom: 2rem; 
-    width: 100vw;
+    width: 103vw;
     margin-left: -20px;
   }
 
   .view-all-rooms-button{
     background-color: #254D91;
     color: white;
-    font-size: 24px;
-    padding: 10px 20px;
+    font-size: 1.5vw;
+    padding: 0.8vw 1.5vw;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -501,6 +653,85 @@
     background-color: #0056b3;
   }
 
+
+  @media screen and (max-width: 1024px){
+    .home-room-container{
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .home-room-image{
+      margin: 0 auto;
+    }
+
+    .home-room-image img{
+      width: 60vw;
+    }
+
+    .home-room-details{
+      position: relative;
+      width: 35%;
+      max-width: 400px;
+      /* margin-top: -3vw; */
+      transform: none;
+      right: auto;
+      top: auto;
+    }
+
+    .home-rooms-header p{
+      padding: 0 10%;
+      font-size: 1.3em;
+    }
+
+    .room-tab{
+      font-size: 1.3em;
+    }
+  }
+
+  @media screen and (max-width: 768px){
+    .home-rooms-header{
+      font-size: 1em;
+    }
+
+    .home-rooms-header p{
+      padding: 0 5%;
+      font-size: 0.8em;
+    }
+
+    .home-room-image img{
+      width:80vw;
+    }
+
+    .home-room-details{
+      width: 60%;
+      max-width: 80%;
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 0;
+    }
+
+    .home-room-details h2{
+      font-size: 1.1em;
+    }
+
+    .home-room-details p{
+      font-size: 0.8em;
+    }
+
+    .home-room-features{
+      font-size: 0.8em;
+    }
+
+    .view-all-rooms-button{
+      font-size: 1.2em;
+      padding: 10px 15px;
+    }
+
+    .room-tab{
+      font-size: 1.1em
+    }
+  }
 
   /* Restaurant Slideshow */
   .restaurant-slideshow-container{
@@ -536,6 +767,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: transform 0.5s ease-in-out;
   }
 
   .restaurant-slideshow img{

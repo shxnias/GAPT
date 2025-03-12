@@ -1,4 +1,9 @@
-import React, { useState } from "react";
+import React, {useState} from 'react';
+import {motion, AnimatePresence} from "framer-motion";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
 import mainBanner from "../images/mainBanner.jpg";
 import "./Homepage.css";
 import DateIcon from "@mui/icons-material/CalendarMonthOutlined";
@@ -11,33 +16,29 @@ import AIChatIcon from "@mui/icons-material/ChatOutlined";
 import NavigateButton from "./NavigateButton";
 
 function Home() {
-  // Image slider state
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  // Images
+  // // Image slider state
+  const [activeIndex, setActiveIndex] = useState(0);
+  // const [direction, setDirection] = useState(0);
+  // // Images
   const images = [
-    {
-      src: "/homepage images/facilities/Gym.jpg",
-      text: "Unleash your inner strength at our state-of-the-art gym, where cutting-edge equipment meets a motivating atmosphere. Push your limits in spacious, fully-equipped workout areas, or find your zen in our dedicated stretching and yoga zones. Whether you're lifting, running, or focusing on wellness, every moment here is designed to elevate your fitness journey in style and comfort.",
-    },
-    {
-      src: "/homepage images/facilities/Pool.jpg",
-      text: "Immerse yourself in pure relaxation at our stunning outdoor pool, where crystal-clear waters meet breathtaking surroundings. Bask in the sun on plush loungers or take a refreshing dip in an oasis of serenity and luxury.",
-    },
-    {
-      src: "/homepage images/facilities/Spa.jpg",
-      text: "Indulge in ultimate relaxation at our luxurious spa, where soothing treatments and serene surroundings create the perfect escape. Rejuvenate your body and mind with a range of therapeutic massages, facials, and wellness rituals, all designed to transport you to a state of pure tranquility. Let the calming ambiance and expert therapists restore your balance and leave you feeling refreshed, renewed, and revitalized.",
-    },
+    {src: "/homepage images/facilities/Gym.jpg", title: "Gym", text: "Energize your body and mind in our state-of-the-art gym, designed for peak performance and ultimate comfort. Train with top-of-the-line equipment, push your limits in a dynamic environment, and stay motivated with panoramic views that inspire every workout. Whether you're lifting, running, or stretching, every session brings you closer to your fitness goals in a space built for excellence."}, 
+    {src: "/homepage images/facilities/Pool.jpg", title: "Pool Area", text: "Refresh your body and mind in our stunning outdoor pool, where crystal-clear waters invite you to unwind and recharge. Swim under the open sky, bask in the sun on plush loungers, or take a refreshing dip in an oasis of serenity and luxury. Whether you're floating peacefully or making a splash, every moment spent here is pure relaxation in a space designed for indulgence."},
+    {src: "/homepage images/facilities/Spa.jpg", title: "Spa", text: "Immerse yourself in the ultimate luxury at our stunning spa, where tranquility and indulgence blend seamlessly. Rejuvenate your senses in serene surroundings, with soothing treatments designed to pamper and refresh. Unwind in plush lounges, enjoy calming aromas, and surrender to the peaceful ambiance, making each moment feel like a true escape."},
   ];
 
-  //Function to handle the previous image
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  const nextSlide = () => {
+    setActiveIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
   };
 
-  // Function to handle the next image
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  const prevSlide = () => {
+    setActiveIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
+  };
+
+
+
+  const getPosition = (i) => {
+    const diff = (i - index + images.length) % images.length;
+    return diff;
   };
 
   const rooms_home = [
@@ -198,48 +199,56 @@ function Home() {
           <br />
           <br />
         </p>
-      </div>
+    </div>
 
-      {/* Facilities Section */}
-      <div className="facilities-container">
-        <div className="facilities-header">
-          <h1>Our Facilities</h1>
-          <button className="facilities-button">Explore More</button>
+
+    {/* Facilities Section */}
+    <div className="facilities-container">
+      <div className="facilities-header">
+        <h1>Our Facilities</h1>
+        <button className="facilities-button">Explore More</button>
+      </div>
+    </div>
+
+    {/* Image Slideshow */}
+      {/* <button className="left-arrow" onClick={prevSlide}>
+        <NavigateIconLeft style={{ fontSize: 40}}/>
+      </button> */}
+      <div className="carousel-container">
+  <button className="left-arrow" onClick={prevSlide}>
+    <NavigateIconLeft style={{ fontSize: 40 }} />
+  </button>
+  <button className="right-arrow" onClick={nextSlide}>
+    <NavigateIconRight style={{ fontSize: 40 }} />
+  </button>
+
+  <Swiper
+    modules={[Navigation]}
+    spaceBetween={190}
+    slidesPerView={3}
+    centeredSlides={true}
+    loop={true}
+    onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+    navigation={{
+      prevEl: ".left-arrow",
+      nextEl: ".right-arrow",
+    }}
+    className="carousel"
+  >
+    {images.map((item, index) => (
+      <SwiperSlide key={index}>
+        <div className={`carousel-item ${index === activeIndex ? "active" : ""}`}>
+          <img src={item.src} alt={`Slide ${index + 1}`} className="carousel-image" />
+          <div className="overlay">
+            <h1 className="overlay-title">{item.title}</h1>
+            <div className="overlay-line"></div>
+            <p className="overlay-text">{item.text}</p>
+            </div>
         </div>
-      </div>
-      {/* Image Slideshow */}
-      <div className="slider-container">
-        <button className="left-arrow" onClick={prevSlide}>
-          <NavigateIconLeft style={{ fontSize: 40 }} />
-        </button>
-
-        {/* Image Slider */}
-        <div className="slider-wrapper">
-          {images.map((img, index) => {
-            // Determine class based on position
-            let position = "nextSlide";
-            if (index === currentIndex) position = "activeSlide";
-            else if (
-              index ===
-              (currentIndex - 1 + images.length) % images.length
-            )
-              position = "prevSlide";
-
-            return (
-              <div key={index} className={`slide-container ${position}`}>
-                <img src={img.src} alt={`Slide ${index}`} className="slide" />
-                <div className="overlay">
-                  <p className="text">{img.text}</p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        <button className="right-arrow" onClick={nextSlide}>
-          <NavigateIconRight style={{ fontSize: 40 }} />
-        </button>
-      </div>
+      </SwiperSlide>
+    ))}
+  </Swiper>
+</div>
 
       {/* Hotel Rooms */}
       <div className="home-rooms-container">

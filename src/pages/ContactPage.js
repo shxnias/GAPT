@@ -20,7 +20,7 @@ function Contact() {
 
       {/* Brown Box Section */}
       <div className="brown-box-container">
-        <div className="brown-box-text">
+      <div className="brown-box-content">
           <div className="map-container">
             <iframe 
               title="Google Maps Location"
@@ -33,8 +33,8 @@ function Contact() {
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
           </div>
-        </div>
-
+          
+          <div className="brown-box-text">
         <p>
           Thank you for visiting The Opulence website.
           <br /><br />
@@ -43,6 +43,8 @@ function Contact() {
           <br /><br />
           Our team is here to help before and during your stay. Reach out via phone or email, and we look forward to welcoming you.
         </p>
+        </div>
+      </div>
       </div>
 
       {/* Contact Details Section */}
