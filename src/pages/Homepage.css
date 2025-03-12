@@ -250,7 +250,7 @@
 
   .mainBanner-container{
     position: relative;
-    width:104vw;
+    width:100vw;
     height:auto;
     overflow: hidden;
     margin-left: -20px;
@@ -258,10 +258,11 @@
   }
 
   .main-img{
-        width: 104vw; 
+        width: 100vw; 
         height: auto;
         object-fit: cover; 
         margin: 0px;
+        
   }
 
   .banner-text{
@@ -304,11 +305,11 @@
 
   .aboutUs-content{
     background-color: #F3EFEA;
-    padding: 3rem 2rem;
+    padding: 3rem 1rem;
     text-align: center;
     width: 100%;
     margin: 0px;
-    margin-left: -30px;
+    margin-left: -20px;
   }
 
   .aboutUs-title{
@@ -342,6 +343,8 @@
   /* Facilities Section */
   .facilities-container{
     text-align: center;
+    width: 100%;
+    padding: 20px 5ve; 
   }
 
   .facilities-header{
@@ -350,7 +353,7 @@
     align-items: center;
     padding: 0 5vw;
     margin-bottom: 20px;
-    font-size: 24px;
+    font-size: clamp(1.2rem, 1.5vw, 32px);
     color: #484E57;
   }
 
@@ -359,13 +362,42 @@
     color: white;
     padding: 10px 20px;
     border: none;
-    font-size: 24px;
+    font-size: clamp(1rem, 1.8vw, 24px);
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.2s;
   }
 
   .facilities-button:hover{
     background-color: #153b85;
+  }
+
+  @media screen and (max-width: 500px){
+    .facilities-header{
+      flex-direction: column;
+      text-align: center;
+      gap: 10px;
+    }
+
+    .facilities-button{
+      width: 70%;
+      padding: 12px;
+    }
+  }
+
+  @media screen and (max-width: 480px){
+    .facilities-container{
+      padding: 15px;
+    }
+
+    .facilities-header{
+      font-size: 3vw;
+    }
+
+    .facilities-button{
+      font-size: 3vw;
+      padding: 10px;
+    }
   }
 
   /* Slideshow */ 
@@ -518,7 +550,7 @@
     padding: 0;
     margin: 0;
     background-color: #F3EFEA;
-    width: 103vw;
+    width: 100vw;
     margin-left: -20px;
   }
   .home-rooms-header {
@@ -526,7 +558,11 @@
     background-color: #F3EFEA;
     text-align: center; 
     width: 100%;
-    font-size: 1.5vw;
+    /* font-size: 3vw; */
+  }
+
+  .home-rooms-header h1{
+    font-size: 3vw;
   }
 
   .home-rooms-header p{
@@ -542,7 +578,7 @@
     padding: 0;
     margin: 0;
     position: relative;
-    width: 103vw;
+    width: 100vw;
     margin-left: -20px;
   }
 
@@ -635,7 +671,7 @@
     background-color: #F3EFEA;
     padding-top: 2rem; 
     padding-bottom: 2rem; 
-    width: 103vw;
+    width: 100vw;
     margin-left: -20px;
   }
 
@@ -741,26 +777,24 @@
     width: 100%;
     overflow: hidden;
     text-align: center;
+    padding: 20px;
   }
   
   .slideshow-text{
-    justify-content: flex-start;
-    flex: 1;
     text-align: left;
     margin-bottom: 20px;
-    padding-left: 20px;
     color: #484E57;
-    margin-left: 50px;
-    margin-top: 20px;
+    padding: 0 5vw;
+   
   }
 
   .slideshow-text p{
-    font-size: 40px;
+    font-size: clamp(1.5rem, 3vw, 40px); 
   }
 
   .slideshow-text h1{
-    font-size: 50px;
-    margin-bottom: 0px;
+    font-size: clamp(2rem, 4vw, 50px);
+    margin-bottom: 5px;
   }
 
   .restaurant-slideshow{
@@ -775,6 +809,61 @@
     height: auto;
     display: center;
     margin-bottom: 60px;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .left-arrow, .right-arrow {
+    position: absolute;
+    top: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .left-arrow:hover, .right-arrow:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  
+  /* Position left button */
+  .left-arrow {
+    left: 5px;
+  }
+  
+  /* Position right button */
+  .right-arrow {
+    right: 20px;
+  }
+
+  @media screen and (max-width: 480px){
+    .slideshow-text h1{
+      font-size: 1.8rem;
+    }
+
+    .slideshow-text p{
+      font-size: 1.2rem;
+    }
+
+    .restaurant-image{
+      width: 100vh;
+    }
+
+    .restaurant-image img{
+      width: 100%;
+    }
+
+    .left-arrow, .right-arrow{
+      padding: 5px;
+      font-size: 10px;
+    }
+
+    .restaurant-slideshow img{
+      width: 90%;
+    }
   }
 
   /* FAQs */

@@ -36,10 +36,10 @@ function Home() {
 
 
 
-  const getPosition = (i) => {
-    const diff = (i - index + images.length) % images.length;
-    return diff;
-  };
+  // const getPosition = (i) => {
+  //   const diff = (i - index + images.length) % images.length;
+  //   return diff;
+  // };
 
   const rooms_home = [
     { id: "single", name: "Single Room" },
