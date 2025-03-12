@@ -10,8 +10,8 @@
 .package-type {
   text-align: left;
   padding-left: 30px;
-  font-size: 30px;
   font-weight: 300;
+  text-decoration: underline;
 }
 .amenities-card {
   width: 80%;

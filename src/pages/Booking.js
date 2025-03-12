@@ -27,7 +27,7 @@ function Booking({ rooms }) {
     <div className="main-content">
       <div className="header-container">
         <h1 className="header">The Opulence Hotel</h1>
-        <p className="general-text">
+        <p className="booking-date general-text">
           From <b>15th June 2025</b> to <b>21st June 2025</b> -{" "}
           <b>2 adults, 1 child</b>
         </p>
@@ -42,7 +42,7 @@ function Booking({ rooms }) {
               <div>
                 <img src={room.image_url} alt={room.name} />
               </div>
-              <div className="booking-room-details">
+              <div className="booking-room-details general-text">
                 <h2>{room.name}</h2>
                 <p>
                   <People /> <strong>Guests:</strong> {room.guests}
@@ -66,15 +66,15 @@ function Booking({ rooms }) {
             {/* Meal Options */}
             <div className="room-food">
               <div className="meal-options">
-                <p className="meal-title">
+                <p className="meal-title subheader">
                   <strong>Breakfast:</strong>
                 </p>
-                <p className="price">
+                <p className="price general-text">
                   Today's price for x nights <br/>
                   <span className='euro'>€100{room.breakfast_ppd}</span>
                 </p>
                 <button
-                  className={`select-button €{
+                  className={`select-button ${
                     selectedMeal.breakfast ? "selected" : ""
                   }`}
                   onClick={() => handleMealSelection("breakfast")}
@@ -84,15 +84,15 @@ function Booking({ rooms }) {
               </div>
 
               <div className="meal-options">
-                <p className="meal-title">
+                <p className="meal-title subheader">
                   <strong>Half-Board:</strong>
                 </p>
-                <p className="price">
+                <p className="price general-text">
                   Today's price for x nights <br />
                   <span className='euro'>€100{room.half_board_ppd}</span>
                 </p>
                 <button
-                  className={`select-button €{
+                  className={`select-button ${
                     selectedMeal.halfBoard ? "selected" : ""
                   }`}
                   onClick={() => handleMealSelection("halfBoard")}
@@ -102,15 +102,15 @@ function Booking({ rooms }) {
               </div>
 
               <div className="meal-options">
-                <p className="meal-title">
+                <p className="meal-title subheader">
                   <strong>Full-Board:</strong>
                 </p>
-                <p className="price">
+                <p className="price general-text">
                   Today's price for x nights <br />
                   <span className='euro'>€100{room.full_board_ppd}</span>
                 </p>
                 <button
-                  className={`select-button €{
+                  className={`select-button ${
                     selectedMeal.fullBoard ? "selected" : ""
                   }`}
                   onClick={() => handleMealSelection("fullBoard")}

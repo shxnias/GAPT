@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import NavigateButton from "./NavigateButton";
 
 export default function Packages() {
+  const navigate = useNavigate();
+
   function ToggleButton() {
     const [isSelected, setIsSelected] = useState(false);
 
@@ -25,11 +28,12 @@ export default function Packages() {
         </p>
       </div>
 
-      <div className="go-back">
-        <NavigateButton to="/booking" label="Go back" />
-      </div>
+      <span className="go-back-link" onClick={() => navigate(-1)}>
+        ← Go Back
+      </span>
+
       <h2 className="subheader">Enhance your stay</h2>
-      <h2 className="package-type">Amenities</h2>
+      <h2 className="package-type subheader">Amenities</h2>
       <div className="amenities">
         <div className="amenities-card">
           <h2>24/7 Gym Access</h2>
