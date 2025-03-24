@@ -110,3 +110,7 @@
     flex-direction: column;
   }
 }
+
+.bottom-padding{
+  padding-bottom: 50px;
+}

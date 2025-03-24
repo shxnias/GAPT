@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import NavigateButton from "./NavigateButton";
+import { useNavigate } from "react-router-dom";
+import "../guestdetails.css";
 
 function Payment() {
   const [formData, setFormData] = useState({
@@ -8,6 +10,8 @@ function Payment() {
     cvv: "",
     expiryDate: "",
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -22,7 +26,9 @@ function Payment() {
     <div className="main-content">
       <div className="header-container">
         <h1 className="header">The Opulence Hotel</h1>
-        <p className="general-text">Go back to modify booking details</p>
+        <span className="go-back-link" onClick={() => navigate(-1)}>
+        ← Go Back
+      </span>
       </div>
       <h2 className="subheader">Input your payment details</h2>
       

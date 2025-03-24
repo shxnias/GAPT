@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import NavigateButton from "./NavigateButton";
+import { useNavigate } from "react-router-dom";
 import {
   KingBed,
   SingleBed,
@@ -7,6 +8,7 @@ import {
   AspectRatio,
   Landscape,
 } from "@mui/icons-material";
+import "../booking.css";
 
 function Booking({ rooms }) {
   // State to track selected meal options for each room
@@ -16,13 +18,14 @@ function Booking({ rooms }) {
     fullBoard: false,
   });
 
+  
   const handleMealSelection = (meal) => {
     setSelectedMeal((prevState) => ({
       ...prevState,
       [meal]: !prevState[meal],
     }));
   };
-
+  const navigate = useNavigate();
   return (
     <div className="main-content">
       <div className="header-container">
@@ -31,7 +34,11 @@ function Booking({ rooms }) {
           From <b>15th June 2025</b> to <b>21st June 2025</b> -{" "}
           <b>2 adults, 1 child</b>
         </p>
+    
       </div>
+      <span className="go-back-link" onClick={() => navigate(-1)}>
+        ← Go Back
+      </span>
       <div>
         <h2 className="subheader">Select a Room</h2>
       </div>
@@ -40,12 +47,12 @@ function Booking({ rooms }) {
           <div key={room.id} className="booking-room-card">
             <div className="booking-room-display">
               <div>
-                <img src={room.image_url} alt={room.name} />
+                <img src={room.image_url} alt={room.room_name} />
               </div>
               <div className="booking-room-details general-text">
-                <h2>{room.name}</h2>
+                <h2>{room.room_name}</h2>
                 <p>
-                  <People /> <strong>Guests:</strong> {room.guests}
+                  <People /> <strong>Guest Capacity:</strong> {room.capacity}
                 </p>
                 <p>
                   <SingleBed /> <strong>Single Beds:</strong> {room.single_beds}
@@ -58,7 +65,7 @@ function Booking({ rooms }) {
                   m²
                 </p>
                 <p>
-                  <Landscape /> <strong>View:</strong> {room.view_type}
+                  <Landscape /> <strong>View:</strong> {room.room_type}
                 </p>
               </div>
             </div>

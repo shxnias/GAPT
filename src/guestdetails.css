@@ -7,40 +7,32 @@
   background: #ede6dd;
   border-radius: 8px;
   box-shadow: 5px 4px 6px rgba(0, 0, 0, 0.2);
-  margin: 0 auto; /* Centers the form horizontally */
+  margin: 0 auto; 
 }
-
-.form-row {
-  display: flex;
-  flex-direction: row;
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(250px, 1fr)); 
   gap: 20px;
-  flex-wrap: wrap; /* Allows wrapping if screen is small */
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  width: 100%; /* Ensures the full width is used within form row */
-  flex: 1; /* Ensures that the columns flex evenly */
-
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  
 }
 
 .input-group {
   display: flex;
   gap: 10px;
-  width: 100%;
+  flex-wrap: wrap;
 }
 
+.input-group select,
+.input-group input {
+  flex: 1;
+  min-width: 80px; /* Prevents inputs from collapsing */
+  padding: 10px;
+  font-size: 16px;
+}
 
 label {
   font-weight: 400;
@@ -54,6 +46,7 @@ input {
   border: 1px solid #ccc;
   border-radius: 4px;
   height: 30px;
+  
 }
 
 select {
@@ -63,7 +56,6 @@ select {
   height: 45px;
   
 }
-
 .guest-details {
   display: flex;
   margin: 15px;
@@ -81,6 +73,7 @@ select {
   background-color: #ede6dd;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  margin-bottom: 15px;
 }
 
 .booking-details {
@@ -111,8 +104,29 @@ hr {
 }
 
 @media screen and (max-width: 768px) {
+
   .guest-details {
+    flex-direction: column; /* Stack guest details on smaller screens */
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr; /* Single column on mobile */
+  }
+
+  .input-group {
     flex-direction: column;
+    gap: 5px; /* Reduce gap between input fields */
+  }
+
+  .input-group select,
+  .input-group input {
+    font-size: 13px; /* Adjust font size for smaller screens */
+    padding: 7px;
+  }
+
+  .booking-form {
+    padding: 15px; /* Reduce padding on mobile */
+    gap: 8px; /* Reduce the gap between form elements */
   }
  
 }
@@ -120,4 +134,22 @@ hr {
 .payment-details-form{
   box-shadow:rgba(0, 0, 0, 0.1);
   margin: 30px;
+}
+
+@media screen and (max-width: 480px) {
+  .form-grid {
+    grid-template-columns: 1fr; /* Full width for each item */
+  }
+
+  .input-group select,
+  .input-group input {
+    font-size: 12px; /* Even smaller font size for mobile */
+    padding: 6px;
+  }
+
+  label {
+    font-size: 14px; /* Label font adjustment */
+  }
+
+  
 }

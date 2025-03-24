@@ -1,5 +1,6 @@
 import React from "react";
 import NavigateButton from "./NavigateButton";
+import "../success.css";
 
 function Success() {
   return (

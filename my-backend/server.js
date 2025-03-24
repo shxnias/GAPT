@@ -1,40 +1,21 @@
-const express = require('express');
-const { Pool } = require('pg');
-const cors = require('cors');
-require('dotenv').config();
+const express = require("express");
+const pool = require("./db");
+const cors = require("cors");
 
 const app = express();
-const port = process.env.PORT || 5000; // Use environment port or 5000
-
 app.use(cors());
 app.use(express.json());
 
-// PostgreSQL Pool Configuration
-const pool = new Pool({
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-});
-
-// Root route (added this)
-app.get('/', (req, res) => {
-  res.send('Welcome to The Opulence API');
-});
-
-// Sample Route to Fetch Data from 'Rooms' Table
-app.get('/api/rooms', async (req, res) => {
+// Sample Route to Fetch Data
+app.get("/api/rooms", async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM Rooms'); // Fetching all rooms
+    const result = await pool.query("SELECT * FROM rooms");
     res.json(result.rows);
   } catch (err) {
     console.error(err);
-    res.status(500).send('Server Error');
+    res.status(500).json({ error: "Database error" });
   }
 });
 
-// Start the Server
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-});
+const PORT = 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
