@@ -3,7 +3,8 @@
     background-color: #ffffff; 
     text-align: center;
     padding: 30px 0;
-    width: 100vw; 
+    width: 100%; 
+    overflow-x: hidden;
 }
 
 /*Contact Us Text */
@@ -13,6 +14,10 @@
     font-size: 40px;
     color: black; 
     margin: 10px 0;
+    text-align: center;
+    display: block;
+    max-width: 100%; /* Prevents overflow */
+    word-wrap: break-word; /* Ensures long words wrap */
 }
 
 /* Full-Width Lines */
@@ -28,21 +33,30 @@
     width: 100vw; 
     height: 75vh; 
     object-fit: cover; 
-    display: block; 
+    display: flex; 
     margin-left: -20px;
     margin-top: -10px;
 }
+
+@media screen and (max-width: 600px) {
+    .full-page-img {
+        width: 100%; /* Change from 100vw to 100% */
+        height: auto; /* Maintain aspect ratio */
+        object-fit: cover;
+        display: block;
+        margin: 0 auto; /* Ensures no unintended left/right margins */
+    }
+}
+
 
 /* Brown Box Section */
 .brown-box-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 50px;
     background-color: #EDE6DD;
-    width: 95vw; 
+    width: 100%; 
     margin: 40px auto;
-    margin-left: -20px;
 }
 
 .brown-box-text {
@@ -84,34 +98,43 @@
 }
 
 /* Responsive Design */
-
-/* Responsive for tablet screens (between 600px - 1024px) */
-@media (max-width: 1024px) {
+/* Ensure Map & Text Stack on Mobile */
+@media screen and (max-width: 768px) {
     .brown-box-content {
         flex-direction: column; 
         align-items: center;
         text-align: center;
-        gap: 20px;
+        width: 100%;
     }
 
     .map-container {
-        width: 80%; 
-        max-width: 500px; 
-        height: 300px; 
-    }
-}
-
-/* Responsive for mobile screens (below 600px) */
-@media (max-width: 600px) {
-    .map-container {
-        width: 90%; 
-        max-width: 400px;
-        height: 250px; 
+        width: 90%; /* Make the map fill the container */
+        height: 250px;
+        margin-top: 20px;
     }
 
     .brown-box-text {
-        max-width: 90%;
+        max-width: 90%; 
+        font-size: 25px; 
+        margin-bottom: 10px;
     }
+}
+
+.details-section {
+    padding: 20px;
+    text-align: center;
+}
+
+.details-header {
+    font-size: 30px; 
+}
+
+.details-label {
+    font-size: 22px; 
+}
+
+.details-text {
+    font-size: 18px; 
 }
 
 
@@ -163,7 +186,6 @@
     padding: 30px;
     background-color: #DBCDBC; /* Brown background */
     width: 95vw;
-    max-width: 1200px;
     margin: 40px auto;
     border-radius: 10px;
     box-sizing: border-box;
@@ -173,7 +195,6 @@
 /* Light Brown Boxes (inner boxes) */
 .faq-box {
     flex: 1;
-    min-width: 300px; /* Ensures boxes don't shrink too much */
     background-color: #EDE6DD;
     padding: 40px;
     border-radius: 5px;
@@ -216,13 +237,23 @@
     line-height: 1.8; 
 }
 
-/* About Us Section */
+@media screen and (max-width: 768px) {
+    .faq-box-container {
+        display: flex;
+        flex-direction: column; 
+        align-items: center; 
+        justify-content: center;
+        width: 95%; 
+    }
 
-.image-container {
-    position: relative; 
-    width: 100vw;
-    height: 75vh;
+    .faq-box {
+        width: 90%; 
+        max-width: 400px; 
+    }
 }
+
+
+/* About Us Section */
 
 .main-image-text {
     position: absolute;
@@ -235,8 +266,6 @@
     font-size: 3vw;
     font-weight: bold;
     width: 100%;
-    white-space: nowrap; 
-    word-wrap: break-word;
 }
 
 .legacy-title {
@@ -272,7 +301,6 @@
     display: flex;
     flex-direction: column;
     background-color: #EDE6DD; 
-    padding: 30px 30px; 
     text-align: center;
     margin-left: -20px;
     margin-top: 60px;
@@ -334,7 +362,7 @@
     max-width: 800px;
     border-radius: 5px;
     box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.25); 
-    position: relative;
+    position: flex;
 }
 
 /* Add horizontal lines */
@@ -374,64 +402,60 @@
     background-color: #1C3C75; 
 }
 
-/* Responsive Design for Tablets (600px - 1024px) */
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
     .story-section {
-        flex-direction: column; /* Stack text and images */
+        flex-direction: column; /* Stack elements on mobile */
         align-items: center;
         text-align: center;
-        gap: 30px;
-    }
-
-    .story-text {
-        text-align: center;
-        max-width: 90%;
-    }
-
-    .story-image {
-        max-width: 90%;
-    }
-
-    .legacy-title {
-        font-size: 28px;
-    }
-
-    .legacy-text {
-        font-size: 20px;
-    }
-}
-
-/* Mobile Responsive (Below 600px) */
-@media (max-width: 600px) {
-    .story-section {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 20px;
-        margin-bottom: 50px;
-    }
-
-    .story-text {
-        text-align: center;
-        max-width: 95%;
+        gap: 20px; /* Adds spacing */
     }
 
     .story-image {
         max-width: 100%;
+        margin-left: 0;
     }
 
+    .story-text {
+        text-align: center !important;
+    }
+
+    .story-text h2 {
+        text-align: center !important;
+    }
+
+    .legacy-text-container {
+        text-align: center;
+        align-items: center;
+        
+    }
+}
+
+/* Ensure Reserve Section Centers */
+@media (max-width: 768px) {
+    .reserve-container {
+        width: 90%;
+        max-width: 100%;
+        margin: 20px auto;
+    }
+}
+
+/* General Fix for Large Text */
+@media (max-width: 600px) {
     .legacy-title {
-        font-size: 24px;
+        font-size: 28px; /* Reduce font size */
     }
 
     .legacy-text {
-        font-size: 18px;
+        font-size: 20px; /* Reduce text size */
     }
 
-    .main-image-text {
-        font-size: 20px;
+    .reserve-text {
+        font-size: 22px;
     }
 
+    .spa-title {
+        font-size: 24px;
+    }
 }
 
 
@@ -441,9 +465,9 @@
     background-color: #EDE6DD; 
     padding: 50px;
     display: flex;
+    align-items: center;
     justify-content: center;
     margin-top: 30px;
-    margin-left: -20px;
 }
 
 .spa-content {
@@ -485,46 +509,25 @@
     line-height: 1.8;
     margin-bottom: 10px;
 }
-/* Responsive Design: tablet */
-@media (max-width: 1024px) {
-    .spa-content {
-        flex-direction: column; 
-        align-items: center; 
-        text-align: center;
-        gap: 20px; 
-    }
-
-    .spa-image {
-        width: 90%; 
-        max-width: 400px; 
-    }
-
-    .spa-text-box {
-        max-width: 90%; 
-    }
-}
 
 /* Responsive Design: mobile */
-@media (max-width: 600px) {
-    .spa-container {
-        padding: 30px 10px; 
-    }
+@media screen and (max-width: 600px) {
 
     .spa-content {
         flex-direction: column;
         align-items: center;
         text-align: center;
-        gap: 15px; 
+        width: 100%;
     }
 
     .spa-image {
-        width: 100%; 
-        max-width: 350px; 
+        width: 120%; 
     }
 
     .spa-text-box {
-        max-width: 95%; 
-        padding: 20px; 
+        width: 90%; /* Makes sure it doesn’t exceed the screen */
+        margin-top: 15px; /* Adjust spacing */
+        margin-left: 0px;
     }
 
     .spa-title {

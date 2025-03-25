@@ -15,12 +15,14 @@ function About() {
       </div>
 
       {/* About Us Image */}
-      <div className="image-container">
-        <img src={aboutImage} alt="AboutUs" className="full-page-img" />
+      <div>
+      <img src={aboutImage} alt="AboutUs" className="full-page-img" />
         <div className="main-image-text">
           <h1>55 Years of Excellence</h1>
         </div>
       </div>
+        
+     
 
       {/* Legacy of Excellence Section */}
       <div className="text-box-container">
