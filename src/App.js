@@ -4,6 +4,7 @@ import "./Shania.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import axios from "axios";
 
+
 // Import your components or pages
 import Booking from "./pages/Booking";
 import GuestDetails from "./pages/GuestDetails";
@@ -17,6 +18,10 @@ import Facilities from "./pages/FacilitiesPage";
 import FAQs from "./pages/FAQsPage";
 import FindBooking from "./pages/FindBooking";
 import Contact from "./pages/ContactPage";
+import Admin from "./pages/AdminPage";
+import AdminLogin from "./pages/AdminLogin";
+
+
 
 const App = () => {
 
@@ -75,6 +80,9 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/findbooking" element={<FindBooking />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/adminlogin" element={<AdminLogin />} />
+          
         </Routes>
 
         {/* Bottom Navigation */}
