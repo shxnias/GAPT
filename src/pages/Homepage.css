@@ -54,6 +54,14 @@
     align-items: center;
     justify-content: center;
     max-width: 100%;
+    flex-grow: 1;
+  }
+
+  .search-box{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
   }
   
   /* Field Container Styling */
@@ -178,8 +186,13 @@
   }
   
   /* Search Button Styling */
-  .search-button {
-    padding: 10px 20px;
+  /* .search-buttton{
+    padding-left: 20px;
+    color: red;
+  } */
+  .search-button button {
+    padding: 10px 10px;
+    /* padding-left: 20px; */
     background-color: #254D91;
     color: #ffffff;
     border: none;
@@ -196,6 +209,22 @@
     background-color: grey;
   }
   
+  .error-message-search{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: red;
+    font-size: 14px;
+    background-color: #ffe6e6;
+    /* padding: 10px; */
+    margin-top: 10px; /* Space between search box and error */
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid red;
+    width: auto;
+    min-width: 300px;
+    max-width: 80%;
+  }
   /* Responsive Design */
   @media screen and (max-width: 768px) {
     .input-row {
@@ -213,7 +242,7 @@
     
     .search-button {
       font-size: 18px;
-      padding: 8px 16px;
+      padding: 80px 16px;
       max-width: 200px;
     }
 
@@ -241,9 +270,20 @@
       font-size: 18px;
     }
      .search-container{
-        position: relative;
+        /* position: relative;
         padding: 10px;
-        box-shadow: none;
+        box-shadow: none; */
+        display: flex;
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center everything horizontally */
+    position: fixed;
+    left: 0;
+    z-index: 900;
+    width: 100%;
+    padding: 20px;
+    background-color: #AF9069;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-left: -20px;
       }
     
   }

@@ -21,13 +21,16 @@ function Home() {
   const [checkIn, setCheckIn] = useState(today);
   const [checkOut, setCheckOut] = useState("");
   const [guestCount, setGuestCount] = useState(1);
+  const [error, setError] = useState("");
 
   const handleCheckInChange = (e) =>{
     const selectedDate = e.target.value;
     setCheckIn(selectedDate);
 
     if(checkOut && selectedDate > checkOut){
-      setCheckOut("");
+      setError("Check-in date cannot be after the check-out date");
+    }else{
+      setError("");
     }
   };
 
@@ -35,8 +38,9 @@ function Home() {
     const selectedDate = e.target.value;
     if(selectedDate >= checkIn){
       setCheckOut(selectedDate);
+      setError("");
     } else {
-      alert("Check-out date must be after check-in date");
+      setError("Check-out date must be after check-in date");
     }
   };
 
@@ -53,8 +57,9 @@ function Home() {
   };
 
   const handleSearch = async () => {
+    setError("");
     if (!checkIn || !checkOut || guestCount < 1){
-      alert("Please fill in all fields before searching");
+      setError("Please fill in all fields before searching");
       return;
     }
 
@@ -68,7 +73,7 @@ function Home() {
       const data = await response.json();
 
       if(!response.ok){
-        alert(data.error);
+        setError(data.error);
       }  else{
         console.log("Search successful: ", data);
         window.location.href = "/booking";
@@ -132,9 +137,6 @@ function Home() {
       prevIndex2 === restaurant_images.length - 1 ? 0 : prevIndex2 + 1
     );
   };
-
-  // const [guestCount, setGuestCount] = useState(2); // Default: 2 guests
-
   
   const faqs = [
     {
@@ -166,68 +168,73 @@ function Home() {
       </button>
 
       <div className="search-container">
-        <div className="search-box">
-          <div className="input-row">
-            {/* Check-in Date Container */}
-            <div className="field-container">
-              <div className="icon-container">
-                <DateIcon className="search-icons" />
-              </div>
-              <div className="search-text-container">
-                <span className="label">Check-In Date:</span>
-                <input
-                  type="date"
-                  className="date-picker"
-                  min={today}
-                  value={checkIn}
-                  onChange={handleCheckInChange}
-                />
-              </div>
-            </div>
+  <div className="search-box">
+    <div className="input-row">
+      {/* Check-in Date Container */}
+      <div className="field-container">
+        <div className="icon-container">
+          <DateIcon className="search-icons" />
+        </div>
+        <div className="search-text-container">
+          <span className="label">Check-In Date:</span>
+          <input
+            type="date"
+            className="date-picker"
+            min={today}
+            value={checkIn}
+            onChange={handleCheckInChange}
+          />
+        </div>
+      </div>
 
-            {/* Check-out Date Container */}
-            <div className="field-container">
-              <div className="icon-container">
-                <DateIcon className="search-icons" />
-              </div>
-              <div className="search-text-container">
-                <span className="label">Check-out Date:</span>
-                <input 
-                  type="date" 
-                  className="date-picker"
-                  min={checkIn}
-                  value={checkOut}
-                  onChange={handleCheckOutChange}
-                  />
-              </div>
-            </div>
+      {/* Check-out Date Container */}
+      <div className="field-container">
+        <div className="icon-container">
+          <DateIcon className="search-icons" />
+        </div>
+        <div className="search-text-container">
+          <span className="label">Check-out Date:</span>
+          <input
+            type="date"
+            className="date-picker"
+            min={checkIn}
+            value={checkOut}
+            onChange={handleCheckOutChange}
+          />
+        </div>
+      </div>
 
-            {/* No. of Guests Container */}
-            <div className="field-container">
-              <div className="icon-container">
-                <Person className="search-icons" />
-              </div>
-              <div className="search-text-container">
-                <span className="label">No. of Guests:</span>
-                <div className="guest-stepper">
-                  <button className="stepper-button" onClick={decreaseGuests}>
-                    -
-                  </button>
-                  <span>{guestCount}</span>
-                  <button className="stepper-button" onClick={increaseGuests}>
-                    +
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div>
-            <button onClick={handleSearch}>Search</button>
-              {/* <NavigateButton to="/booking" label="Search" onClick={handleSearch}/> */}
-            </div>
+      {/* No. of Guests Container */}
+      <div className="field-container">
+        <div className="icon-container">
+          <Person className="search-icons" />
+        </div>
+        <div className="search-text-container">
+          <span className="label">No. of Guests:</span>
+          <div className="guest-stepper">
+            <button className="stepper-button" onClick={decreaseGuests}>
+              -
+            </button>
+            <span>{guestCount}</span>
+            <button className="stepper-button" onClick={increaseGuests}>
+              +
+            </button>
           </div>
         </div>
       </div>
+    </div>
+
+    
+
+    {/* Search Button */}
+    <div className="search-button">
+      <button onClick={handleSearch}>Search</button>
+    </div>
+  </div>
+  {/* Error Message */}
+  {error && <div className="error-message-search">{error}</div>}
+  
+</div>
 
       {/* Main Banner Image */}
       <div className="mainBanner-container">
