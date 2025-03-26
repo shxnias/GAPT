@@ -13,7 +13,7 @@ import Payment from "./pages/PaymentDetails";
 import Success from "./pages/Success";
 import Home from "./pages/HomePage";
 import About from "./pages/AboutPage";
-import Rooms from './pages/Rooms';
+import Rooms from "./pages/Rooms";
 import Facilities from "./pages/FacilitiesPage";
 import FAQs from "./pages/FAQsPage";
 import FindBooking from "./pages/FindBooking";

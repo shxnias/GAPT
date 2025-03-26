@@ -86,7 +86,7 @@ function Home() {
 
   // // Image slider state
   const [activeIndex, setActiveIndex] = useState(0);
-  // const [direction, setDirection] = useState(0);
+  
   // // Images
   const images = [
     {src: "/homepage images/facilities/Gym.jpg", title: "Gym", text: "Energize your body and mind in our state-of-the-art gym, designed for peak performance and ultimate comfort. Train with top-of-the-line equipment, push your limits in a dynamic environment, and stay motivated with panoramic views that inspire every workout. Whether you're lifting, running, or stretching, every session brings you closer to your fitness goals in a space built for excellence."}, 
@@ -101,13 +101,6 @@ function Home() {
   const prevSlide = () => {
     setActiveIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
   };
-
-
-
-  // const getPosition = (i) => {
-  //   const diff = (i - index + images.length) % images.length;
-  //   return diff;
-  // };
 
   const rooms_home = [
     { id: "single", name: "Single Room" },
@@ -137,7 +130,7 @@ function Home() {
       prevIndex2 === restaurant_images.length - 1 ? 0 : prevIndex2 + 1
     );
   };
-  
+
   const faqs = [
     {
       question: "What time is check-in and check-out?",
