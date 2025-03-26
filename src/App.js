@@ -28,7 +28,7 @@ const App = () => {
 
   const [rooms, setData] = useState([]);
   useEffect(() => {
-    axios.get('http://localhost:5000/api/rooms')
+    axios.get('http://localhost:5001/api/rooms')
       .then(response => setData(response.data))
       .catch(error => console.error(error));
   }, []);

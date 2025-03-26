@@ -16,6 +16,69 @@ import AIChatIcon from "@mui/icons-material/ChatOutlined";
 import NavigateButton from "./NavigateButton";
 
 function Home() {
+
+  const today = new Date().toISOString().split("T")[0];
+  const [checkIn, setCheckIn] = useState(today);
+  const [checkOut, setCheckOut] = useState("");
+  const [guestCount, setGuestCount] = useState(1);
+
+  const handleCheckInChange = (e) =>{
+    const selectedDate = e.target.value;
+    setCheckIn(selectedDate);
+
+    if(checkOut && selectedDate > checkOut){
+      setCheckOut("");
+    }
+  };
+
+  const handleCheckOutChange = (e) => {
+    const selectedDate = e.target.value;
+    if(selectedDate >= checkIn){
+      setCheckOut(selectedDate);
+    } else {
+      alert("Check-out date must be after check-in date");
+    }
+  };
+
+  // Function to increase guest count
+  const increaseGuests = () => {
+    setGuestCount((prev) => prev + 1);
+  };
+
+  // Function to decrease guest count (min 1)
+  const decreaseGuests = () => {
+    if (guestCount > 1) {
+      setGuestCount((prev) => Math.max(1, prev - 1));
+    }
+  };
+
+  const handleSearch = async () => {
+    if (!checkIn || !checkOut || guestCount < 1){
+      alert("Please fill in all fields before searching");
+      return;
+    }
+
+    try{
+      const response = await fetch("http://localhost:5001/api/search", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({checkIn, checkOut, guests: guestCount}),
+      });
+
+      const data = await response.json();
+
+      if(!response.ok){
+        alert(data.error);
+      }  else{
+        console.log("Search successful: ", data);
+        window.location.href = "/booking";
+      }
+    } catch (error){
+      console.log("Error:", error);
+    }
+  };
+
+
   // // Image slider state
   const [activeIndex, setActiveIndex] = useState(0);
   // const [direction, setDirection] = useState(0);
@@ -70,20 +133,9 @@ function Home() {
     );
   };
 
-  const [guestCount, setGuestCount] = useState(2); // Default: 2 guests
+  // const [guestCount, setGuestCount] = useState(2); // Default: 2 guests
 
-  // Function to increase guest count
-  const increaseGuests = () => {
-    setGuestCount((prev) => prev + 1);
-  };
-
-  // Function to decrease guest count (min 1)
-  const decreaseGuests = () => {
-    if (guestCount > 1) {
-      setGuestCount((prev) => prev - 1);
-    }
-  };
-
+  
   const faqs = [
     {
       question: "What time is check-in and check-out?",
@@ -126,7 +178,9 @@ function Home() {
                 <input
                   type="date"
                   className="date-picker"
-                  defaultValue="2025-03-16"
+                  min={today}
+                  value={checkIn}
+                  onChange={handleCheckInChange}
                 />
               </div>
             </div>
@@ -138,7 +192,13 @@ function Home() {
               </div>
               <div className="search-text-container">
                 <span className="label">Check-out Date:</span>
-                <input type="date" className="date-picker" />
+                <input 
+                  type="date" 
+                  className="date-picker"
+                  min={checkIn}
+                  value={checkOut}
+                  onChange={handleCheckOutChange}
+                  />
               </div>
             </div>
 
@@ -162,7 +222,8 @@ function Home() {
             </div>
 
             <div>
-              <NavigateButton to="/booking" label="Search" />
+            <button onClick={handleSearch}>Search</button>
+              {/* <NavigateButton to="/booking" label="Search" onClick={handleSearch}/> */}
             </div>
           </div>
         </div>
