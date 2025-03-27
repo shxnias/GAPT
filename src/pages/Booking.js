@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import NavigateButton from "./NavigateButton";
 import { useNavigate } from "react-router-dom";
+import {format} from 'date-fns';
 import {
   KingBed,
   SingleBed,
@@ -9,6 +10,7 @@ import {
   Landscape,
 } from "@mui/icons-material";
 import "../booking.css";
+import { useBooking } from "../BookingContext";
 
 function Booking({ rooms }) {
   // State to track selected meal options for each room
@@ -18,7 +20,12 @@ function Booking({ rooms }) {
     fullBoard: false,
   });
 
-  
+  // Extract dates and guest count from context
+  const{dates, guestCount} = useBooking();
+  console.log("Context Dates:", dates);
+  console.log("Guest Count:", guestCount);
+
+
   const handleMealSelection = (meal) => {
     setSelectedMeal((prevState) => ({
       ...prevState,
@@ -31,9 +38,10 @@ function Booking({ rooms }) {
       <div className="header-container">
         <h1 className="header">The Opulence Hotel</h1>
         <p className="booking-date general-text">
-          From <b>15th June 2025</b> to <b>21st June 2025</b> -{" "}
-          <b>2 adults, 1 child</b>
+        From <b>{dates.checkIn}</b> to <b>{dates.checkOut}</b> -{" "}
+          <b>{guestCount} guests</b>
         </p>
+        
     
       </div>
       <span className="go-back-link" onClick={() => navigate(-1)}>

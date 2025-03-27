@@ -184,12 +184,12 @@
     border-radius: 6px;
     cursor: pointer;
   }
+
+  .stepper-button:disabled{
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
   
-  /* Search Button Styling */
-  /* .search-buttton{
-    padding-left: 20px;
-    color: red;
-  } */
   .search-button button {
     padding: 10px 10px;
     /* padding-left: 20px; */

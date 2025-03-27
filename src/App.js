@@ -3,6 +3,8 @@ import "./App.css";
 import "./Shania.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import axios from "axios";
+import ReactDOM from "react-dom";
+import {BookingProvider} from "./BookingContext";
 
 
 // Import your components or pages
@@ -40,6 +42,7 @@ const App = () => {
 
 
   return (
+    <BookingProvider>
     <Router>
       <div className="app-container">
         {/* Top Nav Bar */}
@@ -105,6 +108,7 @@ const App = () => {
         </nav>
       </div>
     </Router>
+    </BookingProvider>
   );
 }
 

@@ -8,6 +8,14 @@
  gap: 30px;
 }
 
+.go-back-link{
+  display: inline;
+  cursor: pointer;
+  text-decoration: underline;
+  position: absolute;
+  left: 20px;
+}
+
 .meal-title::after {
   content: "";
   display: block;

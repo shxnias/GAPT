@@ -14,18 +14,24 @@ import Bed from "@mui/icons-material/SingleBed";
 import AC from "@mui/icons-material/AcUnit";
 import AIChatIcon from "@mui/icons-material/ChatOutlined";
 import NavigateButton from "./NavigateButton";
+import { useBooking } from '../BookingContext';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
 
+  const navigate = useNavigate();
+
   const today = new Date().toISOString().split("T")[0];
-  const [checkIn, setCheckIn] = useState(today);
-  const [checkOut, setCheckOut] = useState("");
-  const [guestCount, setGuestCount] = useState(1);
+  const {dates, setDates, guestCount, setGuestCount} = useBooking();
+  const [checkIn, setCheckIn] = useState(dates.checkIn || today);
+  const [checkOut, setCheckOut] = useState(dates.checkOut || "");
+  // const [guestCount, setGuestCount] = useState(1);
   const [error, setError] = useState("");
 
   const handleCheckInChange = (e) =>{
     const selectedDate = e.target.value;
     setCheckIn(selectedDate);
+    setDates((prev) => ({...prev, checkIn: selectedDate}));
 
     if(checkOut && selectedDate > checkOut){
       setError("Check-in date cannot be after the check-out date");
@@ -38,6 +44,7 @@ function Home() {
     const selectedDate = e.target.value;
     if(selectedDate >= checkIn){
       setCheckOut(selectedDate);
+      setDates((prev) => ({...prev, checkOut: selectedDate}));
       setError("");
     } else {
       setError("Check-out date must be after check-in date");
@@ -46,7 +53,7 @@ function Home() {
 
   // Function to increase guest count
   const increaseGuests = () => {
-    setGuestCount((prev) => prev + 1);
+    setGuestCount((prev) => Math.min(30, prev + 1));
   };
 
   // Function to decrease guest count (min 1)
@@ -76,7 +83,7 @@ function Home() {
         setError(data.error);
       }  else{
         console.log("Search successful: ", data);
-        window.location.href = "/booking";
+         navigate("/booking");
       }
     } catch (error){
       console.log("Error:", error);
@@ -205,11 +212,15 @@ function Home() {
         <div className="search-text-container">
           <span className="label">No. of Guests:</span>
           <div className="guest-stepper">
-            <button className="stepper-button" onClick={decreaseGuests}>
+            <button className="stepper-button" 
+            onClick={decreaseGuests} 
+            disabled={guestCount === 1}>
               -
             </button>
             <span>{guestCount}</span>
-            <button className="stepper-button" onClick={increaseGuests}>
+            <button className="stepper-button" 
+            onClick={increaseGuests}
+            disabled={guestCount === 30}>
               +
             </button>
           </div>
