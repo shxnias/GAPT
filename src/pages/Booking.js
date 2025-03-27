@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from "react";
 import NavigateButton from "./NavigateButton";
 import { useNavigate } from "react-router-dom";
-import {format} from 'date-fns';
+import {format} from "date-fns";
 import {
   KingBed,
   SingleBed,
@@ -17,10 +17,11 @@ function Booking({ rooms }) {
   // State to track selected meal options for each room
   const [selectedMeal, setSelectedMeal] = useState({
     breakfast: false,
-    halfBoard: false,
+    halfBoard: false, 
     fullBoard: false,
   });
 
+  // Store prices for each room ID
   const [totalPrices, setTotalPrices] = useState({});
 
   // Extract dates and guest count from context
@@ -32,6 +33,7 @@ function Booking({ rooms }) {
   const checkInDate = dates.checkIn ? new Date(dates.checkIn) : null;
   const checkOutDate = dates.checkOut ? new Date(dates.checkOut) : null;
 
+  // Calculate number of nights
   const nights = (checkInDate && checkOutDate) ? differenceInDays(checkOutDate, checkInDate) : 0;
 
   // Format Dates
@@ -42,11 +44,11 @@ function Booking({ rooms }) {
   useEffect(() =>{
     if(rooms && rooms.length > 0 && nights > 0){
       rooms.forEach((room) => {
-        fetch(`http://localhost:5001/api/room-price/${room.id}?nights=${nights}`)
+        fetch(`http://localhost:5001/api/room-prices/${room.id}?nights=${nights}`)
         .then((res) => res.json())
         .then((data) =>{
-          setTotalPrices((prevPrices) => ({
-            ...prevPrices, [room.id] : data.totalPrice,
+          setTotalPrices((prev) => ({
+            ...prev, [room.id] : data,
           }));
         })
         .catch((err) =>
@@ -57,9 +59,9 @@ function Booking({ rooms }) {
   }, [rooms,nights]);
 
   const handleMealSelection = (meal) => {
-    setSelectedMeal((prevState) => ({
-      ...prevState,
-      [meal]: !prevState[meal],
+    setSelectedMeal((prev) => ({
+      ...prev,
+      [meal]: !prev[meal],
     }));
   };
   const navigate = useNavigate();
@@ -117,12 +119,11 @@ function Booking({ rooms }) {
                   <strong>Breakfast:</strong>
                 </p>
                 <p className="price general-text">
-                  Today's price for {nights} nights <br/>
-                  <span className="euro">{totalPrices[room.id] ? (
-                    <>€{totalPrices[room.id]}</>
-                  ) : (
-                    "Loading..."
-                  )}
+                  Today's price for {nights} {nights === 1 ? "night" : "nights"} <br/>
+                  <span className="euro">
+                  {totalPrices[room.id]?.breakfast != null
+                      ? `€${totalPrices[room.id].breakfast}`
+                      : "Loading..."}
                   </span>
                 </p>
                 <button
@@ -140,12 +141,12 @@ function Booking({ rooms }) {
                   <strong>Half-Board:</strong>
                 </p>
                 <p className="price general-text">
-                  Today's price for {nights} nights <br />
-                  <span className="euro">{totalPrices[room.id] ? (
-                      <>€{totalPrices[room.id]}</>
-                    ) : (
-                      "Loading..."
-                    )}</span>
+                  Today's price for {nights} {nights === 1 ? "night" : "nights"} <br />
+                  <span className="euro">
+                  {totalPrices[room.id]?.halfBoard != null
+                      ? `€${totalPrices[room.id].halfBoard}`
+                      : "Loading..."}
+                    </span>
                 </p>
                 <button
                   className={`select-button ${
@@ -162,12 +163,12 @@ function Booking({ rooms }) {
                   <strong>Full-Board:</strong>
                 </p>
                 <p className="price general-text">
-                  Today's price for {nights} nights <br />
-                  <span className="euro">{totalPrices[room.id] ? (
-                      <>€{totalPrices[room.id]}</>
-                    ) : (
-                      "Loading..."
-                    )}</span>
+                  Today's price for {nights} {nights === 1 ? "night" : "nights"} <br />
+                  <span className="euro">
+                  {totalPrices[room.id]?.fullBoard != null
+                      ? `€${totalPrices[room.id].fullBoard}`
+                      : "Loading..."}
+                    </span>
                 </p>
                 <button
                   className={`select-button ${
