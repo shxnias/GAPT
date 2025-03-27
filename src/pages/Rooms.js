@@ -22,6 +22,8 @@ function Rooms({ rooms }) { // ✅ Accept rooms as a prop
               </div>
               <div className="booking-room-details general-text">
                 <h2>{room.room_name}</h2>
+                <div className="booking-room-info-with-description">
+                 <div className="booking-room-info">
                 <p>
                   <People /> <strong>Guest Capacity:</strong> {room.capacity}
                 </p>
@@ -37,6 +39,13 @@ function Rooms({ rooms }) { // ✅ Accept rooms as a prop
                 <p>
                   <Landscape /> <strong>View:</strong> {room.room_type}
                 </p>
+                </div>
+
+
+                <div className="booking-room-description-box">
+                  <p>{room.description}</p>
+                  </div>
+                 </div>
               </div>
             </div>
           </div>
