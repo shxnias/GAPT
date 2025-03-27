@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import {motion, AnimatePresence} from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -16,6 +16,14 @@ import AIChatIcon from "@mui/icons-material/ChatOutlined";
 import NavigateButton from "./NavigateButton";
 import { useBooking } from '../BookingContext';
 import { useNavigate } from 'react-router-dom';
+import People from "@mui/icons-material/People";
+import SingleBed from "@mui/icons-material/SingleBed";
+import KingBed from "@mui/icons-material/KingBed";
+import AspectRatio from "@mui/icons-material/AspectRatio";
+import Landscape from "@mui/icons-material/Landscape";
+
+
+
 
 function Home() {
 
@@ -128,6 +136,27 @@ function Home() {
   ];
 
   const [selectedRoom, setSelectedRoom] = useState("single");
+  const [roomsData, setRoomsData] = useState([]);
+  const selectedRoomData = roomsData.find(
+    (room) => room.room_name.toLowerCase().startsWith(selectedRoom)
+  );
+  
+  
+
+useEffect(() => {
+  const fetchRooms = async () => {
+    try {
+      const response = await fetch("http://localhost:5001/api/rooms");
+      const data = await response.json();
+      setRoomsData(data);
+    } catch (err) {
+      console.error("Error fetching rooms:", err);
+    }
+  };
+
+  fetchRooms();
+}, []);
+
 
   const [currentIndex2, setCurrentIndex2] = useState(0);
   const restaurant_images = [
@@ -357,36 +386,34 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className="home-room-container">
-        {/* Room Image */}
-        <div className="home-room-image">
-          <img src="/homepage images/Single Room.jpg" alt="Single Room" />
-        </div>
 
-        {/* Room Details */}
-        <div className="home-room-details">
-          <h2> Single Room</h2>
-
-          {/* Room Features */}
-          <ul className="home-room-features">
-            <li>
-              <Person /> Max 1 Guest
-            </li>
-            <li>
-              <Bed /> x1 Single Bed
-            </li>
-            <li>
-              <AC></AC> Air Conditioning
-            </li>
-          </ul>
-          {/* Room Description */}
-          <p>
-            Experience refined comfort in our Single Room. This elegantly
-            designed space features a plush single bed and modern amenities,
-            ensuring a relaxing and seamless stay in pure tranquility.
-          </p>
-        </div>
+      {selectedRoomData && (
+  <>
+    <div className="home-room-container">
+      <div className="home-room-image">
+        <img src={selectedRoomData.image_url} alt={selectedRoomData.room_name} />
       </div>
+
+      <div className="home-room-details">
+        <h2>{selectedRoomData.room_name}</h2>
+
+        <ul className="home-room-features">
+          <li><People /> Max {selectedRoomData.capacity} Guest{selectedRoomData.capacity > 1 ? "s" : ""}</li>
+          {selectedRoomData.single_beds > 0 && (
+            <li><SingleBed /> x{selectedRoomData.single_beds} Single Bed</li>
+          )}
+          {selectedRoomData.double_beds > 0 && (
+            <li><KingBed /> x{selectedRoomData.double_beds} Double Bed</li>
+          )}
+          <li><AC /> Air Conditioning</li>
+        </ul>
+
+        <p>{selectedRoomData.description || "No description available."}</p>
+      </div>
+    </div>
+  </>
+)}
+
       <div className="view-all-container">
         <button className="view-all-rooms-button"> View All Rooms</button>
       </div>
