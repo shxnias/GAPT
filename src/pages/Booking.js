@@ -25,6 +25,13 @@ function Booking({ rooms }) {
   console.log("Context Dates:", dates);
   console.log("Guest Count:", guestCount);
 
+  // Safely handle empty strings or invalid dates
+  const checkInDate = dates.checkIn ? new Date(dates.checkIn) : null;
+  const checkOutDate = dates.checkOut ? new Date(dates.checkOut) : null;
+
+  // Format Dates
+  const formattedCheckIn = checkInDate ? format(checkInDate, "dd MMM yyyy") : "";
+  const formattedCheckOut = checkOutDate ? format(checkOutDate, "dd MMM yyyy") : "";
 
   const handleMealSelection = (meal) => {
     setSelectedMeal((prevState) => ({
@@ -33,12 +40,14 @@ function Booking({ rooms }) {
     }));
   };
   const navigate = useNavigate();
+
+
   return (
     <div className="main-content">
       <div className="header-container">
         <h1 className="header">The Opulence Hotel</h1>
         <p className="booking-date general-text">
-        From <b>{dates.checkIn}</b> to <b>{dates.checkOut}</b> -{" "}
+        From <b>{formattedCheckIn}</b> to <b>{formattedCheckOut}</b> -{" "}
           <b>{guestCount} guests</b>
         </p>
         

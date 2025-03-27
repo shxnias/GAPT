@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {motion, AnimatePresence} from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -21,12 +21,23 @@ function Home() {
 
   const navigate = useNavigate();
 
+  // const {dates, setDates} = useBooking();
   const today = new Date().toISOString().split("T")[0];
   const {dates, setDates, guestCount, setGuestCount} = useBooking();
   const [checkIn, setCheckIn] = useState(dates.checkIn || today);
   const [checkOut, setCheckOut] = useState(dates.checkOut || "");
   // const [guestCount, setGuestCount] = useState(1);
   const [error, setError] = useState("");
+
+  // useEffect(() =>{
+  //   if(!dates.checkIn){
+  //     setDates((prev) => ({...prev, checkIn}));
+  //   }
+  //   if (!dates.checkOut) {
+  //     setDates((prev) => ({ ...prev, checkOut }));
+  //   }
+  // }, [dates, checkIn, checkOut, setDates]);
+
 
   const handleCheckInChange = (e) =>{
     const selectedDate = e.target.value;
