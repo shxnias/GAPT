@@ -56,6 +56,32 @@ app.get("/api/rooms", async (req, res) => {
   }
 });
 
+app.get("/api/room-price/:roomId", async (req, res) => {
+  try{
+    const {roomId} = req.params;
+    const nights = Number(req.query.nights) || 1;
+    const queryText=`
+      SELECT total_price
+      FROM room_board_prices
+      WHERE room_id = $1
+      LIMIT 1
+    `;
+    const {rows} = await pool.query(queryText, [roomId]);
+
+    // If no result, send 404
+    if (rows.length === 0){
+      return res.status(404).json({error: "No price for this room"});
+    }
+
+    const pricePerNight = rows[0].total_price;
+    const totalPrice = pricePerNight * nights;
+    return res.json({totalPrice});
+  } catch (error){
+    console.error("Error fetching room price:", error);
+    return res.status(500).json({error: "Server error"});
+  }
+});
+
 
 // Login route
 const ADMIN_PASSWORD = 'pizzadog'; //password
