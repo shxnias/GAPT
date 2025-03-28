@@ -51,6 +51,18 @@
   margin: 15px 0;
 }
 
+.select-button.greyed-out{
+  background-color: #ccc;
+  color: #888;
+  cursor: not-allowed;
+}
+
+.error-message{
+  color: red;
+  font-size: 16px;
+  margin: 10px 0;
+  text-align: center;
+}
 /*Icons*/
 .booking-room-details svg {
   font-size: 18px;

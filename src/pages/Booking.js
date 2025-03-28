@@ -1,7 +1,7 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import NavigateButton from "./NavigateButton";
 import { useNavigate } from "react-router-dom";
-import {format} from "date-fns";
+import { format } from "date-fns";
 import {
   KingBed,
   SingleBed,
@@ -14,70 +14,69 @@ import { useBooking } from "../BookingContext";
 import { differenceInDays } from "date-fns";
 
 function Booking({ rooms }) {
-  // State to track selected meal options for each room
-  const [selectedMeal, setSelectedMeal] = useState({
-    breakfast: false,
-    halfBoard: false, 
-    fullBoard: false,
-  });
-
+  // Global meal selection state and error message state
+  const [selectedMeal, setSelectedMeal] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  
   // Store prices for each room ID
   const [totalPrices, setTotalPrices] = useState({});
 
-  // Extract dates and guest count from context
-  const{dates, guestCount} = useBooking();
-  console.log("Context Dates:", dates);
-  console.log("Guest Count:", guestCount);
+  const { dates, guestCount } = useBooking();
 
-  // Safely handle empty strings or invalid dates
   const checkInDate = dates.checkIn ? new Date(dates.checkIn) : null;
   const checkOutDate = dates.checkOut ? new Date(dates.checkOut) : null;
+  const nights = (checkInDate && checkOutDate)
+    ? differenceInDays(checkOutDate, checkInDate)
+    : 0;
 
-  // Calculate number of nights
-  const nights = (checkInDate && checkOutDate) ? differenceInDays(checkOutDate, checkInDate) : 0;
-
-  // Format Dates
   const formattedCheckIn = checkInDate ? format(checkInDate, "dd MMM yyyy") : "";
   const formattedCheckOut = checkOutDate ? format(checkOutDate, "dd MMM yyyy") : "";
 
-  // Fetch total price for each room from the server
-  useEffect(() =>{
-    if(rooms && rooms.length > 0 && nights > 0){
+  useEffect(() => {
+    if (rooms && rooms.length > 0 && nights > 0) {
       rooms.forEach((room) => {
         fetch(`http://localhost:5001/api/room-prices/${room.id}?nights=${nights}`)
-        .then((res) => res.json())
-        .then((data) =>{
-          setTotalPrices((prev) => ({
-            ...prev, [room.id] : data,
-          }));
-        })
-        .catch((err) =>
-        console.error(`Error fetching price for room ${room.id}:`, err)
-        );
+          .then((res) => res.json())
+          .then((data) => {
+            setTotalPrices((prev) => ({
+              ...prev,
+              [room.id]: data,
+            }));
+          })
+          .catch((err) =>
+            console.error(`Error fetching price for room ${room.id}:`, err)
+          );
       });
     }
-  }, [rooms,nights]);
+  }, [rooms, nights]);
 
+  // Handler for meal selection.
   const handleMealSelection = (meal) => {
-    setSelectedMeal((prev) => ({
-      ...prev,
-      [meal]: !prev[meal],
-    }));
+    if (selectedMeal === "" || selectedMeal === meal) {
+      // Toggle the selection on or off
+      setSelectedMeal(selectedMeal === meal ? "" : meal);
+      setErrorMsg("");
+    } else {
+      // If a meal is already selected and the user tries to select a different one,
+      // show an error message.
+      setErrorMsg("You cannot choose different meal options for different rooms.");
+    }
   };
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
 
   return (
     <div className="main-content">
       <div className="header-container">
         <h1 className="header">The Opulence Hotel</h1>
         <p className="booking-date general-text">
-        From <b>{formattedCheckIn}</b> to <b>{formattedCheckOut}</b> -{" "}
-          <b>{guestCount} guests</b>
+          From <b>{formattedCheckIn}</b> to <b>{formattedCheckOut}</b> - <b>{guestCount} guests</b>
         </p>
-        
-    
       </div>
+
+      {/* Display error message if present */}
+      {errorMsg && <div className="error-message">{errorMsg}</div>}
+
       <span className="go-back-link" onClick={() => navigate(-1)}>
         ← Go Back
       </span>
@@ -103,8 +102,7 @@ function Booking({ rooms }) {
                   <KingBed /> <strong>Double Beds:</strong> {room.double_beds}
                 </p>
                 <p>
-                  <AspectRatio /> <strong>Area Space:</strong> {room.area_space}{" "}
-                  m²
+                  <AspectRatio /> <strong>Area Space:</strong> {room.area_space} m²
                 </p>
                 <p>
                   <Landscape /> <strong>View:</strong> {room.room_type}
@@ -119,20 +117,20 @@ function Booking({ rooms }) {
                   <strong>Breakfast:</strong>
                 </p>
                 <p className="price general-text">
-                  Today's price for {nights} {nights === 1 ? "night" : "nights"} <br/>
+                  Today's price for {nights} {nights === 1 ? "night" : "nights"} <br />
                   <span className="euro">
-                  {totalPrices[room.id]?.breakfast != null
+                    {totalPrices[room.id]?.breakfast != null
                       ? `€${totalPrices[room.id].breakfast}`
                       : "Loading..."}
                   </span>
                 </p>
                 <button
                   className={`select-button ${
-                    selectedMeal.breakfast ? "selected" : ""
-                  }`}
+                    selectedMeal !== "" && selectedMeal !== "breakfast" ? "greyed-out" : ""
+                  } ${selectedMeal === "breakfast" ? "selected" : ""}`}
                   onClick={() => handleMealSelection("breakfast")}
                 >
-                  {selectedMeal.breakfast ? "Selected" : "Select"}
+                  {selectedMeal === "breakfast" ? "Selected" : "Select"}
                 </button>
               </div>
 
@@ -143,18 +141,18 @@ function Booking({ rooms }) {
                 <p className="price general-text">
                   Today's price for {nights} {nights === 1 ? "night" : "nights"} <br />
                   <span className="euro">
-                  {totalPrices[room.id]?.halfBoard != null
+                    {totalPrices[room.id]?.halfBoard != null
                       ? `€${totalPrices[room.id].halfBoard}`
                       : "Loading..."}
-                    </span>
+                  </span>
                 </p>
                 <button
                   className={`select-button ${
-                    selectedMeal.halfBoard ? "selected" : ""
-                  }`}
+                    selectedMeal !== "" && selectedMeal !== "halfBoard" ? "greyed-out" : ""
+                  } ${selectedMeal === "halfBoard" ? "selected" : ""}`}
                   onClick={() => handleMealSelection("halfBoard")}
                 >
-                  {selectedMeal.halfBoard ? "Selected" : "Select"}
+                  {selectedMeal === "halfBoard" ? "Selected" : "Select"}
                 </button>
               </div>
 
@@ -165,18 +163,18 @@ function Booking({ rooms }) {
                 <p className="price general-text">
                   Today's price for {nights} {nights === 1 ? "night" : "nights"} <br />
                   <span className="euro">
-                  {totalPrices[room.id]?.fullBoard != null
+                    {totalPrices[room.id]?.fullBoard != null
                       ? `€${totalPrices[room.id].fullBoard}`
                       : "Loading..."}
-                    </span>
+                  </span>
                 </p>
                 <button
                   className={`select-button ${
-                    selectedMeal.fullBoard ? "selected" : ""
-                  }`}
+                    selectedMeal !== "" && selectedMeal !== "fullBoard" ? "greyed-out" : ""
+                  } ${selectedMeal === "fullBoard" ? "selected" : ""}`}
                   onClick={() => handleMealSelection("fullBoard")}
                 >
-                  {selectedMeal.fullBoard ? "Selected" : "Select"}
+                  {selectedMeal === "fullBoard" ? "Selected" : "Select"}
                 </button>
               </div>
             </div>
