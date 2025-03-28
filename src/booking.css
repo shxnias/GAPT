@@ -16,6 +16,18 @@
   left: 20px;
 }
 
+.room-quantity{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.room-quantity button{
+  padding: 5px 10px;
+  margin: 0 5px;
+}
+
 .meal-title::after {
   content: "";
   display: block;
@@ -60,7 +72,7 @@
 .error-message{
   color: red;
   font-size: 16px;
-  margin: 10px 0;
+  /* margin: 10px 0; */
   text-align: center;
 }
 /*Icons*/
@@ -113,6 +125,21 @@
 
 .proceed {
   padding-bottom: 30px;
+}
+
+.proceed button{
+  padding: 10px 10px;
+    background-color: #254D91;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 24px;
+    cursor: pointer;
+    height: 100%; 
+    width: 100%;
+    max-width: 250px;
+    text-align: center;
+    /* padding-top: -20px; */
 }
 
 @media screen and (max-width: 768px) {
