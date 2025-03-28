@@ -21,7 +21,8 @@ function AdminLogin() {
   };
 
   return (
-    <div className="main-content">
+    <div className="admin-login-container">
+      <div className="login-box">
       <h2>Admin Login</h2>
       <input
         type="password"
@@ -31,6 +32,7 @@ function AdminLogin() {
       />
       <button onClick={handleLogin}>Login</button>
       {error && <p style={{ color: "red" }}>{error}</p>}
+    </div>
     </div>
   );
 }
