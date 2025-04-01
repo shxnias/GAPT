@@ -22,6 +22,7 @@ import FindBooking from "./pages/FindBooking";
 import Contact from "./pages/ContactPage";
 import Admin from "./pages/AdminPage";
 import AdminLogin from "./pages/AdminLogin";
+import Page404 from "./pages/Page404";
 
 
 
@@ -85,6 +86,7 @@ const App = () => {
           <Route path="/findbooking" element={<FindBooking />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/adminlogin" element={<AdminLogin />} />
+          <Route path="*" element={<Page404 />}/>
           
         </Routes>
 
