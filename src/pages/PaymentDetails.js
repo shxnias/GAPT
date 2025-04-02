@@ -36,6 +36,7 @@ function Payment() {
           <form className="booking-form" onSubmit={handleSubmit}>
             {/* Row 1 */}
             <div className="form-row">
+              <h2 className='payment-amount'>Payment Amount: 12345 </h2>
               <div className="form-group">
                 <label>Cardholder Name</label>
                 <input

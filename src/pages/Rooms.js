@@ -8,7 +8,7 @@ import {
   Landscape,
 } from "@mui/icons-material";
 
-function Rooms({ rooms }) { // ✅ Accept rooms as a prop
+function Rooms({ rooms }) { 
   return (
     <div className="main-content">
       <h1>Our Rooms</h1>

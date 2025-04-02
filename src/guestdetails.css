@@ -153,3 +153,9 @@ hr {
 
   
 }
+
+.payment-amount{
+  text-align: left;
+  font-weight: 500;
+  padding: 10px;
+}
