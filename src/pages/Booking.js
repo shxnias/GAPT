@@ -30,16 +30,24 @@ function Booking({ rooms }) {
   const checkInDate = dates.checkIn ? new Date(dates.checkIn) : null;
   const checkOutDate = dates.checkOut ? new Date(dates.checkOut) : null;
   const nights =
-    checkInDate && checkOutDate ? differenceInDays(checkOutDate, checkInDate) : 0;
+    checkInDate && checkOutDate
+      ? differenceInDays(checkOutDate, checkInDate)
+      : 0;
 
-  const formattedCheckIn = checkInDate ? format(checkInDate, "dd MMM yyyy") : "";
-  const formattedCheckOut = checkOutDate ? format(checkOutDate, "dd MMM yyyy") : "";
+  const formattedCheckIn = checkInDate
+    ? format(checkInDate, "dd MMM yyyy")
+    : "";
+  const formattedCheckOut = checkOutDate
+    ? format(checkOutDate, "dd MMM yyyy")
+    : "";
 
   // Fetch total prices for each room from the server
   useEffect(() => {
     if (rooms && rooms.length > 0 && nights > 0) {
       rooms.forEach((room) => {
-        fetch(`http://localhost:5001/api/room-prices/${room.id}?nights=${nights}`)
+        fetch(
+          `http://localhost:5001/api/room-prices/${room.id}?nights=${nights}`
+        )
           .then((res) => res.json())
           .then((data) => {
             setTotalPrices((prev) => ({
@@ -60,7 +68,9 @@ function Booking({ rooms }) {
       setSelectedMeal(selectedMeal === meal ? "" : meal);
       setMealErrorMsg("");
     } else {
-      setMealErrorMsg("You cannot choose different meal options for different rooms.");
+      setMealErrorMsg(
+        "You cannot choose different meal options for different rooms."
+      );
     }
   };
 
@@ -145,13 +155,15 @@ function Booking({ rooms }) {
                     <People /> <strong>Guest Capacity:</strong> {room.capacity}
                   </p>
                   <p>
-                    <SingleBed /> <strong>Single Beds:</strong> {room.single_beds}
+                    <SingleBed /> <strong>Single Beds:</strong>{" "}
+                    {room.single_beds}
                   </p>
                   <p>
                     <KingBed /> <strong>Double Beds:</strong> {room.double_beds}
                   </p>
                   <p>
-                    <AspectRatio /> <strong>Area Space:</strong> {room.area_space} m²
+                    <AspectRatio /> <strong>Area Space:</strong>{" "}
+                    {room.area_space} m²
                   </p>
                   <p>
                     <Landscape /> <strong>View:</strong> {room.room_type}
@@ -185,7 +197,8 @@ function Booking({ rooms }) {
                     <strong>Breakfast:</strong>
                   </p>
                   <p className="price general-text">
-                    Today's price for {nights} {nights === 1 ? "night" : "nights"} <br />
+                    Today's price for {nights}{" "}
+                    {nights === 1 ? "night" : "nights"} <br />
                     <span className="euro">
                       {totalPrices[room.id]?.breakfast != null
                         ? `€${totalPrices[room.id].breakfast}`
@@ -209,7 +222,8 @@ function Booking({ rooms }) {
                     <strong>Half-Board:</strong>
                   </p>
                   <p className="price general-text">
-                    Today's price for {nights} {nights === 1 ? "night" : "nights"} <br />
+                    Today's price for {nights}{" "}
+                    {nights === 1 ? "night" : "nights"} <br />
                     <span className="euro">
                       {totalPrices[room.id]?.halfBoard != null
                         ? `€${totalPrices[room.id].halfBoard}`
@@ -233,7 +247,8 @@ function Booking({ rooms }) {
                     <strong>Full-Board:</strong>
                   </p>
                   <p className="price general-text">
-                    Today's price for {nights} {nights === 1 ? "night" : "nights"} <br />
+                    Today's price for {nights}{" "}
+                    {nights === 1 ? "night" : "nights"} <br />
                     <span className="euro">
                       {totalPrices[room.id]?.fullBoard != null
                         ? `€${totalPrices[room.id].fullBoard}`

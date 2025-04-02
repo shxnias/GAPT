@@ -11,7 +11,9 @@ function AdminLogin() {
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post("http://localhost:5001/api/login", { password });
+      const res = await axios.post("http://localhost:5001/api/login", {
+        password,
+      });
       if (res.data.success) {
         navigate("/admin"); // goes to admin page if login is successful
       }
@@ -23,16 +25,16 @@ function AdminLogin() {
   return (
     <div className="admin-login-container">
       <div className="login-box">
-      <h2>Admin Login</h2>
-      <input
-        type="password"
-        placeholder="Enter Admin Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleLogin}>Login</button>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </div>
+        <h2>Admin Login</h2>
+        <input
+          type="password"
+          placeholder="Enter Admin Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button onClick={handleLogin}>Login</button>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+      </div>
     </div>
   );
 }

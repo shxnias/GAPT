@@ -2,13 +2,13 @@
   border: 1px solid #82684b;
 }
 
-.booking-room-container{
+.booking-room-container {
   flex-direction: column;
-  display:flex;
- gap: 30px;
+  display: flex;
+  gap: 30px;
 }
 
-.go-back-link{
+.go-back-link {
   display: inline;
   cursor: pointer;
   text-decoration: underline;
@@ -16,14 +16,14 @@
   left: 20px;
 }
 
-.room-quantity{
+.room-quantity {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 10px 0;
 }
 
-.room-quantity button{
+.room-quantity button {
   padding: 5px 10px;
   margin: 0 5px;
 }
@@ -63,13 +63,13 @@
   margin: 15px 0;
 }
 
-.select-button.greyed-out{
+.select-button.greyed-out {
   background-color: #ccc;
   color: #888;
   cursor: not-allowed;
 }
 
-.error-message{
+.error-message {
   color: red;
   font-size: 16px;
   /* margin: 10px 0; */
@@ -105,7 +105,7 @@
   padding: 10px;
 }
 
-.booking-date{
+.booking-date {
   text-align: left;
   padding-left: 10px;
 }
@@ -113,7 +113,7 @@
   text-align: center;
 }
 
-.euro{
+.euro {
   font-weight: bold;
   font-size: 25px;
 }
@@ -127,19 +127,19 @@
   padding-bottom: 30px;
 }
 
-.proceed button{
+.proceed button {
   padding: 10px 10px;
-    background-color: #254D91;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    font-size: 24px;
-    cursor: pointer;
-    height: 100%; 
-    width: 100%;
-    max-width: 250px;
-    text-align: center;
-    /* padding-top: -20px; */
+  background-color: #254d91;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-size: 24px;
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+  max-width: 250px;
+  text-align: center;
+  /* padding-top: -20px; */
 }
 
 @media screen and (max-width: 768px) {
@@ -158,10 +158,9 @@
   }
 }
 
-.bottom-padding{
+.bottom-padding {
   padding-bottom: 50px;
 }
-
 
 /* Our Rooms section*/
 
@@ -202,4 +201,3 @@
     margin-top: 16px;
   }
 }
-

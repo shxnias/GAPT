@@ -39,7 +39,8 @@ function GuestDetails() {
     if (!formData.name) {
       newErrors.name = "Name is required.";
     } else if (!nameRegex.test(formData.name)) {
-      newErrors.name = "Name can only include letters, spaces, apostrophes or hyphens.";
+      newErrors.name =
+        "Name can only include letters, spaces, apostrophes or hyphens.";
     } else if (formData.name.length > 50) {
       newErrors.name = "Name must be less than 50 characters.";
     }
@@ -47,7 +48,8 @@ function GuestDetails() {
     if (!formData.surname) {
       newErrors.surname = "Surname is required.";
     } else if (!nameRegex.test(formData.surname)) {
-      newErrors.surname = "Surname can only include letters, spaces, apostrophes or hyphens.";
+      newErrors.surname =
+        "Surname can only include letters, spaces, apostrophes or hyphens.";
     } else if (formData.surname.length > 50) {
       newErrors.surname = "Surname must be less than 50 characters.";
     }
@@ -71,7 +73,8 @@ function GuestDetails() {
     if (!formData.mobile) {
       newErrors.mobile = "Mobile number is required.";
     } else if (!phoneRegex.test(formData.mobile)) {
-      newErrors.mobile = "Mobile number can only include numbers, spaces, or dashes.";
+      newErrors.mobile =
+        "Mobile number can only include numbers, spaces, or dashes.";
     } else if (formData.mobile.replace(/\D/g, "").length < 7) {
       newErrors.mobile = "Mobile number seems too short.";
     }
@@ -85,7 +88,8 @@ function GuestDetails() {
     }
 
     if (formData.specialRequests && formData.specialRequests.length > 500) {
-      newErrors.specialRequests = "Special requests must be less than 500 characters.";
+      newErrors.specialRequests =
+        "Special requests must be less than 500 characters.";
     }
 
     return newErrors;
@@ -160,7 +164,9 @@ function GuestDetails() {
                     placeholder="Enter your surname..."
                     required
                   />
-                  {errors.surname && <div className="error">{errors.surname}</div>}
+                  {errors.surname && (
+                    <div className="error">{errors.surname}</div>
+                  )}
                 </div>
 
                 {/* Email & Verify Email */}
@@ -221,7 +227,9 @@ function GuestDetails() {
                   {errors.phoneCode && (
                     <div className="error">{errors.phoneCode}</div>
                   )}
-                  {errors.mobile && <div className="error">{errors.mobile}</div>}
+                  {errors.mobile && (
+                    <div className="error">{errors.mobile}</div>
+                  )}
                 </div>
 
                 {/* Country of Residence */}
@@ -240,7 +248,9 @@ function GuestDetails() {
                       </option>
                     ))}
                   </select>
-                  {errors.country && <div className="error">{errors.country}</div>}
+                  {errors.country && (
+                    <div className="error">{errors.country}</div>
+                  )}
                 </div>
 
                 {/* Check-in Time */}
@@ -275,9 +285,7 @@ function GuestDetails() {
               </div>
             </div>
             {/* Next Step button without disabled attribute */}
-            <button type="submit">
-              Next Step
-            </button>
+            <button type="submit">Next Step</button>
           </form>
         </div>
 
@@ -290,8 +298,7 @@ function GuestDetails() {
                 From 15th June 2025 to 21st June 2025,
                 <br />
                 check-out 11:00am
-                <br />
-                2 adults, 1 child
+                <br />2 adults, 1 child
               </p>
               <hr />
               <p>Room: Standard Triple Room</p>

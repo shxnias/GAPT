@@ -172,7 +172,7 @@ app.get("/api/booking", async (req, res) => {
         b.reference_number, b.num_guests, b.start_date, b.end_date, 
         g.email, g.name, g.surname, g.check_in_time
     `;
-    
+
     const result = await pool.query(query, [email, reference]);
 
     if (result.rows.length === 0) {
@@ -185,7 +185,6 @@ app.get("/api/booking", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
-
 
 const PORT = 5001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
