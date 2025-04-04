@@ -95,8 +95,7 @@ function GuestDetails() {
     return newErrors;
   };
 
-  // Compute form validity each render
-  const isFormValid = Object.keys(validate()).length === 0;
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -126,7 +125,7 @@ function GuestDetails() {
               <div className="form-grid">
                 {/* First Row (Title & Name on the same line) */}
                 <div className="form-group">
-                  <label>Name</label>
+                  <label>Name <span style={{ color: 'red' }}>*</span></label>
                   <div className="input-group">
                     <select
                       name="title"
@@ -155,7 +154,7 @@ function GuestDetails() {
 
                 {/* Surname */}
                 <div className="form-group">
-                  <label>Surname</label>
+                  <label>Surname <span style={{ color: 'red' }}>*</span></label>
                   <input
                     type="text"
                     name="surname"
@@ -171,7 +170,7 @@ function GuestDetails() {
 
                 {/* Email & Verify Email */}
                 <div className="form-group">
-                  <label>Email</label>
+                  <label>Email <span style={{ color: 'red' }}>*</span> </label>
                   <input
                     type="email"
                     name="email"
@@ -184,7 +183,7 @@ function GuestDetails() {
                 </div>
 
                 <div className="form-group">
-                  <label>Verify Email</label>
+                  <label>Verify Email <span style={{ color: 'red' }}>*</span></label>
                   <input
                     type="email"
                     name="verifyEmail"
@@ -200,7 +199,7 @@ function GuestDetails() {
 
                 {/* Mobile Number */}
                 <div className="form-group">
-                  <label>Mobile Number</label>
+                  <label>Mobile Number <span style={{ color: 'red' }}>*</span></label>
                   <div className="input-group">
                     <select
                       name="phoneCode"
@@ -234,7 +233,7 @@ function GuestDetails() {
 
                 {/* Country of Residence */}
                 <div className="form-group">
-                  <label>Country of Residence</label>
+                  <label>Country of Residence <span style={{ color: 'red' }}>*</span></label>
                   <select
                     name="country"
                     value={formData.country}
@@ -255,7 +254,7 @@ function GuestDetails() {
 
                 {/* Check-in Time */}
                 <div className="form-group">
-                  <label>Check-in Time</label>
+                  <label>Check-in Time <span style={{ color: 'red' }}>*</span></label>
                   <input
                     type="time"
                     name="checkInTime"
@@ -282,6 +281,7 @@ function GuestDetails() {
                     <div className="error">{errors.specialRequests}</div>
                   )}
                 </div>
+                <span style={{ color: 'red' }}>required fields *</span>
               </div>
             </div>
             {/* Next Step button without disabled attribute */}

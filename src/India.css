@@ -46,6 +46,9 @@
     display: block;
     margin: 0 auto; /* Ensures no unintended left/right margins */
   }
+  .contact-header h1 {
+    font-size: 25px; /* Adjust font size for smaller screens */
+  }
 }
 
 /* Brown Box Section */
@@ -110,9 +113,9 @@
     margin-top: 20px;
   }
 
-  .brown-box-text {
+  .brown-box-text{
     max-width: 90%;
-    font-size: 25px;
+    font-size: 15px;
     margin-bottom: 10px;
   }
 }
@@ -172,7 +175,15 @@
   font-weight: 400;
   color: black;
 }
-
+@media screen and (max-width: 600px) {
+    .details-label {
+        font-size: 25px; 
+      }
+      
+      .details-text {
+        font-size: 15px; 
+      }
+}
 /* FAQ Box Section */
 .faq-box-container {
   display: flex;
