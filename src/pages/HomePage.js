@@ -6,6 +6,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import mainBanner from "../images/mainBanner.jpg";
 import "./Homepage.css";
+import HomePage from './HomePage';
 import DateIcon from "@mui/icons-material/CalendarMonthOutlined";
 import NavigateIconRight from "@mui/icons-material/NavigateNext";
 import NavigateIconLeft from "@mui/icons-material/NavigateBefore";
@@ -31,11 +32,13 @@ function Home() {
 
   // const {dates, setDates} = useBooking();
   const today = new Date().toISOString().split("T")[0];
-  const {dates, setDates, guestCount, setGuestCount} = useBooking();
-  const [checkIn, setCheckIn] = useState(dates.checkIn || today);
-  const [checkOut, setCheckOut] = useState(dates.checkOut || "");
-  // const [guestCount, setGuestCount] = useState(1);
+  const { dates, setDates, guestCount, setGuestCount } = useBooking();
+  const [checkIn, setCheckIn] = useState(dates.checkIn);
+  const [checkOut, setCheckOut] = useState(dates.checkOut);
   const [error, setError] = useState("");
+
+  // const [guestCount, setGuestCount] = useState(1);
+  
 
   // useEffect(() =>{
   //   if(!dates.checkIn){

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import countryCodes from "./CountryCodes"; // For country code and country select options
+import { differenceInDays, format } from "date-fns";
+import { useBooking } from "../BookingContext";
+import countryCodes from "./CountryCodes";
 import "../guestdetails.css";
 
-function GuestDetails() {
+function GuestDetails({ rooms = [] }) { // Default to an empty array if rooms is not provided
   const [formData, setFormData] = useState({
     title: "",
     name: "",
@@ -16,12 +18,10 @@ function GuestDetails() {
     checkInTime: "",
     specialRequests: "",
   });
-
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    // Clear error for the changed field when user starts typing
     setErrors({ ...errors, [e.target.name]: "" });
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -30,69 +30,36 @@ function GuestDetails() {
     const newErrors = {};
     const nameRegex = /^[A-Za-z\s'-]+$/;
     const emailRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-    const phoneRegex = /^[0-9\s-]+$/; // Allow numbers, spaces, and dashes
-
-    if (!formData.title) {
-      newErrors.title = "Please select a title.";
-    }
-
-    if (!formData.name) {
-      newErrors.name = "Name is required.";
-    } else if (!nameRegex.test(formData.name)) {
+    const phoneRegex = /^[0-9\s-]+$/;
+    if (!formData.title) newErrors.title = "Please select a title.";
+    if (!formData.name) newErrors.name = "Name is required.";
+    else if (!nameRegex.test(formData.name))
       newErrors.name = "Name can only include letters, spaces, apostrophes or hyphens.";
-    } else if (formData.name.length > 50) {
+    else if (formData.name.length > 50)
       newErrors.name = "Name must be less than 50 characters.";
-    }
-
-    if (!formData.surname) {
-      newErrors.surname = "Surname is required.";
-    } else if (!nameRegex.test(formData.surname)) {
+    if (!formData.surname) newErrors.surname = "Surname is required.";
+    else if (!nameRegex.test(formData.surname))
       newErrors.surname = "Surname can only include letters, spaces, apostrophes or hyphens.";
-    } else if (formData.surname.length > 50) {
+    else if (formData.surname.length > 50)
       newErrors.surname = "Surname must be less than 50 characters.";
-    }
-
-    if (!formData.email) {
-      newErrors.email = "Email is required.";
-    } else if (!emailRegex.test(formData.email)) {
+    if (!formData.email) newErrors.email = "Email is required.";
+    else if (!emailRegex.test(formData.email))
       newErrors.email = "Please enter a valid email address.";
-    }
-
-    if (!formData.verifyEmail) {
-      newErrors.verifyEmail = "Please re-enter your email.";
-    } else if (formData.verifyEmail !== formData.email) {
+    if (!formData.verifyEmail) newErrors.verifyEmail = "Please re-enter your email.";
+    else if (formData.verifyEmail !== formData.email)
       newErrors.verifyEmail = "Email addresses do not match.";
-    }
-
-    if (!formData.phoneCode) {
-      newErrors.phoneCode = "Please select your country code.";
-    }
-
-    if (!formData.mobile) {
-      newErrors.mobile = "Mobile number is required.";
-    } else if (!phoneRegex.test(formData.mobile)) {
+    if (!formData.phoneCode) newErrors.phoneCode = "Please select your country code.";
+    if (!formData.mobile) newErrors.mobile = "Mobile number is required.";
+    else if (!phoneRegex.test(formData.mobile))
       newErrors.mobile = "Mobile number can only include numbers, spaces, or dashes.";
-    } else if (formData.mobile.replace(/\D/g, "").length < 7) {
+    else if (formData.mobile.replace(/\D/g, "").length < 7)
       newErrors.mobile = "Mobile number seems too short.";
-    }
-
-    if (!formData.country) {
-      newErrors.country = "Please select your country of residence.";
-    }
-
-    if (!formData.checkInTime) {
-      newErrors.checkInTime = "Please select a check-in time.";
-    }
-
-    if (formData.specialRequests && formData.specialRequests.length > 500) {
+    if (!formData.country) newErrors.country = "Please select your country of residence.";
+    if (!formData.checkInTime) newErrors.checkInTime = "Please select a check-in time.";
+    if (formData.specialRequests && formData.specialRequests.length > 500)
       newErrors.specialRequests = "Special requests must be less than 500 characters.";
-    }
-
     return newErrors;
   };
-
-  // Compute form validity each render
-  const isFormValid = Object.keys(validate()).length === 0;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -105,6 +72,33 @@ function GuestDetails() {
     navigate("/payment");
   };
 
+  // Retrieve booking data from context for the receipt
+  const { dates, guestCount, selectedRooms, selectedMeal, totalPrices } = useBooking();
+
+  const checkInDate = dates.checkIn ? new Date(dates.checkIn) : null;
+  const checkOutDate = dates.checkOut ? new Date(dates.checkOut) : null;
+  const nights =
+    checkInDate && checkOutDate ? differenceInDays(checkOutDate, checkInDate) : 0;
+  const formattedCheckIn = checkInDate ? format(checkInDate, "dd MMM yyyy") : "";
+  const formattedCheckOut = checkOutDate ? format(checkOutDate, "dd MMM yyyy") : "";
+
+  // Build receipt items based on the rooms selected
+  const receiptItems = rooms.filter((room) => (selectedRooms[room.id] || 0) > 0)
+    .map((room) => {
+      const quantity = selectedRooms[room.id] || 0;
+      // Expecting totalPrices[room.id] to be an object with keys: breakfast, halfBoard, fullBoard
+      const mealPrice = totalPrices[room.id]?.[selectedMeal] || 0;
+      const roomTotal = mealPrice * quantity * nights;
+      return {
+        roomName: room.room_name,
+        quantity,
+        costPerNight: mealPrice,
+        roomTotal,
+      };
+    });
+
+  const totalCost = receiptItems.reduce((sum, item) => sum + item.roomTotal, 0);
+
   return (
     <div className="main-content">
       <div className="header-container">
@@ -115,21 +109,18 @@ function GuestDetails() {
         ← Go Back
       </span>
       <h2 className="subheader">Input your details</h2>
+
       <div className="guest-details">
+        {/* Guest Details Form */}
         <div className="guest-details-form">
           <form onSubmit={handleSubmit} noValidate>
             <div className="booking-form">
               <div className="form-grid">
-                {/* First Row (Title & Name on the same line) */}
+                {/* First Row (Title & Name) */}
                 <div className="form-group">
                   <label>Name</label>
                   <div className="input-group">
-                    <select
-                      name="title"
-                      value={formData.title}
-                      onChange={handleChange}
-                      required
-                    >
+                    <select name="title" value={formData.title} onChange={handleChange} required>
                       <option value="">Title</option>
                       <option value="Mr">Mr</option>
                       <option value="Mrs">Mrs</option>
@@ -176,7 +167,6 @@ function GuestDetails() {
                   />
                   {errors.email && <div className="error">{errors.email}</div>}
                 </div>
-
                 <div className="form-group">
                   <label>Verify Email</label>
                   <input
@@ -187,9 +177,7 @@ function GuestDetails() {
                     placeholder="Re-enter your email..."
                     required
                   />
-                  {errors.verifyEmail && (
-                    <div className="error">{errors.verifyEmail}</div>
-                  )}
+                  {errors.verifyEmail && <div className="error">{errors.verifyEmail}</div>}
                 </div>
 
                 {/* Mobile Number */}
@@ -218,21 +206,14 @@ function GuestDetails() {
                       required
                     />
                   </div>
-                  {errors.phoneCode && (
-                    <div className="error">{errors.phoneCode}</div>
-                  )}
+                  {errors.phoneCode && <div className="error">{errors.phoneCode}</div>}
                   {errors.mobile && <div className="error">{errors.mobile}</div>}
                 </div>
 
                 {/* Country of Residence */}
                 <div className="form-group">
                   <label>Country of Residence</label>
-                  <select
-                    name="country"
-                    value={formData.country}
-                    onChange={handleChange}
-                    required
-                  >
+                  <select name="country" value={formData.country} onChange={handleChange} required>
                     <option value="">Select your country</option>
                     {countryCodes.map((country) => (
                       <option key={country.name} value={country.name}>
@@ -253,9 +234,7 @@ function GuestDetails() {
                     onChange={handleChange}
                     required
                   />
-                  {errors.checkInTime && (
-                    <div className="error">{errors.checkInTime}</div>
-                  )}
+                  {errors.checkInTime && <div className="error">{errors.checkInTime}</div>}
                 </div>
 
                 {/* Special Requests */}
@@ -268,74 +247,59 @@ function GuestDetails() {
                     onChange={handleChange}
                     placeholder="Enter any special requests..."
                   />
-                  {errors.specialRequests && (
-                    <div className="error">{errors.specialRequests}</div>
-                  )}
+                  {errors.specialRequests && <div className="error">{errors.specialRequests}</div>}
                 </div>
               </div>
             </div>
-            {/* Next Step button without disabled attribute */}
-            <button type="submit">
-              Next Step
-            </button>
+            <button type="submit">Next Step</button>
           </form>
         </div>
 
+        {/* Booking Receipt / Your Choices */}
         <div className="guest-details-display">
           <h3 className="subheader">Your Choices</h3>
           <div className="booking-details">
             <div className="booking-info">
               <hr />
               <p>
-                From 15th June 2025 to 21st June 2025,
-                <br />
-                check-out 11:00am
-                <br />
-                2 adults, 1 child
+                <strong>Check-In:</strong> {formattedCheckIn} <br />
+                <strong>Check-Out:</strong> {formattedCheckOut} <br />
+                <strong>Nights:</strong> {nights} <br />
+                <strong>Guests:</strong> {guestCount} <br />
+                <strong>Meal Plan:</strong>{" "}
+                {selectedMeal === "breakfast"
+                  ? "Breakfast"
+                  : selectedMeal === "halfBoard"
+                  ? "Half-Board"
+                  : selectedMeal === "fullBoard"
+                  ? "Full-Board"
+                  : "None"}
               </p>
               <hr />
-              <p>Room: Standard Triple Room</p>
-              <ul className="amenities-list">
-                <li>
-                  <span>5 nights</span> <span className="price">€15</span>
-                </li>
-              </ul>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Room Name</th>
+                    <th>Quantity</th>
+                    <th>Cost/Night</th>
+                    <th>Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {receiptItems.map((item, idx) => (
+                    <tr key={idx}>
+                      <td>{item.roomName}</td>
+                      <td>{item.quantity}</td>
+                      <td>€{item.costPerNight.toFixed(2)}</td>
+                      <td>€{item.roomTotal.toFixed(2)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
               <hr />
-              <p>Amenities:</p>
-              <ul className="amenities-list">
-                <li>
-                  <span>24/7 Gym</span> <span className="price">€0</span>
-                </li>
-                <li>
-                  <span>Unlimited Spa</span> <span className="price">€20</span>
-                </li>
-                <li>
-                  <span>Parking</span> <span className="price">€15</span>
-                </li>
-              </ul>
-              <hr />
-              <p>Packages:</p>
-              <ul className="amenities-list">
-                <li>
-                  <span>Full Package</span> <span className="price">€50</span>
-                </li>
-              </ul>
-              <hr />
-              <p>Tours:</p>
-              <ul className="amenities-list">
-                <li>
-                  <span>Imdina Tour</span> <span className="price">€30</span>
-                </li>
-                <li>
-                  <span>Valletta Tour</span> <span className="price">€40</span>
-                </li>
-                <li>
-                  <span>Blue Grotto Tour</span>{" "}
-                  <span className="price">€40</span>
-                </li>
-              </ul>
-              <hr />
-              <p>Total Price: €1200</p>
+              <p>
+                <strong>Total Price:</strong> €{totalCost.toFixed(2)}
+              </p>
             </div>
           </div>
         </div>

@@ -8,11 +8,30 @@ export const useBooking = () => {
 };
 
 export const BookingProvider = ({ children }) => {
-  const [dates, setDates] = useState({ checkIn: "", checkOut: "" });
-  const [guestCount, setGuestCount] = useState(1);  // Default guest count
+  const today = new Date().toISOString().split("T")[0];
 
-  // You can update the state as needed (e.g., set dates or guest count)
-  const value = { dates, setDates, guestCount, setGuestCount };
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const tomorrowStr = tomorrow.toISOString().split("T")[0];
+
+  const [dates, setDates] = useState({ checkIn: today, checkOut: tomorrowStr });
+  const [guestCount, setGuestCount] = useState(1); // Default guest count
+  const [selectedRooms, setSelectedRooms] = useState({});
+  const [selectedMeal, setSelectedMeal] = useState("");
+  const [totalPrices, setTotalPrices] = useState({});
+
+  const value = {
+    dates,
+    setDates,
+    guestCount,
+    setGuestCount,
+    selectedRooms,
+    setSelectedRooms,
+    selectedMeal,
+    setSelectedMeal,
+    totalPrices,
+    setTotalPrices,
+  };
 
   return (
     <BookingContext.Provider value={value}>
@@ -20,3 +39,5 @@ export const BookingProvider = ({ children }) => {
     </BookingContext.Provider>
   );
 };
+
+export default BookingContext;

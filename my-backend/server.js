@@ -60,13 +60,12 @@ app.get("/api/room-prices/:roomId", async (req, res) => {
   try{
     const {roomId} = req.params;
     const nights = Number(req.query.nights) || 1;
+    
     const queryText=`
       SELECT board_id, total_price
       FROM room_board_prices
       WHERE room_id = $1
     `;
-    //Limit 1
-
     const {rows} = await pool.query(queryText, [roomId]);
 
     // If no result, send 404
@@ -74,22 +73,18 @@ app.get("/api/room-prices/:roomId", async (req, res) => {
       return res.status(404).json({error: "No price for this room"});
     }
 
-    const priceMap = {
-      breakfast: 0,
-      halfBoard: 0,
-      fullBoard: 0,
+    const boardIdMap = {
+     1: "breakfast",
+     2: "halfBoard",
+     3: "fullBoard"
     };
 
-    rows.forEach((row) =>{
-      const total = row.total_price * nights;
-      if(row.board_id === 1){
-        priceMap.breakfast = total;
-      } else if (row.board_id === 2){
-        priceMap.halfBoard = total;
-      } else if (row.board_id === 3){
-        priceMap.fullBoard = total;
-      }
+    const priceMap = {};
+    rows.forEach(row => {
+      const boardType = boardIdMap[row.board_id];
+      priceMap[boardType] = row.total_price * nights;
     });
+
     return res.json(priceMap);
   } catch (error){
     console.error("Error fetching room price:", error);
