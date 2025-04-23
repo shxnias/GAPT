@@ -9,7 +9,6 @@
   min-height: 100vh;
 }
 
-
 .notfound-header {
   font-size: 8rem;
   margin: 0;
@@ -33,7 +32,7 @@
 
 .notfound-button {
   padding: 1rem 2rem;
-  background-color: #254D91;
+  background-color: #254d91;
   color: #fff;
   text-decoration: none;
   font-size: 1.2rem;

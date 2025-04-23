@@ -30,17 +30,26 @@ function GuestDetails({ rooms = [] }) { // Default to an empty array if rooms is
     const newErrors = {};
     const nameRegex = /^[A-Za-z\s'-]+$/;
     const emailRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-    const phoneRegex = /^[0-9\s-]+$/;
-    if (!formData.title) newErrors.title = "Please select a title.";
-    if (!formData.name) newErrors.name = "Name is required.";
-    else if (!nameRegex.test(formData.name))
+    const phoneRegex = /^[0-9\s-]+$/; // Allow numbers, spaces, and dashes
+
+    if (!formData.title) {
+      newErrors.title = "Please select a title.";
+    }
+
+    if (!formData.name) {
+      newErrors.name = "Name is required.";
+    } else if (!nameRegex.test(formData.name)) {
       newErrors.name = "Name can only include letters, spaces, apostrophes or hyphens.";
-    else if (formData.name.length > 50)
+    } else if (formData.name.length > 50) {
       newErrors.name = "Name must be less than 50 characters.";
-    if (!formData.surname) newErrors.surname = "Surname is required.";
-    else if (!nameRegex.test(formData.surname))
-      newErrors.surname = "Surname can only include letters, spaces, apostrophes or hyphens.";
-    else if (formData.surname.length > 50)
+    }
+
+    if (!formData.surname) {
+      newErrors.surname = "Surname is required.";
+    } else if (!nameRegex.test(formData.surname)) {
+      newErrors.surname =
+        "Surname can only include letters, spaces, apostrophes or hyphens.";
+    } else if (formData.surname.length > 50) {
       newErrors.surname = "Surname must be less than 50 characters.";
     if (!formData.email) newErrors.email = "Email is required.";
     else if (!emailRegex.test(formData.email))
@@ -48,18 +57,37 @@ function GuestDetails({ rooms = [] }) { // Default to an empty array if rooms is
     if (!formData.verifyEmail) newErrors.verifyEmail = "Please re-enter your email.";
     else if (formData.verifyEmail !== formData.email)
       newErrors.verifyEmail = "Email addresses do not match.";
-    if (!formData.phoneCode) newErrors.phoneCode = "Please select your country code.";
-    if (!formData.mobile) newErrors.mobile = "Mobile number is required.";
-    else if (!phoneRegex.test(formData.mobile))
+    }
+
+    if (!formData.phoneCode) {
+      newErrors.phoneCode = "Please select your country code.";
+    }
+
+    if (!formData.mobile) {
+      newErrors.mobile = "Mobile number is required.";
+    } else if (!phoneRegex.test(formData.mobile)) {
       newErrors.mobile = "Mobile number can only include numbers, spaces, or dashes.";
-    else if (formData.mobile.replace(/\D/g, "").length < 7)
+    } else if (formData.mobile.replace(/\D/g, "").length < 7) {
       newErrors.mobile = "Mobile number seems too short.";
-    if (!formData.country) newErrors.country = "Please select your country of residence.";
-    if (!formData.checkInTime) newErrors.checkInTime = "Please select a check-in time.";
-    if (formData.specialRequests && formData.specialRequests.length > 500)
+    }
+
+    if (!formData.country) {
+      newErrors.country = "Please select your country of residence.";
+    }
+
+    if (!formData.checkInTime) {
+      newErrors.checkInTime = "Please select a check-in time.";
+    }
+
+    if (formData.specialRequests && formData.specialRequests.length > 500) {
       newErrors.specialRequests = "Special requests must be less than 500 characters.";
+    }
+
     return newErrors;
   };
+
+  // Compute form validity each render
+  const isFormValid = Object.keys(validate()).length === 0;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -118,7 +146,7 @@ function GuestDetails({ rooms = [] }) { // Default to an empty array if rooms is
               <div className="form-grid">
                 {/* First Row (Title & Name) */}
                 <div className="form-group">
-                  <label>Name</label>
+                  <label>Name <span style={{ color: 'red' }}>*</span></label>
                   <div className="input-group">
                     <select name="title" value={formData.title} onChange={handleChange} required>
                       <option value="">Title</option>
@@ -142,7 +170,7 @@ function GuestDetails({ rooms = [] }) { // Default to an empty array if rooms is
 
                 {/* Surname */}
                 <div className="form-group">
-                  <label>Surname</label>
+                  <label>Surname <span style={{ color: 'red' }}>*</span></label>
                   <input
                     type="text"
                     name="surname"
@@ -151,12 +179,14 @@ function GuestDetails({ rooms = [] }) { // Default to an empty array if rooms is
                     placeholder="Enter your surname..."
                     required
                   />
-                  {errors.surname && <div className="error">{errors.surname}</div>}
+                  {errors.surname && (
+                    <div className="error">{errors.surname}</div>
+                  )}
                 </div>
 
                 {/* Email & Verify Email */}
                 <div className="form-group">
-                  <label>Email</label>
+                  <label>Email <span style={{ color: 'red' }}>*</span> </label>
                   <input
                     type="email"
                     name="email"
@@ -168,7 +198,7 @@ function GuestDetails({ rooms = [] }) { // Default to an empty array if rooms is
                   {errors.email && <div className="error">{errors.email}</div>}
                 </div>
                 <div className="form-group">
-                  <label>Verify Email</label>
+                  <label>Verify Email <span style={{ color: 'red' }}>*</span></label>
                   <input
                     type="email"
                     name="verifyEmail"
@@ -182,7 +212,7 @@ function GuestDetails({ rooms = [] }) { // Default to an empty array if rooms is
 
                 {/* Mobile Number */}
                 <div className="form-group">
-                  <label>Mobile Number</label>
+                  <label>Mobile Number <span style={{ color: 'red' }}>*</span></label>
                   <div className="input-group">
                     <select
                       name="phoneCode"
@@ -206,14 +236,21 @@ function GuestDetails({ rooms = [] }) { // Default to an empty array if rooms is
                       required
                     />
                   </div>
-                  {errors.phoneCode && <div className="error">{errors.phoneCode}</div>}
+                  {errors.phoneCode && (
+                    <div className="error">{errors.phoneCode}</div>
+                  )}
                   {errors.mobile && <div className="error">{errors.mobile}</div>}
                 </div>
 
                 {/* Country of Residence */}
                 <div className="form-group">
                   <label>Country of Residence</label>
-                  <select name="country" value={formData.country} onChange={handleChange} required>
+                  <select
+                    name="country"
+                    value={formData.country}
+                    onChange={handleChange}
+                    required
+                  >
                     <option value="">Select your country</option>
                     {countryCodes.map((country) => (
                       <option key={country.name} value={country.name}>
@@ -221,12 +258,14 @@ function GuestDetails({ rooms = [] }) { // Default to an empty array if rooms is
                       </option>
                     ))}
                   </select>
-                  {errors.country && <div className="error">{errors.country}</div>}
+                  {errors.country && (
+                    <div className="error">{errors.country}</div>
+                  )}
                 </div>
 
                 {/* Check-in Time */}
                 <div className="form-group">
-                  <label>Check-in Time</label>
+                  <label>Check-in Time <span style={{ color: 'red' }}>*</span></label>
                   <input
                     type="time"
                     name="checkInTime"
@@ -249,9 +288,13 @@ function GuestDetails({ rooms = [] }) { // Default to an empty array if rooms is
                   />
                   {errors.specialRequests && <div className="error">{errors.specialRequests}</div>}
                 </div>
+                <span style={{ color: 'red' }}>required fields *</span>
               </div>
             </div>
-            <button type="submit">Next Step</button>
+            {/* Next Step button without disabled attribute */}
+            <button type="submit">
+              Next Step
+            </button>
           </form>
         </div>
 
@@ -262,18 +305,11 @@ function GuestDetails({ rooms = [] }) { // Default to an empty array if rooms is
             <div className="booking-info">
               <hr />
               <p>
-                <strong>Check-In:</strong> {formattedCheckIn} <br />
-                <strong>Check-Out:</strong> {formattedCheckOut} <br />
-                <strong>Nights:</strong> {nights} <br />
-                <strong>Guests:</strong> {guestCount} <br />
-                <strong>Meal Plan:</strong>{" "}
-                {selectedMeal === "breakfast"
-                  ? "Breakfast"
-                  : selectedMeal === "halfBoard"
-                  ? "Half-Board"
-                  : selectedMeal === "fullBoard"
-                  ? "Full-Board"
-                  : "None"}
+                From 15th June 2025 to 21st June 2025,
+                <br />
+                check-out 11:00am
+                <br />
+                2 adults, 1 child
               </p>
               <hr />
               <table>

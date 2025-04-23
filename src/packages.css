@@ -34,9 +34,9 @@
 }
 
 .amenities-image {
-  width: 100%; 
-  height: 150px; 
-  object-fit: cover; 
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
 }
 
 .amenities-price {
@@ -101,7 +101,7 @@
   flex-grow: 1;
 }
 
-.proceed{
+.proceed {
   padding-top: 20px;
 }
 p,

@@ -26,7 +26,8 @@ function Payment() {
     if (!formData.cardholderName.trim()) {
       errors.cardholderName = "Cardholder name is required";
     } else if (!/^[A-Za-z\s]+$/.test(formData.cardholderName)) {
-      errors.cardholderName = "Cardholder name can only contain letters and spaces";
+      errors.cardholderName =
+        "Cardholder name can only contain letters and spaces";
     } else if (formData.cardholderName.trim().length < 2) {
       errors.cardholderName = "Cardholder name must be at least 2 characters";
     }
@@ -88,8 +89,9 @@ function Payment() {
 
       <div className="payment-details-form">
         <form className="booking-form" onSubmit={handleSubmit}>
-          {/* Cardholder Name */}
+          {/* Row 1 */}
           <div className="form-row">
+            <h2 className="payment-amount">Payment Amount: 12345 </h2>
             <div className="form-group">
               <label>Cardholder Name</label>
               <input
@@ -100,9 +102,6 @@ function Payment() {
                 placeholder="Enter cardholder's name..."
                 required
               />
-              {errors.cardholderName && (
-                <span className="error">{errors.cardholderName}</span>
-              )}
             </div>
           </div>
 

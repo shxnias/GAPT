@@ -31,10 +31,16 @@ function Booking({ rooms }) {
   const checkInDate = dates.checkIn ? new Date(dates.checkIn) : null;
   const checkOutDate = dates.checkOut ? new Date(dates.checkOut) : null;
   const nights =
-    checkInDate && checkOutDate ? differenceInDays(checkOutDate, checkInDate) : 0;
+    checkInDate && checkOutDate
+      ? differenceInDays(checkOutDate, checkInDate)
+      : 0;
 
-  const formattedCheckIn = checkInDate ? format(checkInDate, "dd MMM yyyy") : "";
-  const formattedCheckOut = checkOutDate ? format(checkOutDate, "dd MMM yyyy") : "";
+  const formattedCheckIn = checkInDate
+    ? format(checkInDate, "dd MMM yyyy")
+    : "";
+  const formattedCheckOut = checkOutDate
+    ? format(checkOutDate, "dd MMM yyyy")
+    : "";
 
   // Fetch total prices for each room from the server using context state
   useEffect(() => {
@@ -77,7 +83,9 @@ function Booking({ rooms }) {
       setSelectedMeal(selectedMeal === meal ? "" : meal);
       setMealErrorMsg("");
     } else {
-      setMealErrorMsg("You cannot choose different meal options for different rooms.");
+      setMealErrorMsg(
+        "You cannot choose different meal options for different rooms."
+      );
     }
   };
 
@@ -184,7 +192,8 @@ function Booking({ rooms }) {
                     <strong>Breakfast:</strong>
                   </p>
                   <p className="price general-text">
-                    Today's price for {nights} {nights === 1 ? "night" : "nights"} <br />
+                    Today's price for {nights}{" "}
+                    {nights === 1 ? "night" : "nights"} <br />
                     <span className="euro">
                       {totalPrices[room.room_id]?.breakfast != null
                         ? `€${totalPrices[room.room_id].breakfast}`
@@ -208,7 +217,8 @@ function Booking({ rooms }) {
                     <strong>Half-Board:</strong>
                   </p>
                   <p className="price general-text">
-                    Today's price for {nights} {nights === 1 ? "night" : "nights"} <br />
+                    Today's price for {nights}{" "}
+                    {nights === 1 ? "night" : "nights"} <br />
                     <span className="euro">
                       {totalPrices[room.room_id]?.halfBoard != null
                         ? `€${totalPrices[room.room_id].halfBoard}`
@@ -232,7 +242,8 @@ function Booking({ rooms }) {
                     <strong>Full-Board:</strong>
                   </p>
                   <p className="price general-text">
-                    Today's price for {nights} {nights === 1 ? "night" : "nights"} <br />
+                    Today's price for {nights}{" "}
+                    {nights === 1 ? "night" : "nights"} <br />
                     <span className="euro">
                       {totalPrices[room.room_id]?.fullBoard != null
                         ? `€${totalPrices[room.room_id].fullBoard}`
