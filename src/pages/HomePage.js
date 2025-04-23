@@ -22,6 +22,7 @@ import KingBed from "@mui/icons-material/KingBed";
 import AspectRatio from "@mui/icons-material/AspectRatio";
 import Landscape from "@mui/icons-material/Landscape";
 
+
 function Home() {
   const navigate = useNavigate();
 
@@ -325,7 +326,9 @@ function Home() {
       <div className="facilities-container">
         <div className="facilities-header">
           <h1>Our Facilities</h1>
-          <button className="facilities-button">Explore More</button>
+          <button className="facilities-button"
+          onClick={()=> { window.scrollTo(0, 0);
+          navigate("/facilities")}}>Explore More</button>
         </div>
       </div>
 
@@ -444,7 +447,9 @@ function Home() {
       )}
 
       <div className="view-all-container">
-        <button className="view-all-rooms-button"> View All Rooms</button>
+        <button className="view-all-rooms-button"
+        onClick={() => { window.scrollTo(0, 0);
+        navigate("/rooms")}}> View All Rooms</button>
       </div>
 
       {/* Restaurant Slideshow */}
@@ -484,7 +489,9 @@ function Home() {
             ))}
           </div>
 
-          <button className="see-more-button">See More</button>
+          <button className="see-more-button"
+          onClick={() => { window.scrollTo(0, 0); 
+          navigate("/faqs")}}>See More</button>
         </div>
       </div>
     </div>
