@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { differenceInDays, format } from "date-fns";
 import { useBooking } from "../BookingContext";
 import countryCodes from "./CountryCodes";
 import "../guestdetails.css";
 
-function GuestDetails({ rooms = [] }) { // Default to an empty array if rooms is not provided
+function GuestDetails() { // Default to an empty array if rooms is not provided
+  const {state} = useLocation();
+  const rooms = state?.rooms || [];
   const [formData, setFormData] = useState({
     title: "",
     name: "",
@@ -110,22 +112,36 @@ function GuestDetails({ rooms = [] }) { // Default to an empty array if rooms is
   const formattedCheckIn = checkInDate ? format(checkInDate, "dd MMM yyyy") : "";
   const formattedCheckOut = checkOutDate ? format(checkOutDate, "dd MMM yyyy") : "";
 
-  // Build receipt items based on the rooms selected
-  const receiptItems = rooms.filter((room) => (selectedRooms[room.id] || 0) > 0)
-    .map((room) => {
-      const quantity = selectedRooms[room.id] || 0;
-      // Expecting totalPrices[room.id] to be an object with keys: breakfast, halfBoard, fullBoard
-      const mealPrice = totalPrices[room.id]?.[selectedMeal] || 0;
-      const roomTotal = mealPrice * quantity * nights;
-      return {
-        roomName: room.room_name,
-        quantity,
-        costPerNight: mealPrice,
-        roomTotal,
-      };
-    });
+  // Build receipt items (remember: DB key is room_id, not id)
+  console.log("totalPrices =", totalPrices);
+console.log("selectedMeal =", selectedMeal);
 
-  const totalCost = receiptItems.reduce((sum, item) => sum + item.roomTotal, 0);
+const boardLabel = { breakfast: "Breakfast", halfBoard: "Half-Board", fullBoard: "Full-Board" };
+
+const receiptItems = rooms
+  .filter((room) => (selectedRooms[room.room_id] || 0) > 0)       
+  .map((room) => {
+   const quantity   = selectedRooms[room.room_id];           
+    const priceObj   = totalPrices[room.room_id] || {};            
+
+    const mealKey   =
+    selectedMeal ||
+    Object.keys(priceObj).sort((a, b) => priceObj[a] - priceObj[b])[0] ||
+    "";     
+    const stayPrice = priceObj[mealKey] || 0;                  // price for whole stay
+    const perNight  = nights ? stayPrice / nights : 0;
+    const subtotal  = stayPrice * quantity;
+  return {
+    id : room.room_id,
+      roomName    : room.room_name,
+      quantity,
+      mealKey,
+      perNight,
+      subtotal,
+    };
+  });
+
+  const totalCost = receiptItems.reduce((sum, item) => sum + item.subtotal, 0);
 
   return (
     <div className="main-content">
@@ -305,33 +321,36 @@ function GuestDetails({ rooms = [] }) { // Default to an empty array if rooms is
             <div className="booking-info">
               <hr />
               <p>
-                From 15th June 2025 to 21st June 2025,
+              <b>{formattedCheckIn}</b> to <b>{formattedCheckOut}</b>,
                 <br />
-                check-out 11:00am
+                {nights} {nights === 1 ? "night" : "nights"}
                 <br />
-                2 adults, 1 child
+                {guestCount} {guestCount === "1" ? "guest" : "guests"}
               </p>
               <hr />
               <table>
-                <thead>
-                  <tr>
-                    <th>Room Name</th>
-                    <th>Quantity</th>
-                    <th>Cost/Night</th>
-                    <th>Subtotal</th>
+              <thead>
+                <tr>
+                  <th>Room Type</th>
+                  <th>Qty</th>
+                  <th>Board</th>
+                  <th>€/Night</th>
+                  <th>Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                {receiptItems.map(item => (
+                  <tr key={item.id}>
+                    <td>{item.roomName}</td>
+                    <td>{item.quantity}</td>
+                    <td>{boardLabel[item.mealKey] || "—"}</td>
+                    <td>€{item.perNight.toFixed(2)}</td>
+                    <td>€{item.subtotal.toFixed(2)}</td>
                   </tr>
-                </thead>
-                <tbody>
-                  {receiptItems.map((item, idx) => (
-                    <tr key={idx}>
-                      <td>{item.roomName}</td>
-                      <td>{item.quantity}</td>
-                      <td>€{item.costPerNight.toFixed(2)}</td>
-                      <td>€{item.roomTotal.toFixed(2)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                ))}
+              </tbody>
+            </table>
+
               <hr />
               <p>
                 <strong>Total Price:</strong> €{totalCost.toFixed(2)}

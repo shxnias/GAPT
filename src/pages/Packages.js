@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import NavigateButton from "./NavigateButton";
 import "../packages.css";
 import { useBooking } from "../BookingContext";
@@ -8,6 +8,8 @@ import { format } from "date-fns";
 export default function Packages() {
   const navigate = useNavigate();
   const { dates, guestCount } = useBooking();
+  const {state} = useLocation();
+  const rooms = state?.rooms || [];
 
   // Format check-in and check-out dates from the context
   const checkInDate = dates.checkIn ? new Date(dates.checkIn) : null;
@@ -261,8 +263,13 @@ export default function Packages() {
       </div>
 
       <div className="proceed">
-        <NavigateButton to="/guestdetails" label="Next Step" />
-      </div>
+        <button
+        className="next-step-btn"
+        onClick={() => navigate("/guestdetails", { state: { rooms } })}
+        >
+          Next Step
+        </button>
+        </div>
     </div>
   );
 }

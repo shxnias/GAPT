@@ -129,7 +129,7 @@ function Booking({ rooms }) {
       alert("Please select enough rooms to accommodate all guests.");
       return;
     }
-    navigate("/packages");
+    navigate("/packages", {state: {rooms}});
   };
 
   return (
