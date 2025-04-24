@@ -9,6 +9,7 @@ function Payment() {
     cardNumber: "",
     cvv: "",
     expiryDate: "",
+    email: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -66,14 +67,28 @@ function Payment() {
     return errors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-    } else {
-      console.log("Form Submitted:", formData);
-      navigate("/success");
+    } else { 
+      try {
+        const response = await fetch("http://localhost:5001/api/booking", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+      
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error);
+      
+        navigate("/success", { state: { reference: data.reference } });
+      } catch (err) {
+        console.error("Booking error:", err.message);
+      }
     }
   };
 
@@ -134,6 +149,18 @@ function Payment() {
               {errors.cvv && <span className="error">{errors.cvv}</span>}
             </div>
           </div>
+
+          <div className="form-group">
+  <label>Email</label>
+  <input
+    type="email"
+    name="email"
+    value={formData.email}
+    onChange={handleChange}
+    placeholder="Enter your email"
+    required
+  />
+</div>
 
           {/* Expiry Date */}
           <div className="form-row">

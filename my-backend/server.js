@@ -2,6 +2,8 @@ const express = require("express");
 const pool = require("./db");
 const cors = require("cors");
 const session = require("express-session");
+const nodemailer = require("nodemailer");
+
 
 const app = express();
 app.use(
@@ -254,6 +256,58 @@ ORDER BY ri.room_type;
     res.status(500).json({ error: "Failed to fetch room status chart" });
   }
 });
+
+
+app.post("/api/booking", async (req, res) => {
+  const { cardholderName, email } = req.body;
+
+  console.log("New booking received from:", email, cardholderName);
+
+  // Generate a fake reference number
+  const reference = Math.random().toString(36).substring(2, 10).toUpperCase();
+
+  //Nodemailer transporter with Gmail and App Password
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "theopulencehotel@gmail.com",          
+      pass: "kavzovixpakkzxvy",             
+    },
+  });
+
+  // Email content
+  const mailOptions = {
+    from: "theopulencehotel@gmail.com",            
+    to: email,                              
+    subject: "Booking Confirmation - The Opulence Hotel",
+    text: `Dear ${cardholderName},
+
+Thank you for your booking at The Opulence Hotel!
+
+Your booking reference number is: ${reference}
+
+Keep this reference to view or manage your booking.
+
+We look forward to your stay!
+
+Warm regards,  
+The Opulence Hotel Team`,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log("Confirmation email sent to:", email);
+    res.status(200).json({
+      success: true,
+      reference: reference,
+    });
+  } catch (error) {
+    console.error("Error sending email:", error);
+    res.status(500).json({ error: "Failed to send confirmation email" });
+  }
+});
+
+
 
 const PORT = 5001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
