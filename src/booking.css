@@ -5,26 +5,21 @@
   gap: 30px;
 }
 .booking-room-display {
-  padding: 30px;
+
   display: flex;
-  align-items:center;
-  gap: 10px;
-  padding: 30px;
+  align-items: center;     /* <-- vertically aligns children */
+  justify-content: center; 
+  gap: 20px;
   flex-direction: row;
   background-color: #ede6dd;
-  padding-left: 320px;
+
 }
 
 .booking-room-image{
   flex: 0 0 40%;
 }
 
-.booking-room-details {
-  text-align: left;
-  padding-left: 30px;
-  margin: 15px 0;
-  flex: 0 1 300px;
-}
+
 
 .booking-room-card div {
   flex: 1;
@@ -35,13 +30,22 @@
 }
 
 .booking-room-display img {
-  width: 100%;
-  height: 300px;
+  width: 100%;               /* Ensures it fits within its container */
+  height: auto;              /* Maintain aspect ratio (or keep height if needed) */
+  max-height: 300px;         /* Optional: limit height */
   object-fit: cover;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-
   border-radius: 10px;
+  
 }
+
+.book-img {
+  object-fit: cover;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 10px auto; /* adds spacing and centers horizontally */
+}
+
 
 .go-back-link {
   display: inline;
@@ -55,27 +59,39 @@
   flex: 0 0 auto;
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-left: -80px;
+  gap: 10px;
+  
 }
 
 .room-quantity button {
-  padding: 5px 10px;
-  font-size: 1.4rem;
   width: 35px;
   height: 35px;
+  padding: 0;                  /* Remove unnecessary padding */
+  font-size: 1.4rem;
   line-height: 1;
   background-color: #254d91;
+  border: none;
   border-radius: 5px;
   color: #fff;
-  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 
-.room-quantity span{
-  font-size: 2rem;
+.room-quantity button:hover {
+  background-color: #1e3e74;
+}
+
+.room-quantity button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.room-quantity span {
+  font-size: 1.8rem;
   font-weight: 600;
   min-width: 32px;
   text-align: center;
+  display: inline-block;
 }
 
 .meal-title::after {
@@ -92,7 +108,6 @@
   height: 300px;
   object-fit: cover;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  float: right;
   border-radius: 10px;
 }
 
@@ -117,17 +132,6 @@
   height: 200px;
 }
 
-.booking-room-image{
-  flex: 0 0 40%;
-}
-
-.booking-room-details {
-  text-align: left;
-  padding-left: 30px;
-  margin: 15px 0;
-
-}
-
 .select-button.greyed-out {
   background-color: #ccc;
   color: #888;
@@ -146,6 +150,18 @@
   vertical-align: middle;
   color: gray;
 }
+.booking-room-details .general-text {
+  display: flex;               
+  flex-direction: column;      
+  align-items: center;       
+  justify-content: center;     /* Center vertically */
+  text-align: center;      
+  margin: 4px 0;             
+  line-height: 1.0;   
+
+ 
+}
+
 
 .room-food {
   display: flex;
@@ -163,7 +179,7 @@
   width: 60%;
   flex-direction: row;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   background-color: #f1f1f1;
   margin: 10px;
@@ -210,13 +226,9 @@
 @media screen and (max-width: 768px) {
   .booking-room-display {
     flex-direction: column;
-    align-items: center;
+ 
   }
 
-  .booking-room-display img {
-    width: 100%;
-    float: none;
-  }
 
   .meal-options {
     flex-direction: column;
@@ -227,24 +239,13 @@
   padding-bottom: 50px;
 }
 
-/* Responsive fallback for smaller screens for Rooms page */
-@media (max-width: 768px) {
 
-  .booking-room-card{
-
-    display: flex;
-    flex-direction: column;
-
-
-  }
-}
 
 .booking-room-car img {
-  width: 100%;
+  width: 90%;
   height: 300px;
   object-fit: cover;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  float: right;
   border-radius: 10px;
 }
 
