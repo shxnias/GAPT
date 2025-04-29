@@ -305,7 +305,7 @@
   flex-direction: column;
   background-color: #ede6dd;
   text-align: center;
-  margin-left: -20px;
+
   margin-top: 60px;
   width: 100%;
 }
@@ -428,6 +428,7 @@
   .legacy-text-container {
     text-align: center;
     align-items: center;
+    padding: 10px;
   }
 }
 

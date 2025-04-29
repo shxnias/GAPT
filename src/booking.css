@@ -7,9 +7,9 @@
 .booking-room-display {
 
   display: flex;
-  align-items: center;     /* <-- vertically aligns children */
-  justify-content: center; 
-  gap: 20px;
+  align-items:center;
+  gap: 10px;
+
   flex-direction: row;
   background-color: #ede6dd;
 
@@ -59,14 +59,14 @@
   flex: 0 0 auto;
   display: flex;
   align-items: center;
-  gap: 10px;
-  
+  gap: 12px;
+
 }
 
 .room-quantity button {
   width: 35px;
   height: 35px;
-  padding: 0;                  /* Remove unnecessary padding */
+  padding: 0;                  
   font-size: 1.4rem;
   line-height: 1;
   background-color: #254d91;
@@ -132,12 +132,38 @@
   height: 200px;
 }
 
+.booking-room-image{
+  flex: 0 0 40%;
+}
+
+.booking-room-details {
+  text-align: center;
+  padding-left: 30px;
+  margin: 15px 0;
+
+}
+
+
+
 .select-button.greyed-out {
   background-color: #ccc;
   color: #888;
   cursor: not-allowed;
 }
 
+.booking-room-car{
+ 
+  display: flex;
+  align-items: center;  
+  justify-content: center;
+  flex-direction: row;
+  gap: 10px;
+  background-color: #ede6dd;
+  border: 1px solid #82684b;
+  align-items: center;
+  padding: 10px;
+
+}
 .error-message {
   color: red;
   font-size: 16px;
@@ -226,9 +252,38 @@
 @media screen and (max-width: 768px) {
   .booking-room-display {
     flex-direction: column;
- 
+    align-items: center;
+  }
+  .booking-room-card{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .booking-room-con {
+    flex-direction: column;
+    display: flex;
+    gap: 30px;
   }
 
+  .booking-room-display img {
+    width: 100%;
+    float: none;
+  }
+  .booking-room-car{
+ 
+    display: flex;
+    align-items: center;  
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #ede6dd;
+    border: 1px solid #82684b;
+    align-items: center;
+    padding: 10px;
+  
+  }
+  
 
   .meal-options {
     flex-direction: column;
@@ -242,21 +297,10 @@
 
 
 .booking-room-car img {
-  width: 90%;
+
   height: 300px;
   object-fit: cover;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
 }
 
-.booking-room-car{
-  padding: 30px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 10px;
-  background-color: #ede6dd;
-  border: 1px solid #82684b;
-  align-items: center;
-
-}

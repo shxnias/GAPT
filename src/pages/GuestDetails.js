@@ -120,7 +120,11 @@ const extrasTotal = extrasItems.reduce((s,i)=>s+i.subtotal,0);
       return;
     }
     console.log("Form Submitted:", formData);
-    navigate("/payment");
+    navigate("/payment", {
+      state: {
+        totalCost: totalCost.toFixed(2),
+      },
+    });
   };
 
   // Retrieve booking data from context for the receipt

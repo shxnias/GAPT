@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import NavigateButton from "./NavigateButton";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../guestdetails.css";
 
 function Payment() {
+  const {state} = useLocation();
+  const paymentAmount = state?.totalCost ?? "0.00"  // fallback
   const [formData, setFormData] = useState({
     cardholderName: "",
     cardNumber: "",
@@ -106,7 +108,7 @@ function Payment() {
         <form className="booking-form" onSubmit={handleSubmit}>
           {/* Row 1 */}
           <div className="form-row">
-            <h2 className="payment-amount">Payment Amount: 12345 </h2>
+            <h2 className="payment-amount">Payment Amount: €{paymentAmount}</h2>
             <div className="form-group">
               <label>Cardholder Name</label>
               <input
