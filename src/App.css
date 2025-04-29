@@ -93,12 +93,7 @@ body {
   transform: scale(1.1);
 }
 
-/* Centered Logo */
-.logo {
-  max-height: 100%;
-  max-width: 100%;
-  object-fit: contain;
-}
+
 
 /* Bottom Nav Bar */
 .bottom-nav {
@@ -109,16 +104,11 @@ body {
   align-items: center;
   justify-content: space-around;
   position: relative;
-  z-index: 1100;
+  z-index: 0;
   box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Bottom Nav Bar Logo */
-.bottom-nav .logo {
-  max-height: 100px;
-  max-width: 100%;
-  object-fit: contain;
-}
+
 
 /* Bottom Nav Bar Links */
 .bottom-nav .nav-item {
@@ -246,26 +236,28 @@ body {
   margin-top: 100px;
   color: #333;
 }
+/* Reduce logo size in navbar */
+.logo {
+  height: 50px;
+  width: auto;
+  display: block; /* Or inline-block depending on layout */
+}
+a .logo {
+  display: block;
+}
 
 /* Responsive Design for Mobile and Tablet */
 
 @media screen and (max-width: 768px) {
   /* top nav for mobiles */
 
-  /* Resize logo even further */
-  .logo {
-    max-height: 30px;
-  }
-
   /* Resize navbar height for smaller screens */
   .top-nav {
     height: 50px;
   }
 
-  /* Reduce logo size in navbar */
-  .logo {
-    max-height: 40px;
-  }
+
+  
 
   /* Side Menu */
   .side-menu {
