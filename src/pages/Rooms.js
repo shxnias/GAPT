@@ -1,5 +1,6 @@
 import React from "react";
 import "../booking.css";
+import "../App.css";
 import {
   KingBed,
   SingleBed,
@@ -9,14 +10,18 @@ import {
 } from "@mui/icons-material";
 
 function Rooms({ rooms }) {
-  // ✅ Accept rooms as a prop
+
   return (
     <div className="main-content">
-      <h1>Our Rooms</h1>
+      <div className="contact-header">
+        <div className="line"></div>
+        <h1>Our Rooms</h1>
+        <div className="line"></div>
+        </div>
       <div className="bottom-padding">
-        <div className="booking-room-container">
+        <div className="booking-room-con">
           {rooms.map((room) => (
-            <div key={room.id} className="booking-room-card">
+            <div key={room.id} className="booking-room-car">
               
                 <div>
                   <img src={room.image_url} alt={room.room_name} />

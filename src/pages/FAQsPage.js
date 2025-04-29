@@ -7,7 +7,7 @@ function FAQs() {
       {/* FAQS Header */}
       <div className="contact-header">
         <div className="line"></div>
-        <h1>Frequently Asked Questions FAQ'S</h1>
+        <h1>Frequently Asked Questions (FAQs)</h1>
         <div className="line"></div>
       </div>
 
