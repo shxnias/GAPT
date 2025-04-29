@@ -34,27 +34,46 @@ function Booking({ rooms }) {
 
   /* ────────── fetch total prices ────────── */
   useEffect(() => {
-    if (rooms && rooms.length && nights) {
+    if (rooms && rooms.length > 0 && nights > 0) {
+      console.log("All rooms passed to Booking component:", rooms);
+
       rooms.forEach((room) => {
-        if (!room?.room_id) return;
+        console.log("Room in fetch loop:", room);
+
+        if (!room?.room_id) {
+          console.warn("⚠️ Skipping fetch: room.id is undefined", room);
+          return;
+        }
+
         fetch(
           `http://localhost:5001/api/room-prices/${room.room_id}?nights=${nights}`
         )
           .then((res) => {
-            if (!res.ok) throw new Error("Price fetch failed");
+            if (!res.ok) {
+              throw new Error(
+                `Fetch failed for room ${room.room_id} with status ${res.status}`
+              );
+            }
             return res.json();
           })
-          .then((data) =>
-            setTotalPrices((prev) => ({ ...prev, [room.room_id]: data }))
-          )
-          .catch((err) =>
-            console.error(`Error fetching price for room ${room.room_id}:`, err)
-          );
+          .then((data) => {
+            console.log(`Fetched price for room ${room.room_id}:`, data);
+            setTotalPrices((prev) => ({
+              ...prev,
+              [room.room_id]: data,
+            }));
+          })
+          .catch((err) => {
+            console.error(
+              `Error fetching price for room ${room.room_id}:`,
+              err.message
+            );
+          });
       });
     }
   }, [rooms, nights, setTotalPrices]);
 
-  /* ────────── handlers ────────── */
+  // Handler for meal selection
   const handleMealSelection = (meal) => {
     if (selectedMeal === "" || selectedMeal === meal) {
       setSelectedMeal(selectedMeal === meal ? "" : meal);
@@ -85,15 +104,22 @@ function Booking({ rooms }) {
   const canProceed   = capacityOk && mealSelected;
 
   const navigate = useNavigate();
-  const handleNextStep = () =>
-    canProceed && navigate("/packages", { state: { rooms } });
+
+  // Handler for proceeding to the next step.
+  const handleNextStep = () => {
+    if (!canProceed) {
+      alert("Please select enough rooms to accommodate all guests.");
+      return;
+    }
+    navigate("/packages", { state: { rooms } });
+  };
 
   return (
     <div className="main-content">
       <div className="header-container">
         <h1 className="header">The Opulence Hotel</h1>
         <p className="booking-date general-text">
-          From <b>{formattedCheckIn}</b> to <b>{formattedCheckOut}</b> –{" "}
+          From <b>{formattedCheckIn}</b> to <b>{formattedCheckOut}</b> -{" "}
           <b>{guestCount} guests</b>
         </p>
       </div>
@@ -107,40 +133,80 @@ function Booking({ rooms }) {
       {/* ============================================================= */}
       <div className="booking-room-container">
         {rooms.map((room) => {
-          const qty = selectedRooms[room.room_id] || 0;
+          const roomQuantity = selectedRooms[room.room_id] || 0;
           return (
             <div key={room.room_id} className="booking-room-card">
               {/* ─────── image + specs + counter ─────── */}
               <div className="booking-room-display">
-                <div className="booking-room-image">
+                <div class="book-img">
                   <img src={room.image_url} alt={room.room_name} />
                 </div>
 
                 <div className="booking-room-details general-text">
                   <h2>{room.room_name}</h2>
-                  <p><People /> <strong>Guest Capacity:</strong> {room.capacity}</p>
-                  <p><SingleBed /> <strong>Single Beds:</strong> {room.single_beds}</p>
-                  <p><KingBed /> <strong>Double Beds:</strong> {room.double_beds}</p>
-                  <p><AspectRatio /> <strong>Area Space:</strong> {room.area_space} m²</p>
-                  <p><Landscape /> <strong>View:</strong> {room.room_type}</p>
+                  <p>
+                    <People /> <strong>Guest Capacity:</strong> {room.capacity}
+                  </p>
+                  <p>
+                    <SingleBed /> <strong>Single Beds:</strong>{" "}
+                    {room.single_beds}
+                  </p>
+                  <p>
+                    <KingBed /> <strong>Double Beds:</strong> {room.double_beds}
+                  </p>
+                  <p>
+                    <AspectRatio /> <strong>Area Space:</strong>{" "}
+                    {room.area_space} m²
+                  </p>
+                  <p>
+                    <Landscape /> <strong>View:</strong> {room.room_type}
+                  </p>
                 </div>
 
                 <div className="room-quantity">
                   <button
                     onClick={() => decrementQuantity(room.room_id)}
-                    disabled={!qty}
-                    className={!qty ? "greyed-out" : ""}
+                    disabled={roomQuantity === 0}
+                    className={roomQuantity === 0 ? "greyed-out" : ""}
                   >
-                    −
+                    -
                   </button>
-                  <span>{qty}</span>
+                  <span>{roomQuantity}</span>
                   <button
                     onClick={() => incrementQuantity(room.room_id)}
-                    disabled={qty >= 5}
-                    className={qty >= 5 ? "greyed-out" : ""}
+                    disabled={roomQuantity >= 5}
+                    className={roomQuantity >= 5 ? "greyed-out" : ""}
                   >
                     +
                   </button>
+                </div>
+              </div>
+
+              <div className="room-food">
+                <div className="meal-options">
+                  <p className="meal-title subheader">
+                    <strong>Breakfast:</strong>
+                  </p>
+                  <p className="price general-text">
+                    Today's price for {nights}{" "}
+                    {nights === 1 ? "night" : "nights"} <br />
+                    <span className="euro">
+                      {totalPrices[room.room_id]?.breakfast != null
+                        ? `€${totalPrices[room.room_id].breakfast}`
+                        : "Loading..."}
+                    </span>
+                  </p>
+                  <button
+                    className={`select-button ${
+                      selectedMeal !== "" && selectedMeal !== "breakfast"
+                        ? "greyed-out"
+                        : ""
+                    } ${selectedMeal === "breakfast" ? "selected" : ""}`}
+                    onClick={() => handleMealSelection("breakfast")}
+                  >
+                    {selectedMeal === "breakfast" ? "Selected" : "Select"}
+                  </button>
+                  
                 </div>
               </div>
 
