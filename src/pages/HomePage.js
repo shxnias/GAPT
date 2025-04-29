@@ -5,7 +5,7 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import mainBanner from "../images/mainBanner.jpg";
-import "./Homepage.css";
+import "../Homepage.css";
 import HomePage from './HomePage';
 import DateIcon from "@mui/icons-material/CalendarMonthOutlined";
 import NavigateIconRight from "@mui/icons-material/NavigateNext";

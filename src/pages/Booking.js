@@ -46,19 +46,23 @@ function Booking({ rooms }) {
   useEffect(() => {
     if (rooms && rooms.length > 0 && nights > 0) {
       console.log("🏨 All rooms passed to Booking component:", rooms);
-  
+
       rooms.forEach((room) => {
         console.log("🔍 Room in fetch loop:", room);
-  
+
         if (!room?.room_id) {
           console.warn("⚠️ Skipping fetch: room.id is undefined", room);
           return;
         }
-  
-        fetch(`http://localhost:5001/api/room-prices/${room.room_id}?nights=${nights}`)
+
+        fetch(
+          `http://localhost:5001/api/room-prices/${room.room_id}?nights=${nights}`
+        )
           .then((res) => {
             if (!res.ok) {
-              throw new Error(`❌ Fetch failed for room ${room.room_id} with status ${res.status}`);
+              throw new Error(
+                `❌ Fetch failed for room ${room.room_id} with status ${res.status}`
+              );
             }
             return res.json();
           })
@@ -70,12 +74,14 @@ function Booking({ rooms }) {
             }));
           })
           .catch((err) => {
-            console.error(`❌ Error fetching price for room ${room.room_id}:`, err.message);
+            console.error(
+              `❌ Error fetching price for room ${room.room_id}:`,
+              err.message
+            );
           });
       });
     }
   }, [rooms, nights, setTotalPrices]);
-  
 
   // Handler for meal selection
   const handleMealSelection = (meal) => {
@@ -129,7 +135,7 @@ function Booking({ rooms }) {
       alert("Please select enough rooms to accommodate all guests.");
       return;
     }
-    navigate("/packages", {state: {rooms}});
+    navigate("/packages", { state: { rooms } });
   };
 
   return (
@@ -137,7 +143,8 @@ function Booking({ rooms }) {
       <div className="header-container">
         <h1 className="header">The Opulence Hotel</h1>
         <p className="booking-date general-text">
-          From <b>{formattedCheckIn}</b> to <b>{formattedCheckOut}</b> - <b>{guestCount} guests</b>
+          From <b>{formattedCheckIn}</b> to <b>{formattedCheckOut}</b> -{" "}
+          <b>{guestCount} guests</b>
         </p>
       </div>
 
@@ -159,32 +166,47 @@ function Booking({ rooms }) {
           return (
             <div key={room.room_id} className="booking-room-card">
               <div className="booking-room-display">
-                <div>
+                <div class="book-img">
                   <img src={room.image_url} alt={room.room_name} />
                 </div>
                 <div className="booking-room-details general-text">
                   <h2>{room.room_name}</h2>
-                  <p><People /> <strong>Guest Capacity:</strong> {room.capacity}</p>
-                  <p><SingleBed /> <strong>Single Beds:</strong> {room.single_beds}</p>
-                  <p><KingBed /> <strong>Double Beds:</strong> {room.double_beds}</p>
-                  <p><AspectRatio /> <strong>Area Space:</strong> {room.area_space} m²</p>
-                  <p><Landscape /> <strong>View:</strong> {room.room_type}</p>
+                  <p>
+                    <People /> <strong>Guest Capacity:</strong> {room.capacity}
+                  </p>
+                  <p>
+                    <SingleBed /> <strong>Single Beds:</strong>{" "}
+                    {room.single_beds}
+                  </p>
+                  <p>
+                    <KingBed /> <strong>Double Beds:</strong> {room.double_beds}
+                  </p>
+                  <p>
+                    <AspectRatio /> <strong>Area Space:</strong>{" "}
+                    {room.area_space} m²
+                  </p>
+                  <p>
+                    <Landscape /> <strong>View:</strong> {room.room_type}
+                  </p>
                 </div>
-              
 
-              <div className="room-quantity">
-                <button
-                  onClick={() => decrementQuantity(room.room_id)}
-                  disabled={roomQuantity === 0}
-                  className={roomQuantity === 0 ? "greyed-out" : ""}
-                >-</button>
-                <span>{roomQuantity}</span>
-                <button
-                  onClick={() => incrementQuantity(room.room_id)}
-                  disabled={roomQuantity >= 5}
-                  className={roomQuantity >= 5 ? "greyed-out" : ""}
-                >+</button>
-              </div>
+                <div className="room-quantity">
+                  <button
+                    onClick={() => decrementQuantity(room.room_id)}
+                    disabled={roomQuantity === 0}
+                    className={roomQuantity === 0 ? "greyed-out" : ""}
+                  >
+                    -
+                  </button>
+                  <span>{roomQuantity}</span>
+                  <button
+                    onClick={() => incrementQuantity(room.room_id)}
+                    disabled={roomQuantity >= 5}
+                    className={roomQuantity >= 5 ? "greyed-out" : ""}
+                  >
+                    +
+                  </button>
+                </div>
               </div>
 
               <div className="room-food">
