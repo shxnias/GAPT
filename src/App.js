@@ -47,11 +47,9 @@ const App = () => {
             <button className="hamburger-icon" onClick={toggleMenu}>
               ☰
             </button>
-            <img
-              src="/logos/Logo-Transparent.png"
-              alt="Logo"
-              className="logo"
-            />
+            <a href="/">
+              <img src="/logos/Logo-Transparent.png" alt="Logo" class="logo" />
+            </a>
           </nav>
 
           {/* Side Menu */}

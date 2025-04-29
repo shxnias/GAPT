@@ -273,6 +273,9 @@ app.post("/api/booking", async (req, res) => {
       user: "theopulencehotel@gmail.com",          
       pass: "kavzovixpakkzxvy",             
     },
+    tls: {
+      rejectUnauthorized: false, 
+    },
   });
 
   // Email content

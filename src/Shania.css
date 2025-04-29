@@ -39,12 +39,7 @@
   cursor: pointer;
   text-decoration: underline;
   transition: color 0.3s ease;
-  padding: 10px 15px; /* Adds padding around */
-  display: block; /* Ensures it takes full width and aligns left */
-  text-align: left; /* Explicitly aligns text to the left */
+  padding: 10px 15px; 
+  display: block; 
+  text-align: left; 
 }
-
-/*
-.go-back-link:hover {
-  color: #0056b3;
-  background-color: rgba(0, 123, 255, 0.1); /* Light hover effect */

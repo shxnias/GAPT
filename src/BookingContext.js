@@ -6,8 +6,6 @@ export const useBooking = () => {
   return useContext(BookingContext);
 };
 
-
-
 export const BookingProvider = ({ children }) => {
   const today = new Date().toISOString().split("T")[0];
 
