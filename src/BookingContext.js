@@ -29,7 +29,7 @@ export const BookingProvider = ({ children }) => {
     selectedMeal,
     setSelectedMeal,
     totalPrices,
-    setTotalPrices
+    setTotalPrices,
   };
 
   return (

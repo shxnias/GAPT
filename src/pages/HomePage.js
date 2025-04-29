@@ -13,7 +13,6 @@ import NavigateIconLeft from "@mui/icons-material/NavigateBefore";
 import Person from "@mui/icons-material/PersonOutline";
 import Bed from "@mui/icons-material/SingleBed";
 import AC from "@mui/icons-material/AcUnit";
-import AIChatIcon from "@mui/icons-material/ChatOutlined";
 import NavigateButton from "./NavigateButton";
 import { useBooking } from "../BookingContext";
 import { useNavigate } from "react-router-dom";
@@ -214,10 +213,7 @@ function Home() {
 
   return (
     <div className="main-content">
-      <button className="ai-chat-button">
-        <AIChatIcon className="ai-chat-icon" />
-      </button>
-
+      
       <div className="search-container">
         <div className="search-box">
           <div className="input-row">
