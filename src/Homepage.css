@@ -205,6 +205,13 @@
     gap: 8px;
   }
 
+.search-container {
+  position: static !important;
+
+
+}
+
+
   .field-container {
     padding: 8px 12px;
     max-width: 90%;
