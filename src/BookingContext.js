@@ -1,11 +1,12 @@
 import React, { createContext, useContext, useState } from "react";
 
-// Create the context
 const BookingContext = createContext();
 
 export const useBooking = () => {
   return useContext(BookingContext);
 };
+
+
 
 export const BookingProvider = ({ children }) => {
   const today = new Date().toISOString().split("T")[0];
@@ -18,7 +19,7 @@ export const BookingProvider = ({ children }) => {
   const [guestCount, setGuestCount] = useState(1); // Default guest count
   const [selectedRooms, setSelectedRooms] = useState({});
   const [selectedMeal, setSelectedMeal] = useState("");
-  const [totalPrices, setTotalPrices] = useState({});
+  const [totalPrices, setTotalPrices] = useState({})
 
   const value = {
     dates,
@@ -31,6 +32,7 @@ export const BookingProvider = ({ children }) => {
     setSelectedMeal,
     totalPrices,
     setTotalPrices,
+    resetBooking,
   };
 
   return (

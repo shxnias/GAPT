@@ -17,15 +17,30 @@
 }
 
 .room-quantity {
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin: 10px 0;
+  gap: 12px;
+  margin-left: -80px;
 }
 
 .room-quantity button {
   padding: 5px 10px;
-  margin: 0 5px;
+  font-size: 1.4rem;
+  width: 35px;
+  height: 35px;
+  line-height: 1;
+  background-color: #254d91;
+  border-radius: 5px;
+  color: #fff;
+  border: none;
+}
+
+.room-quantity span{
+  font-size: 2rem;
+  font-weight: 600;
+  min-width: 32px;
+  text-align: center;
 }
 
 .meal-title::after {
@@ -38,7 +53,7 @@
 }
 
 .booking-room-display img {
-  width: 60%;
+  width: 100%;
   height: 300px;
   object-fit: cover;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -49,8 +64,16 @@
 .booking-room-display {
   padding: 30px;
   display: flex;
+  align-items:center;
+  gap: 10px;
+  padding: 30px;
   flex-direction: row;
   background-color: #ede6dd;
+  padding-left: 320px;
+}
+
+.booking-room-image{
+  flex: 0 0 40%;
 }
 
 .booking-room-card div {
@@ -61,6 +84,7 @@
   text-align: left;
   padding-left: 30px;
   margin: 15px 0;
+  flex: 0 1 300px;
 }
 
 .select-button.greyed-out {

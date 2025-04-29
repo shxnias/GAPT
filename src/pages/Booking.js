@@ -170,7 +170,7 @@ function Booking({ rooms }) {
                   <p><AspectRatio /> <strong>Area Space:</strong> {room.area_space} m²</p>
                   <p><Landscape /> <strong>View:</strong> {room.room_type}</p>
                 </div>
-              </div>
+              
 
               <div className="room-quantity">
                 <button
@@ -184,6 +184,7 @@ function Booking({ rooms }) {
                   disabled={roomQuantity >= 5}
                   className={roomQuantity >= 5 ? "greyed-out" : ""}
                 >+</button>
+              </div>
               </div>
 
               <div className="room-food">

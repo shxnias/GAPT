@@ -11,6 +11,24 @@ export default function Packages() {
   const {state} = useLocation();
   const rooms = state?.rooms || [];
 
+  const [extras, setExtras] = useState({
+    gym: {qty: 0, price: 10.50},
+    spa:    { qty: 0, price: 10.5 },
+    parking:{ qty: 0, price: 10.5 },
+    mdina:  { qty: 0, price: 10.5 },
+    valletta:{ qty: 0, price: 10.5 },
+    grotto: { qty: 0, price: 10.5 },
+    special:{ selected: false, price: 200 },
+  });
+
+  const setQty = (key, qty) =>
+  setExtras (prev => ({...prev, [key]: {...prev[key], qty}}));
+
+  const toggleSpecial = () =>
+  setExtras (prev => ({
+    ...prev, 
+    special: { ...prev.special, selected: !prev.special.selected }
+  }))
   // Format check-in and check-out dates from the context
   const checkInDate = dates.checkIn ? new Date(dates.checkIn) : null;
   const checkOutDate = dates.checkOut ? new Date(dates.checkOut) : null;
@@ -77,10 +95,11 @@ export default function Packages() {
             className="amenities-image"
           />
           <p className="amenities-price">
-            <b>€10.5</b> per day
+            <b>€10.50</b> per day
           </p>
           <label htmlFor="gym-select">Select amount of people</label>
-          <select id="gym-select" className="amenities-dropdown">
+          <select id="gym-select" className="amenities-dropdown" 
+           onChange={e => setQty('gym', Number(e.target.value))}>
             {[...Array(numGuests).keys()].map((num) => (
               <option key={num + 1} value={num + 1}>
                 {num + 1}
@@ -88,7 +107,10 @@ export default function Packages() {
             ))}
           </select>
           {/* Disabled when special package is selected */}
-          <ToggleButton disabled={specialAmenitiesSelected} />
+          <ToggleButton disabled={specialAmenitiesSelected}
+          onClick={() =>
+            setQty('gym', extras.gym.qty ? 0 : numGuests)   // quick add/remove
+          } />
         </div>
 
         {/* Spa Access */}
@@ -100,17 +122,22 @@ export default function Packages() {
             className="amenities-image"
           />
           <p className="amenities-price">
-            <b>€10.5</b> per person per day
+            <b>€10.50</b> per person per day
           </p>
           <label htmlFor="spa-select">Select amount of people</label>
-          <select id="spa-select" className="amenities-dropdown">
+          <select id="spa-select" className="amenities-dropdown"
+            onChange={e => setQty('spa', Number(e.target.value))}
+            >
             {[...Array(numGuests).keys()].map((num) => (
               <option key={num + 1} value={num + 1}>
                 {num + 1}
               </option>
             ))}
           </select>
-          <ToggleButton disabled={specialAmenitiesSelected} />
+          <ToggleButton disabled={specialAmenitiesSelected}
+          onClick={() =>
+            setQty('spa', extras.gym.qty ? 0 : numGuests)   // quick add/remove
+          } />
         </div>
 
         {/* Parking */}
@@ -125,14 +152,19 @@ export default function Packages() {
             <b>€10.5</b> per person per day
           </p>
           <label htmlFor="parking-select">Select amount of cars</label>
-          <select id="parking-select" className="amenities-dropdown">
+          <select id="parking-select" className="amenities-dropdown"
+            onChange={e => setQty('parking', Number(e.target.value))}
+            >
             {[...Array(numGuests).keys()].map((num) => (
               <option key={num + 1} value={num + 1}>
                 {num + 1}
               </option>
             ))}
           </select>
-          <ToggleButton disabled={specialAmenitiesSelected} />
+          <ToggleButton disabled={specialAmenitiesSelected} 
+          onClick={() =>
+            setQty('gym', extras.gym.qty ? 0 : numGuests)   // quick add/remove
+          }/>
         </div>
       </div>
 
@@ -158,15 +190,21 @@ export default function Packages() {
             max={maxDate}
           />
           <label htmlFor="imdina-select">Select amount of people</label>
-          <select id="imdina-select" className="amenities-dropdown">
+          <select 
+            id="imdina-select" 
+            className="amenities-dropdown" 
+            onChange={e => setQty('mdina', Number(e.target.value))} 
+          >
             {[...Array(numGuests).keys()].map((num) => (
-              <option key={num + 1} value={num + 1}>
-                {num + 1}
+              <option key={num} value={num}>
+                {num}
               </option>
             ))}
           </select>
-          {/* Tour buttons remain enabled */}
-          <ToggleButton />
+
+          <ToggleButton
+            disabled={extras.mdina.qty === 0}
+          /> 
         </div>
 
         {/* Valletta Tour */}
@@ -189,14 +227,17 @@ export default function Packages() {
             max={maxDate}
           />
           <label htmlFor="valletta-select">Select amount of people</label>
-          <select id="valletta-select" className="amenities-dropdown">
+          <select id="valletta-select" className="amenities-dropdown"
+            onChange={e => setQty('valletta', Number(e.target.value))} >
             {[...Array(numGuests).keys()].map((num) => (
-              <option key={num + 1} value={num + 1}>
-                {num + 1}
+              <option key={num} value={num}>
+                {num}
               </option>
             ))}
           </select>
-          <ToggleButton />
+          <ToggleButton
+            disabled={extras.valletta.qty === 0}
+          /> 
         </div>
 
         {/* Blue Grotto */}
@@ -219,14 +260,17 @@ export default function Packages() {
             max={maxDate}
           />
           <label htmlFor="bluegrotto-select">Select amount of people</label>
-          <select id="bluegrotto-select" className="amenities-dropdown">
+          <select id="bluegrotto-select" className="amenities-dropdown"
+            onChange={e => setQty('grotto', Number(e.target.value))} >
             {[...Array(numGuests).keys()].map((num) => (
-              <option key={num + 1} value={num + 1}>
-                {num + 1}
+              <option key={num} value={num}>
+                {num}
               </option>
             ))}
           </select>
-          <ToggleButton />
+          <ToggleButton
+            disabled={extras.grotto.qty === 0}
+          />  
         </div>
       </div>
 
@@ -252,9 +296,35 @@ export default function Packages() {
               className={`select-button padding ${
                 specialAmenitiesSelected ? "selected" : ""
               }`}
-              onClick={() =>
-                setSpecialAmenitiesSelected(!specialAmenitiesSelected)
-              }
+              onClick={() => {
+                setSpecialAmenitiesSelected(!specialAmenitiesSelected);
+                setExtras(prev => {
+                  const isSelected = !prev.special.selected;
+              
+                  return {
+                    ...prev,
+                    special: {
+                      ...prev.special,
+                      selected: isSelected,
+                    },
+                    gym: {
+                      ...prev.gym,
+                      qty: isSelected ? 0 : prev.gym.qty,    // reset to 0 when selecting special
+                    },
+                    spa: {
+                      ...prev.spa,
+                      qty: isSelected ? 0 : prev.spa.qty,    // reset to 0 when selecting special
+                    },
+                    parking: {
+                      ...prev.parking,
+                      qty: isSelected ? 0 : prev.parking.qty, // reset to 0 when selecting special
+                    },
+                    //  tours are untouched
+                  };
+                });
+              }}
+              
+              
             >
               {specialAmenitiesSelected ? "Added" : "Add"}
             </button>
@@ -265,7 +335,7 @@ export default function Packages() {
       <div className="proceed">
         <button
         className="next-step-btn"
-        onClick={() => navigate("/guestdetails", { state: { rooms } })}
+        onClick={() => navigate("/guestdetails", { state: { rooms, extras } })}
         >
           Next Step
         </button>

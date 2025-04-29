@@ -8,6 +8,7 @@ import "../guestdetails.css";
 function GuestDetails() { // Default to an empty array if rooms is not provided
   const {state} = useLocation();
   const rooms = state?.rooms || [];
+  const extras = state?.extras || {};
   const [formData, setFormData] = useState({
     title: "",
     name: "",
@@ -22,6 +23,26 @@ function GuestDetails() { // Default to an empty array if rooms is not provided
   });
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+
+  const extrasItems = Object.entries(extras)
+  .filter(([key, ob]) =>
+    key === "special"
+      ? ob.selected
+      : ob.qty > 0
+  )
+  .map(([key, ob]) => {
+    const labelMap = {
+      gym:"Gym access", spa:"Spa access", parking:"Parking",
+      mdina:"Mdina tour", valletta:"Valletta tour", grotto:"Blue Grotto tour",
+      special:"Special amenities package"
+    };
+    const qty = key === "special" ? 1 : ob.qty;
+    const unit = key === "special" ? "package" : "x";
+    const subtotal = ob.price * qty;
+    return { label: labelMap[key], qty, unit, subtotal };
+  });
+const extrasTotal = extrasItems.reduce((s,i)=>s+i.subtotal,0);
+
 
   const handleChange = (e) => {
     setErrors({ ...errors, [e.target.name]: "" });
@@ -141,7 +162,7 @@ const receiptItems = rooms
     };
   });
 
-  const totalCost = receiptItems.reduce((sum, item) => sum + item.subtotal, 0);
+  const totalCost = receiptItems.reduce((sum, item) => sum + item.subtotal, 0) + extrasTotal;
 
   return (
     <div className="main-content">
@@ -321,7 +342,7 @@ const receiptItems = rooms
             <div className="booking-info">
               <hr />
               <p>
-              <b>{formattedCheckIn}</b> to <b>{formattedCheckOut}</b>,
+              <b>{formattedCheckIn}</b> to <b>{formattedCheckOut}</b>
                 <br />
                 {nights} {nights === 1 ? "night" : "nights"}
                 <br />
@@ -350,6 +371,28 @@ const receiptItems = rooms
                 ))}
               </tbody>
             </table>
+            
+                        {extrasItems.length > 0 && (
+              <>
+              <hr />
+
+                <table>
+                  <thead>
+                    <tr><th>Item</th><th>Qty</th><th>Subtotal</th></tr>
+                  </thead>
+                  <tbody>
+                    {extrasItems.map((ex,i)=>(
+                      <tr key={i}>
+                        <td>{ex.label}</td>
+                        <td>{ex.qty} {ex.unit}</td>
+                        <td>€{ex.subtotal.toFixed(2)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </>
+            )}
+
 
               <hr />
               <p>
