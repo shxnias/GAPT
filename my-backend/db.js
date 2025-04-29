@@ -4,6 +4,8 @@ require("dotenv").config();
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false },
+  idleTimeoutMillis: 600000, 
+  connectionTimeoutMillis: 2000
 });
 
 pool

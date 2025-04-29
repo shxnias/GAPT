@@ -6,8 +6,6 @@ export const useBooking = () => {
   return useContext(BookingContext);
 };
 
-
-
 export const BookingProvider = ({ children }) => {
   const today = new Date().toISOString().split("T")[0];
 
@@ -31,8 +29,7 @@ export const BookingProvider = ({ children }) => {
     selectedMeal,
     setSelectedMeal,
     totalPrices,
-    setTotalPrices,
-    resetBooking,
+    setTotalPrices
   };
 
   return (
