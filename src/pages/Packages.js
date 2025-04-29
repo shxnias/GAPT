@@ -195,8 +195,8 @@ export default function Packages() {
             className="amenities-dropdown" 
             onChange={e => setQty('mdina', Number(e.target.value))} 
           >
-            {[...Array(numGuests).keys()].map((num) => (
-              <option key={num} value={num}>
+            {[...Array(numGuests + 1).keys()].map((num) => (
+              <option key={num} value={num+1}>
                 {num}
               </option>
             ))}
@@ -229,7 +229,7 @@ export default function Packages() {
           <label htmlFor="valletta-select">Select amount of people</label>
           <select id="valletta-select" className="amenities-dropdown"
             onChange={e => setQty('valletta', Number(e.target.value))} >
-            {[...Array(numGuests).keys()].map((num) => (
+            {[...Array(numGuests + 1).keys()].map((num) => (
               <option key={num} value={num}>
                 {num}
               </option>
@@ -262,7 +262,7 @@ export default function Packages() {
           <label htmlFor="bluegrotto-select">Select amount of people</label>
           <select id="bluegrotto-select" className="amenities-dropdown"
             onChange={e => setQty('grotto', Number(e.target.value))} >
-            {[...Array(numGuests).keys()].map((num) => (
+            {[...Array(numGuests + 1).keys()].map((num) => (
               <option key={num} value={num}>
                 {num}
               </option>
