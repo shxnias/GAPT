@@ -182,34 +182,7 @@ function Booking({ rooms }) {
                 </div>
               </div>
 
-              <div className="room-food">
-                <div className="meal-options">
-                  <p className="meal-title subheader">
-                    <strong>Breakfast:</strong>
-                  </p>
-                  <p className="price general-text">
-                    Today's price for {nights}{" "}
-                    {nights === 1 ? "night" : "nights"} <br />
-                    <span className="euro">
-                      {totalPrices[room.room_id]?.breakfast != null
-                        ? `€${totalPrices[room.room_id].breakfast}`
-                        : "Loading..."}
-                    </span>
-                  </p>
-                  <button
-                    className={`select-button ${
-                      selectedMeal !== "" && selectedMeal !== "breakfast"
-                        ? "greyed-out"
-                        : ""
-                    } ${selectedMeal === "breakfast" ? "selected" : ""}`}
-                    onClick={() => handleMealSelection("breakfast")}
-                  >
-                    {selectedMeal === "breakfast" ? "Selected" : "Select"}
-                  </button>
-                  
-                </div>
-              </div>
-
+    
               {/* ─────── meal options ─────── */}
               <div className="room-food">
                 {["breakfast", "halfBoard", "fullBoard"].map((plan) => (
