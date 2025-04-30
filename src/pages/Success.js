@@ -3,9 +3,6 @@ import NavigateButton from "./NavigateButton";
 import "../success.css";
 import { useLocation } from "react-router-dom";
 
-
-
-
 function Success() {
   const location = useLocation(); 
   const reference = location.state?.reference || "Unavailable";

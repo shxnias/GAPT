@@ -1,5 +1,5 @@
 import React from "react";
-import "../India.css";
+import "../index2.css";
 
 function Contact() {
   return (
