@@ -56,8 +56,8 @@ body {
 
 .main-content {
   padding-top: 50px;
-  padding-left: 20px;
-  padding-right: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
   text-align: center;
   min-height: 100vh;
   background-color: #ffffff;
