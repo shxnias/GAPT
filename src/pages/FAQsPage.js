@@ -1,6 +1,4 @@
 import React from "react";
-import questionImage from "../images/FAQ.jpg";
-
 function FAQs() {
   return (
     <div className="main-content">
@@ -13,7 +11,7 @@ function FAQs() {
 
       {/* FAQS Image */}
       <div>
-        <img src={questionImage} alt="FAQS" className="full-page-img" />
+      <img src="/miscellaneous/FAQ.jpg" alt="FAQs" className="full-page-img" />
       </div>
 
       {/* FAQ Box Section */}

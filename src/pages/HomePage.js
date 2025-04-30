@@ -4,16 +4,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import mainBanner from "../images/mainBanner.jpg";
 import "../Homepage.css";
 import HomePage from './HomePage';
 import DateIcon from "@mui/icons-material/CalendarMonthOutlined";
 import NavigateIconRight from "@mui/icons-material/NavigateNext";
 import NavigateIconLeft from "@mui/icons-material/NavigateBefore";
 import Person from "@mui/icons-material/PersonOutline";
-import Bed from "@mui/icons-material/SingleBed";
 import AC from "@mui/icons-material/AcUnit";
-import NavigateButton from "./NavigateButton";
 import { useBooking } from "../BookingContext";
 import { useNavigate } from "react-router-dom";
 import People from "@mui/icons-material/People";
@@ -290,7 +287,7 @@ function Home() {
 
       {/* Main Banner Image */}
       <div className="mainBanner-container">
-        <img src={mainBanner} alt="Hotel View" className="main-img" />
+        <img src="/miscellaneous/mainBanner.jpg" alt="Hotel View" className="main-img" />
         <div className="banner-text">
           <h1>
             Experience Elegance,<br></br>Indulge in Luxury

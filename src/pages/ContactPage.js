@@ -1,5 +1,4 @@
 import React from "react";
-import phoneImage from "../images/contactUs.jpg";
 import "../India.css";
 
 function Contact() {
@@ -14,7 +13,7 @@ function Contact() {
 
       {/* Contact Image */}
       <div>
-        <img src={phoneImage} alt="Luxury phone" className="full-page-img" />
+      <img src="/miscellaneous/contactUs.jpg" alt="AboutUs" className="full-page-img" />
       </div>
 
       {/* Brown Box Section */}
