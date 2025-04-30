@@ -3,9 +3,8 @@ const pool = require("./db");
 const cors = require("cors");
 const session = require("express-session");
 const nodemailer = require("nodemailer");
-
-
 const app = express();
+
 app.use(
   cors({
     origin: "http://localhost:3000",
@@ -17,13 +16,14 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   session({
-    secret: "superSecretKey123",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false, httpOnly: true },
   })
 );
 
+// Search for rooms 
 app.post("/api/search", (req, res) => {
   const { checkIn, checkOut, guests } = req.body;
 
@@ -60,7 +60,7 @@ app.post("/api/search", (req, res) => {
     .json({ message: "Search successful", checkIn, checkOut, guests });
 });
 
-// Sample Route to Fetch Data
+// Fetch all rooms for the booking page
 app.get("/api/rooms", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM rooms ORDER BY room_id ASC");
@@ -71,6 +71,7 @@ app.get("/api/rooms", async (req, res) => {
   }
 });
 
+// Display room prices
 app.get("/api/room-prices/:roomId", async (req, res) => {
   try {
     const { roomId } = req.params;
@@ -106,19 +107,35 @@ app.get("/api/room-prices/:roomId", async (req, res) => {
     return res.status(500).json({ error: "Server error" });
   }
 });
+const { ADMIN_PASSWORD } = process.env;
+const rateLimit = require("express-rate-limit");
 
-// Login route
-const ADMIN_PASSWORD = "pizzadog"; //password
+// Limit login attempts to prevent brute force attacks
+const loginLimiter = rateLimit({
+  windowMs: 5 * 60 * 1000, // 5 minutes
+  max: 5,
+  message: "Too many login attempts. Try again later.",
+});
 
-app.post("/api/login", (req, res) => {
+// Defining the login logic separately
+const loginHandler = (req, res) => {
   const { password } = req.body;
+
+  if (!ADMIN_PASSWORD) {
+    return res.status(500).json({ message: "Admin password not configured" });
+  }
+
   if (password === ADMIN_PASSWORD) {
     req.session.authenticated = true;
     res.json({ success: true });
   } else {
     res.status(401).json({ success: false, message: "Incorrect password" });
   }
-});
+};
+
+// Use limiter + handler
+app.post("/api/login", loginLimiter, loginHandler);
+
 
 //authentication
 app.get("/api/check-auth", (req, res) => {
@@ -264,14 +281,15 @@ app.post("/api/booking", async (req, res) => {
   console.log("New booking received from:", email, cardholderName);
 
   // Generate a fake reference number
-  const reference = Math.random().toString(36).substring(2, 10).toUpperCase();
+  const crypto = require("crypto");
+  const reference = crypto.randomBytes(6).toString("hex").toUpperCase();
 
   //Nodemailer transporter with Gmail and App Password
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "theopulencehotel@gmail.com",          
-      pass: "kavzovixpakkzxvy",             
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,    
     },
     tls: {
       rejectUnauthorized: false, 
@@ -283,19 +301,20 @@ app.post("/api/booking", async (req, res) => {
     from: "theopulencehotel@gmail.com",            
     to: email,                              
     subject: "Booking Confirmation - The Opulence Hotel",
-    text: `Dear ${cardholderName},
+    text: 
+    `Dear ${cardholderName},
 
-Thank you for your booking at The Opulence Hotel!
+    Thank you for your booking at The Opulence Hotel!
 
-Your booking reference number is: ${reference}
+    Your booking reference number is: ${reference}
 
-Keep this reference to view or manage your booking.
+    Keep this reference to view or manage your booking through our website.
 
-We look forward to your stay!
+    We look forward to your stay!
 
-Warm regards,  
-The Opulence Hotel Team`,
-  };
+    Warm regards,  
+    The Opulence Hotel Team`,
+      };
 
   try {
     await transporter.sendMail(mailOptions);
@@ -309,6 +328,43 @@ The Opulence Hotel Team`,
     res.status(500).json({ error: "Failed to send confirmation email" });
   }
 });
+app.post('/api/check-availability', async (req, res) => {
+  const { room_id, start_date, end_date, quantity } = req.body;
+
+  try {
+    // 1. Get total quantity from room_inventory
+    const invResult = await pool.query(
+      'SELECT total_quantity FROM room_inventory WHERE room_id = $1',
+      [room_id]
+    );
+
+    if (invResult.rows.length === 0) {
+      return res.status(404).json({ available: false, message: 'Room not found' });
+    }
+
+    const totalAvailable = invResult.rows[0].total_quantity;
+
+    // 2. Get overlapping bookings
+    const bookingResult = await pool.query(`
+      SELECT br.quantity
+      FROM booking b
+      JOIN booking_rooms br ON b.booking_id = br.booking_id
+      WHERE br.room_id = $1
+        AND NOT (b.end_date <= $2 OR b.start_date >= $3)
+    `, [room_id, start_date, end_date]);
+
+    const alreadyBooked = bookingResult.rows.reduce((sum, row) => sum + row.quantity, 0);
+
+    // 3. Check if there's enough availability
+    const available = (alreadyBooked + quantity) <= totalAvailable;
+
+    res.json({ available });
+  } catch (error) {
+    console.error('Availability check failed:', error);
+    res.status(500).json({ available: false, error: 'Server error' });
+  }
+});
+
 
 
 

@@ -24,13 +24,23 @@ function Booking({ rooms }) {
   } = useBooking();
 
   /* ────────── date helpers ────────── */
-  const checkInDate  = dates.checkIn  ? new Date(dates.checkIn)  : null;
+  const checkInDate = dates.checkIn ? new Date(dates.checkIn) : null;
   const checkOutDate = dates.checkOut ? new Date(dates.checkOut) : null;
   const nights =
-    checkInDate && checkOutDate ? differenceInDays(checkOutDate, checkInDate) : 0;
+    checkInDate && checkOutDate
+      ? differenceInDays(checkOutDate, checkInDate)
+      : 0;
 
-  const formattedCheckIn  = checkInDate  ? format(checkInDate,  "dd MMM yyyy") : "";
-  const formattedCheckOut = checkOutDate ? format(checkOutDate, "dd MMM yyyy") : "";
+  const formattedCheckIn = checkInDate
+    ? format(checkInDate, "dd MMM yyyy")
+    : "";
+  const formattedCheckOut = checkOutDate
+    ? format(checkOutDate, "dd MMM yyyy")
+    : "";
+
+  /* ────────── ROOM AVAILABILITY ────────── */
+  const [availabilityOk, setAvailabilityOk] = useState(true);
+  const [message, setMessage] = useState(null);
 
   /* ────────── fetch total prices ────────── */
   useEffect(() => {
@@ -80,11 +90,46 @@ function Booking({ rooms }) {
     }
   };
 
-  const incrementQuantity = (roomId) =>
-    setSelectedRooms((prev) => {
-      const qty = prev[roomId] || 0;
-      return qty < 5 ? { ...prev, [roomId]: qty + 1 } : prev;
-    });
+  const incrementQuantity = async (roomId) => {
+    const currentQty = selectedRooms[roomId] || 0;
+    const requestedQuantity = currentQty + 1;
+  
+    try {
+      const response = await fetch("http://localhost:5001/api/check-availability", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          room_id: roomId,
+          start_date: dates.checkIn,
+          end_date: dates.checkOut,
+          quantity: requestedQuantity,
+        }),
+      });
+  
+      const data = await response.json();
+  
+      if (!response.ok || !data.available) {
+        setAvailabilityOk(false);
+        setMessage(data.message || "Not enough rooms available.");
+        return;
+      }
+  
+      setAvailabilityOk(true);
+      setMessage(null);
+  
+      setSelectedRooms((prev) => ({
+        ...prev,
+        [roomId]: requestedQuantity,
+      }));
+  
+    } catch (err) {
+      console.error("Error checking availability:", err);
+      setAvailabilityOk(false);
+      setMessage("Something went wrong checking room availability.");
+    }
+  };
+  
+  
 
   const decrementQuantity = (roomId) =>
     setSelectedRooms((prev) => {
@@ -98,10 +143,10 @@ function Booking({ rooms }) {
     return acc + qty * r.capacity;
   }, 0);
 
-  const guestNumber  = +guestCount || 0;
-  const capacityOk   = totalCapacity >= guestNumber;
+  const guestNumber = +guestCount || 0;
+  const capacityOk = totalCapacity >= guestNumber;
   const mealSelected = selectedMeal !== "";
-  const canProceed   = capacityOk && mealSelected;
+  const canProceed = capacityOk && mealSelected && availabilityOk;
 
   const navigate = useNavigate();
 
@@ -174,39 +219,11 @@ function Booking({ rooms }) {
                   <span>{roomQuantity}</span>
                   <button
                     onClick={() => incrementQuantity(room.room_id)}
-                    disabled={roomQuantity >= 5}
-                    className={roomQuantity >= 5 ? "greyed-out" : ""}
+                    disabled={roomQuantity >= 15}
+                    className={roomQuantity >= 15 ? "greyed-out" : ""}
                   >
                     +
                   </button>
-                </div>
-              </div>
-
-              <div className="room-food">
-                <div className="meal-options">
-                  <p className="meal-title subheader">
-                    <strong>Breakfast:</strong>
-                  </p>
-                  <p className="price general-text">
-                    Today's price for {nights}{" "}
-                    {nights === 1 ? "night" : "nights"} <br />
-                    <span className="euro">
-                      {totalPrices[room.room_id]?.breakfast != null
-                        ? `€${totalPrices[room.room_id].breakfast}`
-                        : "Loading..."}
-                    </span>
-                  </p>
-                  <button
-                    className={`select-button ${
-                      selectedMeal !== "" && selectedMeal !== "breakfast"
-                        ? "greyed-out"
-                        : ""
-                    } ${selectedMeal === "breakfast" ? "selected" : ""}`}
-                    onClick={() => handleMealSelection("breakfast")}
-                  >
-                    {selectedMeal === "breakfast" ? "Selected" : "Select"}
-                  </button>
-                  
                 </div>
               </div>
 
@@ -225,7 +242,8 @@ function Booking({ rooms }) {
                       </strong>
                     </p>
                     <p className="price general-text">
-                      Today's price for {nights} {nights === 1 ? "night" : "nights"}
+                      Today's price for {nights}{" "}
+                      {nights === 1 ? "night" : "nights"}
                       <br />
                       <span className="euro">
                         {totalPrices[room.room_id]?.[plan] != null
@@ -252,6 +270,12 @@ function Booking({ rooms }) {
         {!capacityOk && (
           <div className="error-message">
             Not enough room capacity selected for {guestCount} guests.
+          </div>
+        )}
+        {!availabilityOk && (
+          <div className="error-message">
+            Not enough availability for one or more selected rooms on the chosen
+            dates.
           </div>
         )}
 
