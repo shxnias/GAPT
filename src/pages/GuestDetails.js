@@ -112,17 +112,30 @@ const extrasTotal = extrasItems.reduce((s,i)=>s+i.subtotal,0);
   // Compute form validity each render
   const isFormValid = Object.keys(validate()).length === 0;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
-    console.log("Form Submitted:", formData);
+
+    const roomIds = Object.entries(selectedRooms).flatMap(([id, qty]) => Array(qty).fill(Number(id)));
+
+    const payload = {
+      startDate : dates.checkIn,
+      endDate : dates.checkOut,
+      numGuests : guestCount,
+      rooms : roomIds,
+      guest : {
+        ...formData, mobile : `${formData.phoneCode}${formData.mobile}`,
+      },
+    };
+
     navigate("/payment", {
-      state: {
-        totalCost: totalCost.toFixed(2),
+      state:{
+        bookingPayload: payload,
+        totalCost:totalCost.toFixed(2),
       },
     });
   };

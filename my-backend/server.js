@@ -1,9 +1,12 @@
+require("dotenv").config(); 
 const express = require("express");
 const pool = require("./db");
 const cors = require("cors");
 const session = require("express-session");
 const nodemailer = require("nodemailer");
 const app = express();
+const crypto = require("crypto");
+
 
 app.use(
   cors({
@@ -275,34 +278,110 @@ ORDER BY ri.room_type;
 });
 
 
+
+/*  CREATE BOOKING – saves rows in three tables and sends e-mail   */
 app.post("/api/booking", async (req, res) => {
-  const { cardholderName, email } = req.body;
+  const client = await pool.connect();
 
-  console.log("New booking received from:", email, cardholderName);
+  try {
+    /* unpack payload from the front-end */
+    const {
+      startDate,   // "2025-04-12"
+      endDate,     // "2025-04-18"
+      numGuests,   // 3
+      rooms,       // [2,2,5]  (one entry per room booked)
+      guest,       // { title,name,surname,email,mobile,country,checkInTime,specialRequests }
+      extras = [], // optional [{ code, qty, price }]
+    } = req.body;
 
-  // Generate a fake reference number
-  const crypto = require("crypto");
-  const reference = crypto.randomBytes(6).toString("hex").toUpperCase();
+    /* generate unique reference */
+    const reference =
+      "BOOK-" +
+      new Date().toLocaleDateString("en-GB", { month: "short" }).toUpperCase() +
+      "-" +
+      crypto.randomBytes(2).toString("hex").toUpperCase();
 
-  //Nodemailer transporter with Gmail and App Password
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,    
-    },
-    tls: {
-      rejectUnauthorized: false, 
-    },
-  });
+    /* start transaction */
+    await client.query("BEGIN");
 
-  // Email content
-  const mailOptions = {
-    from: "theopulencehotel@gmail.com",            
-    to: email,                              
-    subject: "Booking Confirmation - The Opulence Hotel",
-    text: 
-    `Dear ${cardholderName},
+    /* insert into booking */
+    const {
+      rows: [{ booking_id }],
+    } = await client.query(
+      `INSERT INTO booking
+         (start_date, end_date, num_guests, reference_number)
+       VALUES ($1,$2,$3,$4)
+       RETURNING booking_id`,
+      [startDate, endDate, numGuests, reference]
+    );
+
+    // tally how many of each room_id were booked
+    const roomCounts = rooms.reduce((acc, roomId) => {
+      counts[roomId] = (counts[roomId] || 0) + 1;
+      return counts;
+    }, {});
+
+    // insert one row per distinct room, including qty
+    const insertRoomSQL =
+      `INSERT INTO booking_rooms (booking_id, room_id, qty)
+      VALUES ($1, $2, $3)`;
+
+    for (const [roomId, qty] of Object.entries(roomCounts)) {
+      await client.query(insertRoomSQL, [
+        booking_id,
+        Number(roomId),
+        qty
+      ]);
+    }
+
+    /* insert into guest_details (lead guest) */
+    const {
+      title,
+      name,
+      surname,
+      email,
+      mobile,
+      country,
+      checkInTime,
+      specialRequests,
+    } = guest;
+
+    await client.query(
+      `INSERT INTO guest_details
+         (title, name, surname, email, mobile_number,
+          country_of_residence, check_in_time, special_requests, booking_id)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
+      [
+        title,
+        name,
+        surname,
+        email,
+        mobile,
+        country,
+        checkInTime,
+        specialRequests || null,
+        booking_id,
+      ]
+    );
+
+    /* commit */
+    await client.query("COMMIT");
+
+    /* send confirmation e-mail */
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+      tls: { rejectUnauthorized: false },
+    });
+
+    const mailOptions = {
+      from: "theopulencehotel@gmail.com",
+      to:   email,
+      subject: "Booking Confirmation - The Opulence Hotel",
+      text: `Dear ${name},
 
     Thank you for your booking at The Opulence Hotel!
 
@@ -312,22 +391,31 @@ app.post("/api/booking", async (req, res) => {
 
     We look forward to your stay!
 
-    Warm regards,  
+    Warm regards,
     The Opulence Hotel Team`,
-      };
+    };
 
-  try {
     await transporter.sendMail(mailOptions);
-    console.log("Confirmation email sent to:", email);
-    res.status(200).json({
-      success: true,
-      reference: reference,
-    });
-  } catch (error) {
-    console.error("Error sending email:", error);
-    res.status(500).json({ error: "Failed to send confirmation email" });
+    console.log("Confirmation e-mail sent to:", email);
+
+    /* 10. reply to front-end */
+    res.json({ reference });
+  } catch (err) {
+    await client.query("ROLLBACK");
+    console.error("Booking save failed:", err);
+    res.status(500).json({ error: "Could not complete booking" });
+  } finally {
+    client.release();
   }
 });
 
 const PORT = 5001;
+// catch any thrown errors and return JSON, never HTML
+app.use((err, req, res, next) => {
+  console.error("UNCAUGHT ERROR:", err);
+  res
+    .status(err.status || 500)
+    .json({ error: err.message || "Internal Server Error" });
+});
+
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

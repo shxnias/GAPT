@@ -5,7 +5,8 @@ import "../guestdetails.css";
 
 function Payment() {
   const {state} = useLocation();
-  const paymentAmount = state?.totalCost ?? "0.00"  // fallback
+  const {bookingPayload, totalCost} = state || {};
+  const paymentAmount = state?.totalCost ?? "0.00";  // fallback
   const [formData, setFormData] = useState({
     cardholderName: "",
     cardNumber: "",
@@ -75,21 +76,22 @@ function Payment() {
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
     } else {
+
       try {
-        const response = await fetch("http://localhost:5001/api/booking", {
+        const resp = await fetch("http://localhost:5001/api/booking", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(bookingPayload),
         });
+        const data = await resp.json();
+        if (!resp.ok) throw new Error(data.error);
 
-        const data = await response.json();
-        if (!response.ok) throw new Error(data.error);
-
-        navigate("/success", { state: { reference: data.reference } });
+        navigate("/success", {
+          state: {reference: data.reference},
+        });
       } catch (err) {
-        console.error("Booking error:", err.message);
+        console.error("Booking error:", err);
+        alert("Payment failed. Please try again");
       }
     }
   };
