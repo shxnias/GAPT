@@ -49,7 +49,6 @@ function Rooms({ rooms }) {
                 <div className="booking-room-description-box">
                   <p>{room.description}</p>
                 </div>
-             
             </div>
           ))}
         </div>

@@ -1,7 +1,5 @@
 import React from "react";
-import aboutImage from "../images/aboutUs.jpg";
-import storyImage from "../images/storyImage.jpg";
-import ourTeam from "../images/ourTeam.jpg";
+
 import NavigateButton from "./NavigateButton";
 
 function About() {
@@ -16,7 +14,7 @@ function About() {
 
       {/* About Us Image */}
       <div>
-        <img src={aboutImage} alt="AboutUs" className="full-page-img" />
+        <img src="/miscellaneous/aboutUs.jpg" alt="AboutUs" className="full-page-img" />
         <div className="main-image-text">
           <h1>55 Years of Excellence</h1>
         </div>
@@ -66,7 +64,7 @@ function About() {
 
         <div className="story-image">
           <img
-            src={storyImage}
+            src="miscellaneous/storyImage.jpg"
             alt="The Opulence Hotel"
             className="full-page-img"
           />
@@ -76,8 +74,9 @@ function About() {
       {/* Our Team Section*/}
       <div className="story-section">
         <div className="story-image">
-          <img src={ourTeam} alt="The Team" className="full-page-img" />
+          <img src="miscellaneous/ourTeam.jpg" alt="The Team" className="full-page-img" />
         </div>
+        
 
         <div className="story-text" style={{ textAlign: "right" }}>
           <h2 className="legacy-title" style={{ textAlign: "right" }}>
