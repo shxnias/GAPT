@@ -169,17 +169,6 @@ function Payment() {
               )}
             </div>
           </div>
-          <div className="form-group">
-            <label>Email (to send booking details)</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter your email"
-              required
-            />
-          </div>
 
           <div className="proceed">
             <button type="submit">Next Step</button>

@@ -353,11 +353,11 @@ app.post("/api/booking", async (req, res) => {
       [startDate, endDate, numGuests, reference]
     );
 
-    // tally how many of each room_id were booked
     const roomCounts = rooms.reduce((acc, roomId) => {
-      counts[roomId] = (counts[roomId] || 0) + 1;
-      return counts;
+      acc[roomId] = (acc[roomId] || 0) + 1;
+      return acc;
     }, {});
+    
 
     // insert one row per distinct room, including qty
     const insertRoomSQL =
