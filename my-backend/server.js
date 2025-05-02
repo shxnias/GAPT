@@ -26,6 +26,44 @@ app.use(
   })
 );
 
+app.post('/api/check-availability', async (req, res) => {
+  const { room_id, start_date, end_date, quantity } = req.body;
+
+  try {
+    // 1. Get total quantity from room_inventory
+    const invResult = await pool.query(
+      'SELECT total_quantity FROM room_inventory WHERE room_id = $1',
+      [room_id]
+    );
+
+    if (invResult.rows.length === 0) {
+      return res.status(404).json({ available: false, message: 'Room not found' });
+    }
+
+    const totalAvailable = invResult.rows[0].total_quantity;
+
+    // 2. Get overlapping bookings
+    const bookingResult = await pool.query(`
+      SELECT br.quantity
+      FROM booking b
+      JOIN booking_rooms br ON b.booking_id = br.booking_id
+      WHERE br.room_id = $1
+        AND NOT (b.end_date <= $2 OR b.start_date >= $3)
+    `, [room_id, start_date, end_date]);
+
+    const alreadyBooked = bookingResult.rows.reduce((sum, row) => sum + row.quantity, 0);
+
+    // 3. Check if there's enough availability
+    const available = (alreadyBooked + quantity) <= totalAvailable;
+
+    res.json({ available });
+  } catch (error) {
+    console.error('Availability check failed:', error);
+    res.status(500).json({ available: false, error: 'Server error' });
+  }
+});
+
+
 // Search for rooms 
 app.post("/api/search", (req, res) => {
   const { checkIn, checkOut, guests } = req.body;
