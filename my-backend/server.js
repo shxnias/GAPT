@@ -264,13 +264,13 @@ app.get("/api/admin/dashboard-stats", async (req, res) => {
     `;
 
     // Guests arriving today
-    const upcomingCheckInsQuery = `
-SELECT COUNT(*) AS upcoming_checkins
-FROM guest_details gd
-JOIN booking b ON gd.booking_id = b.booking_id
-WHERE b.start_date > CURRENT_DATE;
+        const upcomingCheckInsQuery = `
+        SELECT COUNT(*) AS upcoming_checkins
+        FROM guest_details gd
+        JOIN booking b ON gd.booking_id = b.booking_id
+        WHERE b.start_date > CURRENT_DATE;
 
-    `;
+        `;
 
     // Guests checking out today
     const upcomingCheckOutsQuery = `

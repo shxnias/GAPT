@@ -3,9 +3,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 import "../guestdetails.css";
 
 function Payment() {
-  const {state} = useLocation();
-  const {bookingPayload, totalCost} = state || {};
-  const paymentAmount = state?.totalCost ?? "0.00";  // fallback
+  const { state } = useLocation();
+  const { bookingPayload, totalCost } = state || {};
+  const paymentAmount = state?.totalCost ?? "0.00"; // fallback
   const [formData, setFormData] = useState({
     cardholderName: "",
     cardNumber: "",
@@ -16,6 +16,7 @@ function Payment() {
 
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const [submitting, setSubmitting] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -71,27 +72,33 @@ function Payment() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (submitting) return; // prevent duplicate
+
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-    } else {
+      return;
+    }
 
-      try {
-        const resp = await fetch("http://localhost:5001/api/booking", {
-          method: "POST",
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify(bookingPayload),
-        });
-        const data = await resp.json();
-        if (!resp.ok) throw new Error(data.error);
+    setSubmitting(true); // lock submission
 
-        navigate("/success", {
-          state: {reference: data.reference},
-        });
-      } catch (err) {
-        console.error("Booking error:", err);
-        alert("Payment failed. Please try again");
-      }
+    try {
+      const resp = await fetch("http://localhost:5001/api/booking", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(bookingPayload),
+      });
+      const data = await resp.json();
+      if (!resp.ok) throw new Error(data.error);
+
+      navigate("/success", {
+        state: { reference: data.reference },
+      });
+    } catch (err) {
+      console.error("Booking error:", err);
+      alert("Payment failed. Please try again");
+    } finally {
+      setSubmitting(false); // allow retry
     }
   };
 
@@ -171,7 +178,9 @@ function Payment() {
           </div>
 
           <div className="proceed">
-            <button type="submit">Next Step</button>
+            <button type="submit" disabled={submitting}>
+              {submitting ? "Processing..." : "Next Step"}
+            </button>
           </div>
         </form>
       </div>
