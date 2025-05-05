@@ -121,7 +121,7 @@ const FindBooking = () => {
             </p>
           </div>
         ) : (
-          !loading && !error && <p>No booking found.</p>
+          !loading && !error && <p></p>
         )}
       </div>
     </div>

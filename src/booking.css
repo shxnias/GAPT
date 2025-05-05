@@ -144,6 +144,7 @@
 
 
 
+
 .select-button.greyed-out {
   background-color: #ccc;
   color: #888;
@@ -181,7 +182,7 @@
   align-items: center;       
   justify-content: center;     /* Center vertically */
   text-align: center;      
-  margin: 4px;             
+  margin: 15px;         
   line-height: 1.0;   
 
  

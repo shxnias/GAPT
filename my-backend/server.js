@@ -243,56 +243,67 @@ app.get("/api/booking", async (req, res) => {
 
 app.get("/api/admin/dashboard-stats", async (req, res) => {
   try {
+    // Booked rooms (active bookings for today)
     const bookedRoomsQuery = `
-      SELECT COUNT(DISTINCT br.room_id) AS booked_rooms
+      SELECT COUNT(*) AS booked_rooms
       FROM booking_rooms br
       JOIN booking b ON br.booking_id = b.booking_id
       WHERE CURRENT_DATE BETWEEN b.start_date AND b.end_date
     `;
 
+    // Total available rooms = SUM(total_quantity) - currently booked
     const availableRoomsQuery = `
-      SELECT COUNT(*) - (
-        SELECT COUNT(DISTINCT br.room_id)
-        FROM booking_rooms br
-        JOIN booking b ON br.booking_id = b.booking_id
-        WHERE CURRENT_DATE BETWEEN b.start_date AND b.end_date
-      ) AS available_rooms
-      FROM rooms
+      SELECT 
+        (SUM(ri.total_quantity) - (
+          SELECT COUNT(*) 
+          FROM booking_rooms br
+          JOIN booking b ON br.booking_id = b.booking_id
+          WHERE CURRENT_DATE BETWEEN b.start_date AND b.end_date
+        )) AS available_rooms
+      FROM room_inventory ri
     `;
 
+    // Guests arriving today
     const upcomingCheckInsQuery = `
-      SELECT COUNT(*) AS upcoming_checkins
-      FROM guest_details
-      WHERE check_in_time::date = CURRENT_DATE
+SELECT COUNT(*) AS upcoming_checkins
+FROM guest_details gd
+JOIN booking b ON gd.booking_id = b.booking_id
+WHERE b.start_date > CURRENT_DATE;
+
     `;
 
+    // Guests checking out today
     const upcomingCheckOutsQuery = `
       SELECT COUNT(*) AS upcoming_checkouts
       FROM booking
       WHERE end_date = CURRENT_DATE
     `;
-    const bookedResult = await pool.query(bookedRoomsQuery);
-    const availableResult = await pool.query(availableRoomsQuery);
-    const checkInsResult = await pool.query(upcomingCheckInsQuery);
-    const checkOutsResult = await pool.query(upcomingCheckOutsQuery);
+
+    // Execute all queries in parallel
+    const [booked, available, checkIns, checkOuts] = await Promise.all([
+      pool.query(bookedRoomsQuery),
+      pool.query(availableRoomsQuery),
+      pool.query(upcomingCheckInsQuery),
+      pool.query(upcomingCheckOutsQuery),
+    ]);
 
     res.json({
-      booked_rooms: bookedResult.rows[0].booked_rooms,
-      available_rooms: availableResult.rows[0].available_rooms,
-      upcoming_checkins: checkInsResult.rows[0].upcoming_checkins,
-      upcoming_checkouts: checkOutsResult.rows[0].upcoming_checkouts,
+      booked_rooms: booked.rows[0].booked_rooms,
+      available_rooms: available.rows[0].available_rooms,
+      upcoming_checkins: checkIns.rows[0].upcoming_checkins,
+      upcoming_checkouts: checkOuts.rows[0].upcoming_checkouts,
     });
   } catch (err) {
     console.error("Dashboard stats error:", err);
-    res.status(500).json({ error: "Failed to load dashboard stats" });
+    res.status(500).json({ error: "Failed to fetch dashboard statistics" });
   }
 });
 
 app.get("/api/admin/room-status-data", async (req, res) => {
   try {
     const query = `
-      SELECT 
-  ri.room_type AS name,
+     SELECT 
+  r.room_type AS name,
   ri.total_quantity,
   COUNT(b.booking_id) FILTER (
     WHERE CURRENT_DATE BETWEEN b.start_date AND b.end_date
@@ -301,11 +312,12 @@ app.get("/api/admin/room-status-data", async (req, res) => {
     WHERE CURRENT_DATE BETWEEN b.start_date AND b.end_date
   )) AS "Available"
 FROM room_inventory ri
-LEFT JOIN rooms r ON r.room_name = ri.room_type
+JOIN rooms r ON r.room_id = ri.room_id
 LEFT JOIN booking_rooms br ON r.room_id = br.room_id
 LEFT JOIN booking b ON br.booking_id = b.booking_id
-GROUP BY ri.room_type, ri.total_quantity
-ORDER BY ri.room_type;
+GROUP BY r.room_type, ri.total_quantity
+ORDER BY r.room_type;
+
     `;
     const result = await pool.query(query);
     res.json(result.rows);
