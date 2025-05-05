@@ -303,7 +303,7 @@ app.get("/api/admin/room-status-data", async (req, res) => {
   try {
     const query = `
      SELECT 
-  r.room_type AS name,
+  r.room_name AS name,
   ri.total_quantity,
   COUNT(b.booking_id) FILTER (
     WHERE CURRENT_DATE BETWEEN b.start_date AND b.end_date
@@ -315,8 +315,8 @@ FROM room_inventory ri
 JOIN rooms r ON r.room_id = ri.room_id
 LEFT JOIN booking_rooms br ON r.room_id = br.room_id
 LEFT JOIN booking b ON br.booking_id = b.booking_id
-GROUP BY r.room_type, ri.total_quantity
-ORDER BY r.room_type;
+GROUP BY r.room_name, ri.total_quantity
+ORDER BY r.room_name;
 
     `;
     const result = await pool.query(query);
