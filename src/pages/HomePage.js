@@ -143,6 +143,7 @@ function Home() {
     { id: "double", name: "Double Room" },
     { id: "triple", name: "Triple Room" },
     { id: "family", name: "Family Room" },
+    { id: "luxury", name: "Luxury Suite"}
   ];
 
   const [selectedRoom, setSelectedRoom] = useState("single");
