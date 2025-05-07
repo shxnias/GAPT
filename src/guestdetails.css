@@ -167,7 +167,7 @@ button[type="submit"]:disabled {
 }
 
 .error {
-  color: red;
+  color: #b00020;
 }
 @media screen and (max-width: 480px) {
   .form-grid {

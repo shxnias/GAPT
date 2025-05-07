@@ -29,6 +29,10 @@ function Home() {
   const [checkIn, setCheckIn] = useState(dates.checkIn);
   const [checkOut, setCheckOut] = useState(dates.checkOut);
   const [error, setError] = useState("");
+  const [isHovered, setIsHovered] = useState(false);
+
+
+  
 
   // const [guestCount, setGuestCount] = useState(1);
   
@@ -125,7 +129,7 @@ function Home() {
       text: "Immerse yourself in the ultimate luxury at our stunning spa, where tranquility and indulgence blend seamlessly. Rejuvenate your senses in serene surroundings, with soothing treatments designed to pamper and refresh. Unwind in plush lounges, enjoy calming aromas, and surrender to the peaceful ambiance, making each moment feel like a true escape.",
     },
   ];
-
+ 
   const nextSlide = () => {
     setActiveIndex((prevIndex) =>
       prevIndex === images.length - 1 ? 0 : prevIndex + 1
@@ -138,19 +142,32 @@ function Home() {
     );
   };
 
-  const rooms_home = [
-    { id: "single", name: "Single Room" },
-    { id: "double", name: "Double Room" },
-    { id: "triple", name: "Triple Room" },
-    { id: "family", name: "Family Room" },
-    { id: "luxury", name: "Luxury Suite"}
-  ];
-
   const [selectedRoom, setSelectedRoom] = useState("single");
   const [roomsData, setRoomsData] = useState([]);
   const selectedRoomData = roomsData.find((room) =>
     room.room_name.toLowerCase().startsWith(selectedRoom)
   );
+
+
+useEffect(() => {
+  if (isHovered) return;
+
+  const interval = setInterval(() => {
+    setActiveIndex((prevIndex) =>
+      prevIndex === images.length - 1 ? 0 : prevIndex + 1
+    );
+  }, 6000);
+
+  return () => clearInterval(interval);
+}, [isHovered, images.length]);
+
+
+  const rooms_home = [
+    { id: "single", name: "Single Room" },
+    { id: "double", name: "Double Room" },
+    { id: "triple", name: "Triple Room" },
+    { id: "family", name: "Family Room" },
+  ];
 
   useEffect(() => {
     const fetchRooms = async () => {
@@ -185,6 +202,7 @@ function Home() {
       prevIndex2 === restaurant_images.length - 1 ? 0 : prevIndex2 + 1
     );
   };
+
 
   const faqs = [
     {
@@ -319,64 +337,55 @@ function Home() {
         </p>
       </div>
 
-      {/* Facilities Section */}
-      <div className="facilities-container">
-        <div className="facilities-header">
-          <h1>Our Facilities</h1>
-          <button className="facilities-button"
-          onClick={()=> { window.scrollTo(0, 0);
-          navigate("/facilities")}}>Explore More</button>
-        </div>
-      </div>
-
+    
       {/* Image Slideshow */}
-      {/* <button className="left-arrow" onClick={prevSlide}>
-        <NavigateIconLeft style={{ fontSize: 40}}/>
-      </button> */}
-      <div className="carousel-container">
-        <button className="left-arrow" onClick={prevSlide}>
-          <NavigateIconLeft style={{ fontSize: 40 }} />
-        </button>
-        <button className="right-arrow" onClick={nextSlide}>
-          <NavigateIconRight style={{ fontSize: 40 }} />
-        </button>
+      {/* Facilities Section */}
+<div className="facilities-container">
+  <div className="facilities-header">
+    <h1>Our Facilities</h1>
+    <button
+      className="facilities-button"
+      onClick={() => {
+        window.scrollTo(0, 0);
+        navigate("/facilities");
+      }}
+    >
+      Explore More
+    </button>
+  </div>
+</div>
 
-        <Swiper
-          modules={[Navigation]}
-          spaceBetween={190}
-          slidesPerView={3}
-          centeredSlides={true}
-          loop={true}
-          onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-          navigation={{
-            prevEl: ".left-arrow",
-            nextEl: ".right-arrow",
-          }}
-          className="carousel"
-        >
-          {images.map((item, index) => (
-            <SwiperSlide key={index}>
-              <div
-                className={`carousel-item ${
-                  index === activeIndex ? "active" : ""
-                }`}
-              >
-                <img
-                  src={item.src}
-                  alt={`Slide ${index + 1}`}
-                  className="carousel-image"
-                />
-                <div className="overlay">
-                  <h1 className="overlay-title">{item.title}</h1>
-                  <div className="overlay-line"></div>
-                  <p className="overlay-text">{item.text}</p>
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+{/* Facilities Slideshow (Simplified with auto-rotate and overlay) */}
+<div className="facilities-carousel-container">
+  <div
+    className="carousel-image-wrapper"
+    onMouseEnter={() => setIsHovered(true)}
+    onMouseLeave={() => setIsHovered(false)}
+  >
+    
+    <img
+  src={images[activeIndex].src}
+  alt={`Slide ${activeIndex}`}
+  className="carousel-image active"
+/>
+    
+    <div className="overlay">
+      <h1 className="overlay-title">{images[activeIndex].title}</h1>
+      <div className="overlay-line"></div>
+      <p className="overlay-text">{images[activeIndex].text}</p>
+    </div>
+  </div>
 
+  <button className="left-arrow" onClick={prevSlide}>
+    <NavigateIconLeft style={{ fontSize: 40 }} />
+  </button>
+  <button className="right-arrow" onClick={nextSlide}>
+    <NavigateIconRight style={{ fontSize: 40 }} />
+  </button>
+</div>
+
+
+      
       {/* Hotel Rooms */}
       <div className="home-rooms-container">
         <div className="home-rooms-header">

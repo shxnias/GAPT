@@ -200,7 +200,7 @@ const receiptItems = rooms
               <div className="form-grid">
                 {/* First Row (Title & Name) */}
                 <div className="form-group">
-                  <label>Name <span style={{ color: 'red' }}>*</span></label>
+                  <label>Name <span style={{ color: '#b00020' }}>*</span></label>
                   <div className="input-group">
                     <select name="title" value={formData.title} onChange={handleChange} required>
                       <option value="">Title</option>
@@ -224,7 +224,7 @@ const receiptItems = rooms
 
                 {/* Surname */}
                 <div className="form-group">
-                  <label>Surname <span style={{ color: 'red' }}>*</span></label>
+                  <label>Surname <span style={{ color: '#b00020' }}>*</span></label>
                   <input
                     type="text"
                     name="surname"
@@ -240,7 +240,7 @@ const receiptItems = rooms
 
                 {/* Email & Verify Email */}
                 <div className="form-group">
-                  <label>Email <span style={{ color: 'red' }}>*</span> </label>
+                  <label>Email <span style={{ color: '#b00020' }}>*</span> </label>
                   <input
                     type="email"
                     name="email"
@@ -252,7 +252,7 @@ const receiptItems = rooms
                   {errors.email && <div className="error">{errors.email}</div>}
                 </div>
                 <div className="form-group">
-                  <label>Verify Email <span style={{ color: 'red' }}>*</span></label>
+                  <label>Verify Email <span style={{ color: '#b00020' }}>*</span></label>
                   <input
                     type="email"
                     name="verifyEmail"
@@ -266,7 +266,7 @@ const receiptItems = rooms
 
                 {/* Mobile Number */}
                 <div className="form-group">
-                  <label>Mobile Number <span style={{ color: 'red' }}>*</span></label>
+                  <label>Mobile Number <span style={{ color: '#b00020' }}>*</span></label>
                   <div className="input-group">
                     <select
                       name="phoneCode"
@@ -319,7 +319,7 @@ const receiptItems = rooms
 
                 {/* Check-in Time */}
                 <div className="form-group">
-                  <label>Check-in Time <span style={{ color: 'red' }}>*</span></label>
+                  <label>Check-in Time <span style={{ color: '#b00020' }}>*</span></label>
                   <input
                     type="time"
                     name="checkInTime"
@@ -342,7 +342,7 @@ const receiptItems = rooms
                   />
                   {errors.specialRequests && <div className="error">{errors.specialRequests}</div>}
                 </div>
-                <span style={{ color: 'red' }}>required fields *</span>
+                <span style={{ color: '#b00020' }}>required fields *</span>
               </div>
             </div>
             {/* Next Step button without disabled attribute */}
