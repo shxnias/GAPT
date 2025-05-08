@@ -167,6 +167,7 @@ useEffect(() => {
     { id: "double", name: "Double Room" },
     { id: "triple", name: "Triple Room" },
     { id: "family", name: "Family Room" },
+    { id: "luxury", name: "Luxury Suite"}
   ];
 
   useEffect(() => {
@@ -295,6 +296,7 @@ useEffect(() => {
             </div>
           </div>
 
+          <div className="search-action">
           {/* Search Button */}
           <div className="search-button">
             <button onClick={handleSearch}>Search</button>
@@ -302,6 +304,7 @@ useEffect(() => {
         </div>
         {/* Error Message */}
         {error && <div className="error-message-search">{error}</div>}
+      </div>
       </div>
 
       {/* Main Banner Image */}
