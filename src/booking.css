@@ -1,16 +1,24 @@
-
 .booking-room-container {
-  flex-direction: column;
   display: flex;
+  flex-direction: column;
   gap: 30px;
+  background-color: white; 
+  padding: 30px; 
 }
+
+.booking-room-container > * {
+  background-color: #ede6dd; 
+  border-radius: 8px; 
+}
+
 .booking-room-display {
 
   display: flex;
   gap: 10px;
-
+  flex-direction: row;
   justify-content: center;
-  background-color: #ede6dd;
+
+  margin: 50px;
 
 }
 
@@ -22,6 +30,7 @@
 
 .booking-room-card div {
   flex: 1;
+  background-color: #ede6dd;
 }
 
 .booking-room-card {
@@ -115,6 +124,21 @@
   flex-direction: column;
   display: flex;
   gap: 30px;
+  padding: 30px; 
+}
+.room-image-container {
+  width: 100%;
+  max-width: 500px; /* Or a fixed ratio if desired */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.room-image-container img {
+  width: 100%;
+  height: auto;
+  object-fit: cover; /* or "contain" depending on need */
+  border-radius: 8px; /* optional */
 }
 
 .booking-room-description-box {
@@ -157,11 +181,11 @@
   align-items: center;  
   justify-content: center;
   flex-direction: row;
-  gap: 10px;
+  gap: 100px;
   background-color: #ede6dd;
   border: 1px solid #82684b;
   align-items: center;
-  padding: 10px;
+  padding: 20px;
 
 }
 .error-message {
@@ -182,12 +206,9 @@
   align-items: center;       
   justify-content: center;     /* Center vertically */
   text-align: center;      
-  margin: 15px;         
+  padding: 15px;         
   line-height: 1.0;   
-
- 
 }
-
 
 .room-food {
   display: flex;
@@ -249,7 +270,7 @@
   /* padding-top: -20px; */
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 900px) {
   .booking-room-display {
     flex-direction: column;
     align-items: center;
@@ -258,7 +279,7 @@
 
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
   }
   .booking-room-con {
     flex-direction: column;
@@ -280,11 +301,10 @@
     background-color: #ede6dd;
     border: 1px solid #82684b;
     align-items: center;
-    padding: 10px;
+    margin: 20px;
   
   }
   
-
   .meal-options {
     flex-direction: column;
   }
@@ -293,8 +313,6 @@
 .bottom-padding {
   padding-bottom: 50px;
 }
-
-
 
 .booking-room-car img {
 

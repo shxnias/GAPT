@@ -23,7 +23,7 @@ function Booking({ rooms }) {
     setTotalPrices,
   } = useBooking();
 
-  /* ────────── date helpers ────────── */
+  /* date helpers */
   const checkInDate = dates.checkIn ? new Date(dates.checkIn) : null;
   const checkOutDate = dates.checkOut ? new Date(dates.checkOut) : null;
   const nights =
@@ -38,11 +38,11 @@ function Booking({ rooms }) {
     ? format(checkOutDate, "dd MMM yyyy")
     : "";
 
-  /* ────────── ROOM AVAILABILITY ────────── */
+  /* ROOM AVAILABILITY */
   const [availabilityOk, setAvailabilityOk] = useState(true);
   const [message, setMessage] = useState(null);
 
-  /* ────────── fetch total prices ────────── */
+  /* fetch total prices */
   useEffect(() => {
     if (rooms && rooms.length > 0 && nights > 0) {
       console.log("All rooms passed to Booking component:", rooms);

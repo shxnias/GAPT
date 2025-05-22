@@ -63,7 +63,6 @@ app.post('/api/check-availability', async (req, res) => {
   }
 });
 
-
 // Search for rooms 
 app.post("/api/search", (req, res) => {
   const { checkIn, checkOut, guests } = req.body;

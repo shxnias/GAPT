@@ -122,7 +122,7 @@ function AdminPage() {
                 Rooms Booked: <strong>{stats?.booked_rooms ?? "..."}</strong>
               </div>
               <div className="card">
-                Room Types Available:{" "}
+                Rooms Available:{" "}
                 <strong>{stats?.available_rooms ?? "..."}</strong>
               </div>
               <div className="card">

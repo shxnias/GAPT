@@ -10,14 +10,14 @@
 /*Contact Us Text */
 .contact-header h1 {
   font-family: "Playfair Display", serif;
-  font-weight: 500; /* Medium */
+  font-weight: 500; 
   font-size: 40px;
   color: black;
   margin: 10px 0;
   text-align: center;
   display: block;
-  max-width: 100%; /* Prevents overflow */
-  word-wrap: break-word; /* Ensures long words wrap */
+  max-width: 100%; 
+  word-wrap: break-word; 
 }
 
 /* Full-Width Lines */
@@ -40,14 +40,14 @@
 
 @media screen and (max-width: 600px) {
   .full-page-img {
-    width: 100%; /* Change from 100vw to 100% */
-    height: auto; /* Maintain aspect ratio */
+    width: 100%; 
+    height: auto; 
     object-fit: cover;
     display: block;
-    margin: 0 auto; /* Ensures no unintended left/right margins */
+    margin: 0 auto; 
   }
   .contact-header h1 {
-    font-size: 25px; /* Adjust font size for smaller screens */
+    font-size: 25px; 
   }
 }
 
@@ -87,8 +87,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 70px; /* Space between text and map */
-  width: 95%; /* Reduce the content width to push both more to center */
+  gap: 70px; 
+  width: 95%; 
 }
 
 .brown-box h2 {
@@ -109,7 +109,7 @@
   }
 
   .map-container {
-    width: 90%; /* Make the map fill the container */
+    width: 90%; 
     height: 250px;
     margin-top: 20px;
   }
@@ -406,10 +406,10 @@
 
 @media (max-width: 768px) {
   .story-section {
-    flex-direction: column; /* Stack elements on mobile */
+    flex-direction: column; 
     align-items: center;
     text-align: center;
-    gap: 20px; /* Adds spacing */
+    gap: 20px;
   }
 
   .story-image {

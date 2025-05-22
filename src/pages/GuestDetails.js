@@ -5,7 +5,7 @@ import { useBooking } from "../BookingContext";
 import countryCodes from "./CountryCodes";
 import "../guestdetails.css";
 
-function GuestDetails() { // Default to an empty array if rooms is not provided
+function GuestDetails() { 
   const {state} = useLocation();
   const rooms = state?.rooms || [];
   const extras = state?.extras || {};

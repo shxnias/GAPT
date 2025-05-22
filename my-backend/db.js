@@ -8,7 +8,6 @@ const pool = new Pool({
   connectionTimeoutMillis: 10000     // 10 seconds (allow enough time for connection)
 });
 
-
 pool.on("error", (err) => {
   console.error("Unexpected error on idle client", err);
   process.exit(-1);
