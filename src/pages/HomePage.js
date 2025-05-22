@@ -6,13 +6,15 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "../Homepage.css";
 import HomePage from './HomePage';
+import { useBooking } from "../BookingContext";
+import { useNavigate } from "react-router-dom";
+
+// Icons
 import DateIcon from "@mui/icons-material/CalendarMonthOutlined";
 import NavigateIconRight from "@mui/icons-material/NavigateNext";
 import NavigateIconLeft from "@mui/icons-material/NavigateBefore";
 import Person from "@mui/icons-material/PersonOutline";
 import AC from "@mui/icons-material/AcUnit";
-import { useBooking } from "../BookingContext";
-import { useNavigate } from "react-router-dom";
 import People from "@mui/icons-material/People";
 import SingleBed from "@mui/icons-material/SingleBed";
 import KingBed from "@mui/icons-material/KingBed";
@@ -22,30 +24,18 @@ import Landscape from "@mui/icons-material/Landscape";
 
 function Home() {
   const navigate = useNavigate();
-
-  // const {dates, setDates} = useBooking();
   const today = new Date().toISOString().split("T")[0];
+
+  // Booking data from context
   const { dates, setDates, guestCount, setGuestCount } = useBooking();
+
+  // Local states
   const [checkIn, setCheckIn] = useState(dates.checkIn);
   const [checkOut, setCheckOut] = useState(dates.checkOut);
   const [error, setError] = useState("");
   const [isHovered, setIsHovered] = useState(false);
 
-
-  
-
-  // const [guestCount, setGuestCount] = useState(1);
-  
-
-  // useEffect(() =>{
-  //   if(!dates.checkIn){
-  //     setDates((prev) => ({...prev, checkIn}));
-  //   }
-  //   if (!dates.checkOut) {
-  //     setDates((prev) => ({ ...prev, checkOut }));
-  //   }
-  // }, [dates, checkIn, checkOut, setDates]);
-
+  // Handles check-in/out logic
   const handleCheckInChange = (e) => {
     const selectedDate = e.target.value;
     setCheckIn(selectedDate);
@@ -81,6 +71,7 @@ function Home() {
     }
   };
 
+  // Search available rooms
   const handleSearch = async () => {
     setError("");
     if (!checkIn || !checkOut || guestCount < 1) {
@@ -108,10 +99,10 @@ function Home() {
     }
   };
 
-  // // Image slider state
+  // Image slider state
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // // Images
+  // Images
   const images = [
     {
       src: "/homepage images/facilities/Gym.jpg",
@@ -142,6 +133,7 @@ function Home() {
     );
   };
 
+  // Room data for preview section
   const [selectedRoom, setSelectedRoom] = useState("single");
   const [roomsData, setRoomsData] = useState([]);
   const selectedRoomData = roomsData.find((room) =>
@@ -184,6 +176,7 @@ useEffect(() => {
     fetchRooms();
   }, []);
 
+  // Restaurant slideshow
   const [currentIndex2, setCurrentIndex2] = useState(0);
   const restaurant_images = [
     { src: "/homepage images/restaurant/Chef.jpg" },
@@ -231,6 +224,7 @@ useEffect(() => {
   return (
     <div className="main-content">
       
+      {/* Search Section */}
       <div className="search-container">
         <div className="search-box">
           <div className="input-row">
@@ -358,7 +352,7 @@ useEffect(() => {
   </div>
 </div>
 
-{/* Facilities Slideshow (Simplified with auto-rotate and overlay) */}
+{/* Facilities Slideshow */}
 <div className="facilities-carousel-container">
   <div
     className="carousel-image-wrapper"

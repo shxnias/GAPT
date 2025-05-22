@@ -5,10 +5,13 @@ import { useBooking } from "../BookingContext";
 import countryCodes from "./CountryCodes";
 import "../guestdetails.css";
 
-function GuestDetails() { // Default to an empty array if rooms is not provided
+function GuestDetails() { 
+  // Gets rooms and extras from previous page (state)
   const {state} = useLocation();
   const rooms = state?.rooms || [];
   const extras = state?.extras || {};
+
+  // Form data state
   const [formData, setFormData] = useState({
     title: "",
     name: "",
@@ -21,9 +24,12 @@ function GuestDetails() { // Default to an empty array if rooms is not provided
     checkInTime: "",
     specialRequests: "",
   });
+
+  // Error handling state
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-
+  
+  // Converts extras into readable items
   const extrasItems = Object.entries(extras)
   .filter(([key, ob]) =>
     key === "special"
@@ -41,24 +47,25 @@ function GuestDetails() { // Default to an empty array if rooms is not provided
     const subtotal = ob.price * qty;
     return { label: labelMap[key], qty, unit, subtotal };
   });
-const extrasTotal = extrasItems.reduce((s,i)=>s+i.subtotal,0);
+  const extrasTotal = extrasItems.reduce((s,i)=>s+i.subtotal,0);
 
-
+  // Handles input changes
   const handleChange = (e) => {
     setErrors({ ...errors, [e.target.name]: "" });
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // Basic validation rules
   const validate = () => {
     const newErrors = {};
     const nameRegex = /^[A-Za-z\s'-]+$/;
     const emailRegex = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-    const phoneRegex = /^[0-9\s-]+$/; // Allow numbers, spaces, and dashes
+    const phoneRegex = /^[0-9\s-]+$/; // Allows numbers, spaces, and dashes
 
+    // Name validation
     if (!formData.title) {
       newErrors.title = "Please select a title.";
     }
-
     if (!formData.name) {
       newErrors.name = "Name is required.";
     } else if (!nameRegex.test(formData.name)) {
@@ -67,6 +74,7 @@ const extrasTotal = extrasItems.reduce((s,i)=>s+i.subtotal,0);
       newErrors.name = "Name must be less than 50 characters.";
     }
 
+    // Surname validation
     if (!formData.surname) {
       newErrors.surname = "Surname is required.";
     } else if (!nameRegex.test(formData.surname)) {
@@ -74,6 +82,8 @@ const extrasTotal = extrasItems.reduce((s,i)=>s+i.subtotal,0);
         "Surname can only include letters, spaces, apostrophes or hyphens.";
     } else if (formData.surname.length > 50) {
       newErrors.surname = "Surname must be less than 50 characters.";
+
+    // Email validation
     if (!formData.email) newErrors.email = "Email is required.";
     else if (!emailRegex.test(formData.email))
       newErrors.email = "Please enter a valid email address.";
@@ -82,6 +92,7 @@ const extrasTotal = extrasItems.reduce((s,i)=>s+i.subtotal,0);
       newErrors.verifyEmail = "Email addresses do not match.";
     }
 
+    // Mobile number validation
     if (!formData.phoneCode) {
       newErrors.phoneCode = "Please select your country code.";
     }
@@ -94,14 +105,17 @@ const extrasTotal = extrasItems.reduce((s,i)=>s+i.subtotal,0);
       newErrors.mobile = "Mobile number seems too short.";
     }
 
+    // Country validation
     if (!formData.country) {
       newErrors.country = "Please select your country of residence.";
     }
 
+    // Check-in time validation
     if (!formData.checkInTime) {
       newErrors.checkInTime = "Please select a check-in time.";
     }
 
+    // Special request length
     if (formData.specialRequests && formData.specialRequests.length > 500) {
       newErrors.specialRequests = "Special requests must be less than 500 characters.";
     }
@@ -109,9 +123,10 @@ const extrasTotal = extrasItems.reduce((s,i)=>s+i.subtotal,0);
     return newErrors;
   };
 
-  // Compute form validity each render
+  // Computes form validity each render
   const isFormValid = Object.keys(validate()).length === 0;
 
+  // Submit handler
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
@@ -120,6 +135,7 @@ const extrasTotal = extrasItems.reduce((s,i)=>s+i.subtotal,0);
       return;
     }
 
+    // Gets selected room IDs based on quantity
     const roomIds = Object.entries(selectedRooms).flatMap(([id, qty]) => Array(qty).fill(Number(id)));
 
     const payload = {
@@ -132,6 +148,7 @@ const extrasTotal = extrasItems.reduce((s,i)=>s+i.subtotal,0);
       },
     };
 
+    // Navigates to payment page with booking data
     navigate("/payment", {
       state:{
         bookingPayload: payload,
@@ -142,21 +159,16 @@ const extrasTotal = extrasItems.reduce((s,i)=>s+i.subtotal,0);
 
   // Retrieve booking data from context for the receipt
   const { dates, guestCount, selectedRooms, selectedMeal, totalPrices } = useBooking();
-
   const checkInDate = dates.checkIn ? new Date(dates.checkIn) : null;
   const checkOutDate = dates.checkOut ? new Date(dates.checkOut) : null;
-  const nights =
-    checkInDate && checkOutDate ? differenceInDays(checkOutDate, checkInDate) : 0;
+  const nights = checkInDate && checkOutDate ? differenceInDays(checkOutDate, checkInDate) : 0;
   const formattedCheckIn = checkInDate ? format(checkInDate, "dd MMM yyyy") : "";
   const formattedCheckOut = checkOutDate ? format(checkOutDate, "dd MMM yyyy") : "";
 
-  // Build receipt items (remember: DB key is room_id, not id)
-  console.log("totalPrices =", totalPrices);
-console.log("selectedMeal =", selectedMeal);
+  // Creates reciept items (room selections)
+  const boardLabel = { breakfast: "Breakfast", halfBoard: "Half-Board", fullBoard: "Full-Board" };
 
-const boardLabel = { breakfast: "Breakfast", halfBoard: "Half-Board", fullBoard: "Full-Board" };
-
-const receiptItems = rooms
+  const receiptItems = rooms
   .filter((room) => (selectedRooms[room.room_id] || 0) > 0)       
   .map((room) => {
    const quantity   = selectedRooms[room.room_id];           
@@ -166,7 +178,7 @@ const receiptItems = rooms
     selectedMeal ||
     Object.keys(priceObj).sort((a, b) => priceObj[a] - priceObj[b])[0] ||
     "";     
-    const stayPrice = priceObj[mealKey] || 0;                  // price for whole stay
+    const stayPrice = priceObj[mealKey] || 0;                  
     const perNight  = nights ? stayPrice / nights : 0;
     const subtotal  = stayPrice * quantity;
   return {
@@ -179,17 +191,21 @@ const receiptItems = rooms
     };
   });
 
+  // Final cost = rooms + extras
   const totalCost = receiptItems.reduce((sum, item) => sum + item.subtotal, 0) + extrasTotal;
 
   return (
     <div className="main-content">
+      {/* Header */}
       <div className="header-container">
         <h1 className="header">The Opulence Hotel</h1>
       </div>
 
+      {/* Back Button */}
       <span className="go-back-link" onClick={() => navigate(-1)}>
         ← Go Back
       </span>
+
       <h2 className="subheader">Input your details</h2>
 
       <div className="guest-details">
@@ -218,6 +234,7 @@ const receiptItems = rooms
                       required
                     />
                   </div>
+                  {/* Error Messages */}
                   {errors.title && <div className="error">{errors.title}</div>}
                   {errors.name && <div className="error">{errors.name}</div>}
                 </div>
@@ -264,7 +281,7 @@ const receiptItems = rooms
                   {errors.verifyEmail && <div className="error">{errors.verifyEmail}</div>}
                 </div>
 
-                {/* Mobile Number */}
+                {/* Mobile Number with country code */}
                 <div className="form-group">
                   <label>Mobile Number <span style={{ color: '#b00020' }}>*</span></label>
                   <div className="input-group">
@@ -345,14 +362,15 @@ const receiptItems = rooms
                 <span style={{ color: '#b00020' }}>required fields *</span>
               </div>
             </div>
-            {/* Next Step button without disabled attribute */}
+
+            {/* Next Step button */}
             <button type="submit">
               Next Step
             </button>
           </form>
         </div>
 
-        {/* Booking Receipt / Your Choices */}
+        {/* Booking Receipt */}
         <div className="guest-details-display">
           <h3 className="subheader">Your Choices</h3>
           <div className="booking-details">
@@ -366,6 +384,8 @@ const receiptItems = rooms
                 {guestCount} {guestCount === "1" ? "guest" : "guests"}
               </p>
               <hr />
+
+              {/* Room Selection Summary */}
               <table>
               <thead>
                 <tr>
@@ -389,6 +409,7 @@ const receiptItems = rooms
               </tbody>
             </table>
             
+            {/* Extra items summary (if any) */}
                         {extrasItems.length > 0 && (
               <>
               <hr />
@@ -413,6 +434,8 @@ const receiptItems = rooms
 
               <hr />
               <p>
+
+                {/* Total */}
                 <strong>Total Price:</strong> €{totalCost.toFixed(2)}
               </p>
             </div>

@@ -12,6 +12,7 @@ import "../booking.css";
 import { useBooking } from "../BookingContext";
 
 function Booking({ rooms }) {
+  // Gets shared booking data from context
   const {
     dates,
     guestCount,
@@ -23,7 +24,7 @@ function Booking({ rooms }) {
     setTotalPrices,
   } = useBooking();
 
-  /* ────────── date helpers ────────── */
+  // Formats check-in/out dates and calculates number of nights
   const checkInDate = dates.checkIn ? new Date(dates.checkIn) : null;
   const checkOutDate = dates.checkOut ? new Date(dates.checkOut) : null;
   const nights =
@@ -38,11 +39,11 @@ function Booking({ rooms }) {
     ? format(checkOutDate, "dd MMM yyyy")
     : "";
 
-  /* ────────── ROOM AVAILABILITY ────────── */
+  // Availability state and message
   const [availabilityOk, setAvailabilityOk] = useState(true);
   const [message, setMessage] = useState(null);
 
-  /* ────────── fetch total prices ────────── */
+  // Fetches room prices based on selected nights
   useEffect(() => {
     if (rooms && rooms.length > 0 && nights > 0) {
       console.log("All rooms passed to Booking component:", rooms);
@@ -83,13 +84,14 @@ function Booking({ rooms }) {
     }
   }, [rooms, nights, setTotalPrices]);
 
-  // Handler for meal selection
+  // Toggles meal selection (only one is allowed)
   const handleMealSelection = (meal) => {
     if (selectedMeal === "" || selectedMeal === meal) {
       setSelectedMeal(selectedMeal === meal ? "" : meal);
     }
   };
 
+  // Increases selected quantity of a room, checks availability
   const incrementQuantity = async (roomId) => {
     const currentQty = selectedRooms[roomId] || 0;
     const requestedQuantity = currentQty + 1;
@@ -117,6 +119,7 @@ function Booking({ rooms }) {
       setAvailabilityOk(true);
       setMessage(null);
   
+      // Updates selected room quantity
       setSelectedRooms((prev) => ({
         ...prev,
         [roomId]: requestedQuantity,
@@ -129,15 +132,14 @@ function Booking({ rooms }) {
     }
   };
   
-  
-
+  // Decreases selected quantity of a room
   const decrementQuantity = (roomId) =>
     setSelectedRooms((prev) => {
       const qty = prev[roomId] || 0;
       return qty > 0 ? { ...prev, [roomId]: qty - 1 } : prev;
     });
 
-  /* ────────── validation ────────── */
+  // Validates total guest capacity and meal selection
   const totalCapacity = rooms.reduce((acc, r) => {
     const qty = selectedRooms[r.room_id] || 0;
     return acc + qty * r.capacity;
@@ -150,7 +152,7 @@ function Booking({ rooms }) {
 
   const navigate = useNavigate();
 
-  // Handler for proceeding to the next step.
+  // Goes to the next step if validation passes
   const handleNextStep = () => {
     if (!canProceed) {
       alert("Please select enough rooms to accommodate all guests.");
@@ -161,6 +163,7 @@ function Booking({ rooms }) {
 
   return (
     <div className="main-content">
+      {/* Page Header */}
       <div className="header-container">
         <h1 className="header">The Opulence Hotel</h1>
         <p className="booking-date general-text">
@@ -169,24 +172,26 @@ function Booking({ rooms }) {
         </p>
       </div>
 
+      {/* Go Back Button */}
       <span className="go-back-link" onClick={() => navigate(-1)}>
         ← Go Back
       </span>
 
       <h2 className="subheader">Select a Room</h2>
 
-      {/* ============================================================= */}
+      {/* Container for all room cards */}
       <div className="booking-room-container">
         {rooms.map((room) => {
           const roomQuantity = selectedRooms[room.room_id] || 0;
           return (
             <div key={room.room_id} className="booking-room-card">
-              {/* ─────── image + specs + counter ─────── */}
               <div className="booking-room-display">
+                {/* Room Image */}
                 <div class="book-img">
                   <img src={room.image_url} alt={room.room_name} />
                 </div>
 
+                {/* Room Specifications */}
                 <div className="booking-room-details general-text">
                   <h2>{room.room_name}</h2>
                   <p>
@@ -207,7 +212,8 @@ function Booking({ rooms }) {
                     <Landscape /> <strong>View:</strong> {room.room_type}
                   </p>
                 </div>
-
+                
+                {/* Quantity selector (room count) */}
                 <div className="room-quantity">
                   <button
                     onClick={() => decrementQuantity(room.room_id)}
@@ -229,7 +235,7 @@ function Booking({ rooms }) {
 
     
 
-              {/* ─────── meal options ─────── */}
+              {/* Meal Plan Options */}
               <div className="room-food">
                 {["breakfast", "halfBoard", "fullBoard"].map((plan) => (
                   <div key={plan} className="meal-options">
@@ -243,6 +249,8 @@ function Booking({ rooms }) {
                         :
                       </strong>
                     </p>
+
+                    {/* Meal Price */}
                     <p className="price general-text">
                       Today's price for {nights}{" "}
                       {nights === 1 ? "night" : "nights"}
@@ -253,6 +261,8 @@ function Booking({ rooms }) {
                           : "Loading..."}
                       </span>
                     </p>
+
+                    {/* Meal Selection Button */}
                     <button
                       className={`select-button ${
                         selectedMeal && selectedMeal !== plan && "greyed-out"
@@ -268,7 +278,7 @@ function Booking({ rooms }) {
           );
         })}
 
-        {/* ────────── inline errors ────────── */}
+        {/* Inline Error Messages */}
         {!capacityOk && (
           <div className="error-message">
             Not enough room capacity selected for {guestCount} guests.
@@ -287,7 +297,7 @@ function Booking({ rooms }) {
           </div>
         )}
 
-        {/* ────────── proceed button ────────── */}
+        {/* Proceed Button */}
         <div className="proceed">
           <button onClick={handleNextStep} disabled={!canProceed}>
             Next Step
