@@ -7,7 +7,7 @@
 }
 
 .booking-room-container > * {
-  background-color: #ede6dd; 
+
   border-radius: 8px; 
 }
 
@@ -30,10 +30,11 @@
 
 .booking-room-card div {
   flex: 1;
-  background-color: #ede6dd;
+
 }
 
 .booking-room-card {
+  background-color: #ede6dd; 
   border: 1px solid #82684b;
 }
 
