@@ -278,7 +278,9 @@ function Booking({ rooms }) {
           );
         })}
 
-        {/* Inline Error Messages */}
+
+      </div>
+              {/* Inline Error Messages */}
         {!capacityOk && (
           <div className="error-message">
             Not enough room capacity selected for {guestCount} guests.
@@ -303,7 +305,6 @@ function Booking({ rooms }) {
             Next Step
           </button>
         </div>
-      </div>
     </div>
   );
 }
